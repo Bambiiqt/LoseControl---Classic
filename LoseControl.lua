@@ -9328,6 +9328,29 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			end
 		end
 
+		--[[
+		if strmatch(unitId, "party") then
+			local i = strmatch(unitId, "%d") 
+			local anchor = _G["PartyAnchor"..i]
+			local frame = LoseControlDB.frames[unitId]
+			local icon = LCframes[unitId]
+			if self.frame.anchor == "BambiUI" and (anchor and icon.anchor ~= anchor) then  
+				icon.anchor = anchor
+				local Fpoint, FrelativeTo, FrelativePoint, FxOfs, FyOfs = self:GetPoint()
+				icon.parent:SetParent(icon.anchor:GetParent()) -- or LoseControl) -- If Hide() is called on the parent frame, its children are hidden too. This also sets the frame strata to be the same as the parent's.
+				icon:ClearAllPoints() -- if we don't do this then the frame won't always move
+				icon:GetParent():ClearAllPoints()
+				icon:SetWidth(frame.size)
+				icon:SetHeight(frame.size)
+				icon:GetParent():SetWidth(frame.size)
+				icon:SetPoint("CENTER",	anchor, "CENTER", 0,	0)
+				icon:GetParent():SetPoint("CENTER",	anchor, "CENTER", 0,	0)
+				if icon.anchor:GetParent() then
+					icon:SetFrameLevel(icon.anchor:GetParent():GetFrameLevel()+((frame.anchor ~= "None" and frame.anchor ~= "Blizzard") and 3 or 0))
+				end
+			end
+		end]]
+
 		if  unitId == "player" and self.frame.anchor ~= "Blizzard" and LoseControlDB.displayTypeDot and DispelType then
 			self.dispelTypeframe:SetHeight(self.frame.size*.105)
 			self.dispelTypeframe:SetWidth(self.frame.size*.105)
