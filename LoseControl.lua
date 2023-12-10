@@ -433,6 +433,7 @@ local spellsArenaTable = {
 	{12042, "Ranged_Major_OffenisiveCDs", "MAGE"}, --Arcane Power
 	{12043 , "Ranged_Major_OffenisiveCDs", "MAGE"}, --Presence of Mind
 	{12472, "Ranged_Major_OffenisiveCDs", "MAGE"}, --Icy Veins
+	{54748, "Ranged_Major_OffenisiveCDs", "MAGE"}, --Burning Det Aura Mastery
 	{122, "Roots_90_Snares", "MAGE"},			-- Frost Nova (rank 1)
 	{865, "Roots_90_Snares", "MAGE"},				-- Frost Nova (rank 2)
 	{6131, "Roots_90_Snares", "MAGE"},				-- Frost Nova (rank 3)
@@ -7878,7 +7879,7 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 											InterruptAuras[sourceGUID][k] = nil
 											UpdateUnitAuraByUnitGUID(sourceGUID, -20)
 											self.Tremmor:Cancel()
-											print("Deleted LC Tremmor Ticker")
+											--print("Deleted LC Tremmor Ticker")
 											break
 										end
 										if ObjectDNE(v.destGUID) then
@@ -7886,13 +7887,13 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 											InterruptAuras[sourceGUID][k] = nil
 											UpdateUnitAuraByUnitGUID(sourceGUID, -20)
 											self.Tremmor:Cancel()
-											print("Killed LC Tremmor Ticker")
+											--print("Killed LC Tremmor Ticker")
 											break
 										else
 											local expirationTime = GetTime() + 3
 											InterruptAuras[sourceGUID][k].expirationTime = expirationTime
 											UpdateUnitAuraByUnitGUID(sourceGUID, -20)
-											print("Tremmor LC Pulse")
+											--print("Tremmor LC Pulse")
 											break
 										end
 									end
@@ -8200,6 +8201,15 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			if spellId == 285515 then --Frost Shock to Frost Nove
 				icon = 135848
 			end
+
+			if spellId == 7922 then --charge
+				icon = 132337
+			end
+
+			if spellId == 20253 then --Intercept
+				--icon = 132307
+			end
+
 
 			-----------------------------------------------------------------------------
 			--Prio Change Spell Id same for Friend and Enemey buff/debuff Hacks
