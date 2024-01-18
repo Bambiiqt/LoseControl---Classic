@@ -713,6 +713,7 @@ local spellsArenaTable = {
 	{GetSpellInfo(28880), "Small_Defensive_CDs", "Racials"},-- Gift of the Naaru
 	{65116, "Small_Defensive_CDs", "Racials"}, -- Stoneform
 	{GetSpellInfo(65116), "Small_Defensive_CDs", "Racials"},-- Stoneform
+	{GetSpellInfo(71635), "Small_Defensive_CDs", "PvP"},-- Aegis of Dalaran
 
 	{"Gladiator's Emblem", "Small_Defensive_CDs", "PvP"}, -- Gladiator's Emblem
 
