@@ -142,7 +142,7 @@ local cleuSpells = { -- nil = Do Not Show
 
 	{33831, 30, "PvE",  "Small_Offenisive_CDs", "Trees", "Trees", "DRUID"}, --Druid Trees
 
-	{49206,  40, nil,  "Small_Offenisive_CDs", "Ebon".."\n".."Gargoyle", "Ebon Gargoyle", "DEATHKNIGHT"}, --Ebon Gargoyle
+	{49206,  30, nil,  "Small_Offenisive_CDs", "Ebon".."\n".."Gargoyle", "Ebon Gargoyle", "DEATHKNIGHT"}, --Ebon Gargoyle
 
 --Spell Cast Sucess
 
