@@ -130,15 +130,15 @@ local colorTypes = {
 local cleuSpells = { -- nil = Do Not Show
 --Spell Summon Sucess
 		
-	{1122, 30, nil,  "Ranged_Major_OffenisiveCDs", "Infernals", "Infernals", "WARLOCK"}, --Warlock Infernals
+	{1122, 45, nil,  "Ranged_Major_OffenisiveCDs", "Infernals", "Infernals", "WARLOCK"}, --Warlock Infernals
 
 	{51533, 45, nil,  "Small_Offenisive_CDs", "Feral Spirit", "Feral Spirit", "SHAMAN"}, --Disc Pet Summmon --Enemy_Smoke_Bomb
-	{8143, 300, "CC_Reduction",  "Special_Low", "Tremor".."\n".."Totem", "Tremor", "SHAMAN"}, --Shaman Tremor Totem ***ONLY WORKS FOR THE CASTER (Totemic Focus: Makes it 13)  **HAS TEXT ADD IN LOOP**
+	{8143, 8.5, "CC_Reduction",  "Special_Low", "Tremor".."\n".."Totem", "Tremor", "SHAMAN"}, --Shaman Tremor Totem ***ONLY WORKS FOR THE CASTER (Totemic Focus: Makes it 13)  **HAS TEXT ADD IN LOOP**
 
 	{34433, 15, nil,  "Small_Offenisive_CDs", "Shadowfiend", "Shadowfiend", "PREIST"}, --Disc Pet Summmon --Enemy_Smoke_Bomb
 
 	--{32168, 30, "PvE",  "Special_Low", "Mirror".."\n".."Image", "Mirror Image", "MAGE"}, --Mirror Images
-	{31687, 45, "PvE",  "Special_Low", "Water".."\n".."Elemental", "Water".."\n".."Elemental", "MAGE"}, -- Water Elemental
+	--{31687, 45, "PvE",  "Special_Low", "Water".."\n".."Elemental", "Water".."\n".."Elemental", "MAGE"}, -- Water Elemental
 
 	{33831, 30, "PvE",  "Small_Offenisive_CDs", "Trees", "Trees", "DRUID"}, --Druid Trees
 
@@ -152,6 +152,9 @@ local cleuSpells = { -- nil = Do Not Show
 
 	{23989, 2, nil,  "Special_High", "Readiness", "Readiness", "HUNTER"}, --Readiness
 	
+	{47568 , 3, nil,  "Melee_Major_OffenisiveCDs", "Empower Rune Weapon", "Empower Rune Weapon", "DEATHKNIGHT"}, --Empower Rune Wep
+
+	{19236, 2, nil,  "Small_Defensive_CDs", "Desperate Prayer", "Desperate Prayer", "PRIEST"}, --Empower Rune Wep
 
  --{spellId, duration. prio, prioArena, name, nameArena} --must have both names
 
@@ -160,42 +163,33 @@ local cleuSpells = { -- nil = Do Not Show
 local interrupts = {
 
 	{6552   , 4, "WARRIOR"},	-- Pummel (Warrior)
-	{6554, 4, "WARRIOR"},		-- Pummel (rank 2) (Warrior)
-	{72   , 6, "WARRIOR"},	-- Shield Bash (Warrior)
-	{1671, 6, "WARRIOR"},		-- Shield Bash (rank 2) (Warrior)
-	{1672, 6, "WARRIOR"},		-- Shield Bash (rank 3) (Warrior)
-	{29704, 6, "WARRIOR"},		-- Shield Bash (rank 4) (Warrior)
-	{19244 , 5, "WARLOCK"},		-- Spell Lock (felhunter) (rank 1) (Warlock)
-	{19647  , 6, "WARLOCK"},	-- Spell Lock (felhunter) (rank 2) (Warlock)
+	{19647  , 6, "WARLOCK"},	-- Spell Lock (felhunter) (Warlock)
 	{57994  , 2, "SHMAMAN"},		-- Wind Shear (Shaman)
-	{1766   , 6, "ROGUE"},		-- Kick (Rogue)
-	{1767, 5, "ROGUE"},		-- Kick (rank 2) (Rogue)
-	{1768, 5, "ROGUE"},		-- Kick (rank 3) (Rogue)
-	{1769, 5, "ROGUE"},		-- Kick (rank 4) (Rogue)
-	{38768, 5, "ROGUE"},		-- Kick (rank 5) (Rogue)
+	{1766   , 5, "ROGUE"},		-- Kick (Rogue)
 	{51680  , 3, "ROGUE"},		-- Throwing Specialization (Rogue)
-	{2139   , 8, "MAGE"},		-- Counterspell (Mage)
+	{96231 , 4, "PALADIN"},		--Rebuke
+	{2139   , 7, "MAGE"},		-- Counterspell (Mage)
 	{26090 , 2, "HUNTER"},		-- Pummel (gorilla) (Hunter)
-	{19675, 4, "DRUID"},	-- Feral Charge (Druid)
+	{80965, 4, "DRUID"},	-- Skull Bash (Druid)(Feral)
+	{80964, 4, "DRUID"},	-- Skull Bash (Druid)(Bear)
+	{78675 , 1, "DRUID"},		-- Solar Beam (Druid)
 	{47528  , 4, "DEATHKNIGHT"},		-- Mind Freeze (Death Knight)
+	{47482  , 2, "DEATHKNIGHT"},		-- Leap (Death Knight Ghoul)
 
 
 }
 
 local StealthTable = {
 	[5215] = true, --prowl
-	[6783] = true, --prowl
-	[9913] = true, --prowl
 	[5384] = true, --feign death
 	[51753] = true, --Camouflage
-	[51755] = true, --Camouflage (Maybe Mage)
+	[51755] = true, --Camouflage 
+	--[80325] = true, --Camouflage Perma Buff
 	[66] = true, --Invisibility
 	[32612] = true, --Invisibility
 	[11327] = true, --Vanish
 	[1856] = true, --Vanish
-	[1857] = true, --Vanish
 	[27617] = true, --Vanish
-	[26889] = true, --Vanish
 	--[115191] = true, --Stealth
 	[1784] = true, --Stealth
 	[58984] = true, -- Shadowmeld
@@ -207,13 +201,17 @@ local spellsArenaTable = {
 	-- Death Knight
 	----------------
 	{48707 , "Immune_Arena", "DEATHKNIGHT"}, --Anti-Magic Shell
-	{51209 , "CC_Arena", "DEATHKNIGHT"}, --Hungering Cold (talent)
+	{49203 , "CC_Arena", "DEATHKNIGHT"}, --Hungering Cold (talent)
 	{47481 , "CC_Arena", "DEATHKNIGHT"}, --Gnaw
+	{91800 , "CC_Arena", "DEATHKNIGHT"}, --Gnaw
+	{91797 , "CC_Arena", "DEATHKNIGHT"}, --Monstrous Blow
 	{47476 , "Silence_Arena", "DEATHKNIGHT"}, --Strangulate
 	--{47568 , "Melee_Major_OffenisiveCDs", "DEATHKNIGHT"}, --Empower Rune Weapon (NO AURA)
+	{96294 , "Roots_90_Snares", "DEATHKNIGHT"}, 	-- CHains of Ice Root
+	{96293 , "Roots_90_Snares", "DEATHKNIGHT"}, 	-- CHains of Ice Root
 	{49016 , "Melee_Major_OffenisiveCDs", "DEATHKNIGHT"}, --Unholy Frenzy
-	{51271 , "Melee_Major_OffenisiveCDs", "DEATHKNIGHT"}, --Unbreakable Armor
-	{49028 , "Melee_Major_OffenisiveCDs", "DEATHKNIGHT"}, --Dancing Rune Weapon
+	{51271 , "Melee_Major_OffenisiveCDs", "DEATHKNIGHT"}, --Pillar of Frost
+	{81256 , "Melee_Major_OffenisiveCDs", "DEATHKNIGHT"}, --Dancing Rune Weapon
 	{48792 , "Big_Defensive_CDs", "DEATHKNIGHT"}, --Icebound Fortitude
 	{49039 , "Big_Defensive_CDs", "DEATHKNIGHT"}, --Lichborne
 	{50461 , "Big_Defensive_CDs", "DEATHKNIGHT"}, --Anti-Magic Zone
@@ -221,192 +219,111 @@ local spellsArenaTable = {
 	{55233 , "Big_Defensive_CDs", "DEATHKNIGHT"}, --Vampiric Blood
 	--{45529 , "Small_Defensive_CDs", "DEATHKNIGHT"}, --Blood Tap
 	{49222 , "Small_Defensive_CDs", "DEATHKNIGHT"}, --Bone Shield
-	{48263, "Special_Low", "DEATHKNIGHT"}, --Frost Presence
-	{GetSpellInfo(48263), "Special_Low", "DEATHKNIGHT"}, --Frost Presence
+	{48263, "Special_Low", "DEATHKNIGHT"}, --Blood Presence
+	--{GetSpellInfo(48263) or 48263, "Special_Low", "DEATHKNIGHT"}, --Frost Presence
 	{45524 , "Snares_Ranged_Spamable", "DEATHKNIGHT"}, --Chains of Ice
 
 	----------------
 	-- Druid
 	----------------
 	{17116 , "Drink_Purge", "DRUID"}, --Nature's Swfitness
+
 	{33786 , "CC_Arena", "DRUID"}, 	--Cyclone
-	{5211 , "CC_Arena", "DRUID"},	-- Bash (rank 1)
-	{6798 , "CC_Arena", "DRUID"},	-- Bash (rank 2)
-	{8983 , "CC_Arena", "DRUID"},	-- Bash (rank 3)
-	{9005 , "CC_Arena", "DRUID"},	-- Pounce (rank 1)
-	{9823 , "CC_Arena", "DRUID"},	-- Pounce (rank 2)
-	{9827 , "CC_Arena", "DRUID"},	-- Pounce (rank 3)
-	{27006 , "CC_Arena", "DRUID"},	-- Pounce (rank 4)
-	{49803 , "CC_Arena", "DRUID"},	-- Pounce (rank 5)
-	{22570 , "CC_Arena", "DRUID"},	-- Maim (rank 1)
-	{49802 , "CC_Arena", "DRUID"},	-- Maim (rank 2)
-	{GetSpellInfo(16922) , "CC_Arena", nil, "DRUID"},	-- Imp Starfire Stun
-	{2637 , "CC_Arena", "DRUID"},	-- Hibernate (rank 1)
-	{18657 , "CC_Arena", "DRUID"},	-- Hibernate (rank 2)
-	{18658 , "CC_Arena", "DRUID"},	-- Hibernate (rank 3)
-	{5215 , "Special_High", "DRUID"},	--Prowl Rank 1
-	{6783, "Special_High", "DRUID"}, 	--Prowl Rank 2
-	{9913, "Special_High", "DRUID"}, 	--Prowl Rank 3
+	{5211 , "CC_Arena", "DRUID"},	-- Bash
+	{9005 , "CC_Arena", "DRUID"},	-- Pounce
+	{22570 , "CC_Arena", "DRUID"},	-- Maim
+	{2637 , "CC_Arena", "DRUID"},	-- Hibernate
+
+	{81261 , "Silence_Arena", "DRUID"}, --Solar Beam
+
+	{5215 , "Special_High", "DRUID"},	--Prowl 
+
 	{50334, "Ranged_Major_OffenisiveCDs", "DRUID"}, --Berserk (talent)
-	{48505, "Ranged_Major_OffenisiveCDs", "DRUID"},	-- Starfall (talent) (rank 1)
-	{53199, "Ranged_Major_OffenisiveCDs", "DRUID"},	-- Starfall (talent) (rank 2)
-	{53200, "Ranged_Major_OffenisiveCDs", "DRUID"},	-- Starfall (talent) (rank 3)
-	{53201, "Ranged_Major_OffenisiveCDs", "DRUID"},	-- Starfall (talent) (rank 4)
-	{339 , "Roots_90_Snares", "DRUID"}, 	-- Entangling Roots (rank 1)
-	{1062 , "Roots_90_Snares", "DRUID"}, 	-- Entangling Roots (rank 2)
-	{5195 , "Roots_90_Snares", "DRUID"}, 	-- Entangling Roots (rank 3)
-	{5196 , "Roots_90_Snares", "DRUID"}, 	-- Entangling Roots (rank 4)
-	{9852 , "Roots_90_Snares", "DRUID"}, 	-- Entangling Roots (rank 5)
-	{9853 , "Roots_90_Snares", "DRUID"}, 	-- Entangling Roots (rank 6)
-	{26989 , "Roots_90_Snares", "DRUID"}, 	-- Entangling Roots (rank 7)
-	{53308 , "Roots_90_Snares", "DRUID"}, 	-- Entangling Roots (rank 8)
-	{19975 , "Roots_90_Snares", "DRUID"},	-- Entangling Roots (rank 1) (Nature's Grasp spell)
-	{19974 , "Roots_90_Snares", "DRUID"},	-- Entangling Roots (rank 2) (Nature's Grasp spell)
-	{19973 , "Roots_90_Snares", "DRUID"},	-- Entangling Roots (rank 3) (Nature's Grasp spell)
-	{19972 , "Roots_90_Snares", "DRUID"},	-- Entangling Roots (rank 4) (Nature's Grasp spell)
-	{19971 , "Roots_90_Snares", "DRUID"},	-- Entangling Roots (rank 5) (Nature's Grasp spell)
-	{19970 , "Roots_90_Snares", "DRUID"},	-- Entangling Roots (rank 6) (Nature's Grasp spell)
-	{27010 , "Roots_90_Snares", "DRUID"},	-- Entangling Roots (rank 7) (Nature's Grasp spell)
-	{53313 , "Roots_90_Snares", "DRUID"},	-- Entangling Roots (rank 8) (Nature's Grasp spell)
+	--{93622, "Ranged_Major_OffenisiveCDs", "DRUID"}, --Berserk (talent)(Bear)(Mangle Proc)
+	{48505, "Ranged_Major_OffenisiveCDs", "DRUID"},	-- Starfall (talent) 
+
+	{339 , "Roots_90_Snares", "DRUID"}, 	-- Entangling Roots 
+	{19975 , "Roots_90_Snares", "DRUID"},	-- Entangling Roots (Nature's Grasp spell)
+
 	{16979 , "Roots_90_Snares", "DRUID"},	-- Feral Charge Effect (Feral Charge talent)
-	{GetSpellInfo(16979) , "Roots_90_Snares", "DRUID"},	-- Feral Charge Effect (Feral Charge talent)
+	{GetSpellInfo(16979) or 16979 , "Roots_90_Snares", "DRUID"},	-- Feral Charge Effect (Feral Charge talent)
 	{45334 , "Roots_90_Snares", "DRUID"},	-- Feral Charge Effect (Feral Charge talent)
-	{50334 , "Melee_Major_OffenisiveCDs", "DRUID"}, --Berserk (Guardian)
+
 	{22812 , "Big_Defensive_CDs", "DRUID"}, --Barkskin
 	{29166 , "Big_Defensive_CDs", "DRUID"}, --Innervate
 	{33891 , "Big_Defensive_CDs", "DRUID"}, --Incarnation: Tree of Life
 	{61336 , "Big_Defensive_CDs", "DRUID"}, --Survival Instincts
-	{22842 , "Big_Defensive_CDs", "DRUID"}, --Frenzied Regenerationw+
-	{50213 , "Small_Offenisive_CDs", "DRUID"}, --Tiger's Fury
-	{GetSpellInfo(50213), "Small_Offenisive_CDs", "DRUID"}, --Tiger's Fury
-	{5229, "Small_Offenisive_CDs", "DRUID"},	-- Enrage
-	{9634, "Small_Defensive_CDs", "DRUID"}, 	--Dire Bear Form
-	{GetSpellInfo(9634), "Small_Defensive_CDs", "DRUID"}, --Dire Bear Form
-	{16689 , "Small_Defensive_CDs", "DRUID"},	-- Nature's Grasp (rank 1)
-	{16810 , "Small_Defensive_CDs", "DRUID"},	-- Nature's Grasp (rank 2)
-	{16811 , "Small_Defensive_CDs", "DRUID"},	-- Nature's Grasp (rank 3)
-	{16812 , "Small_Defensive_CDs", "DRUID"},	-- Nature's Grasp (rank 4)
-	{16813 , "Small_Defensive_CDs", "DRUID"},	-- Nature's Grasp (rank 5)
-	{17329 , "Small_Defensive_CDs", "DRUID"},	-- Nature's Grasp (rank 6)
-	{27009 , "Small_Defensive_CDs", "DRUID"},	-- Nature's Grasp (rank 7)
-	{53312 , "Small_Defensive_CDs", "DRUID"},	-- Nature's Grasp (rank 8)
-	{33357 , "Freedoms_Speed", "DRUID"}, --Dash
-	{GetSpellInfo(33357) , "Freedoms_Speed", "DRUID"}, --Dash
-	--[[{53307 , "Special_Low", "DRUID"}, --Thorns Rank 8
-	{26992 , "Special_Low", "DRUID"}, --Thorns Rank 7
-	{16877 , "Special_Low", "DRUID"}, --Thorns Rank 6
-	{9756 , "Special_Low", "DRUID"}, --Thorns Rank 5
-	{8914 , "Special_Low", "DRUID"}, --Thorns Rank 4
-	{1075 , "Special_Low", "DRUID"}, --Thorns Rank 3
-	{782 , "Special_Low", "DRUID"}, --Thorns Rank 2
-	{467 , "Special_Low", "DRUID"}, --Thorns Rank 1]]
+	{22842 , "Big_Defensive_CDs", "DRUID"}, --Frenzied Regenerationw+  
+	{5217, "Small_Offenisive_CDs", "DRUID"}, --Tiger's Fury
+	{5229, "Small_Defensive_CDs", "DRUID"},	-- Enrage
+	{16689 , "Small_Defensive_CDs", "DRUID"},	-- Nature's Grasp
+	{1850, "Freedoms_Speed", "DRUID"}, --Dash
+	{77764 ,  "Freedoms_Speed", "DRUID"}, --Stampeding Roar (Feral)
+	{77761,  "Freedoms_Speed", "DRUID"}, --Stampeding Roar (Bear)
+	{467 , "Special_Low", "DRUID"}, --Thorns
 	{16857, "Special_Low", "DRUID"}, --Faerie Fire (Feral)
-	{GetSpellInfo(16857), "Special_Low", "DRUID"}, --Faerie Fire (Feral)
+	{GetSpellInfo(16857) or 16857, "Special_Low", "DRUID"}, --Faerie Fire (Feral)
 	{770, "Special_Low", "DRUID"}, --Faerie Fire
-	{GetSpellInfo(770), "Special_Low", "DRUID"}, --Faerie Fire
+	{GetSpellInfo(770) or 770, "Special_Low", "DRUID"}, --Faerie Fire
 	{768 , "Special_Low", "DRUID"}, --Cat Form
-	{GetSpellInfo(768) , "Special_Low", "DRUID"}, --Cat Form
+	{GetSpellInfo(768) or 768, "Special_Low", "DRUID"}, --Cat Form
 	{5487 , "Special_Low", "DRUID"}, --Bear Form
-	{GetSpellInfo(5487) , "Special_Low", "DRUID"}, --Bear Form
+	{GetSpellInfo(5487) or 5487, "Special_Low", "DRUID"}, --Bear Form
 	{783 , "Special_Low", "DRUID"}, --Travel Form
-	{GetSpellInfo(783) , "Special_Low", "DRUID"}, --Travel Form
+	{GetSpellInfo(783) or 783, "Special_Low", "DRUID"}, --Travel Form
 	{24858 , "Special_Low", "DRUID"}, --Moonkin Form
-	{GetSpellInfo(24858) , "Special_Low", "DRUID"}, --Moonkin Form
+	{GetSpellInfo(24858) or 24858 , "Special_Low", "DRUID"}, --Moonkin Form
 
 	----------------
 	-- Hunter
 	----------------
 	{19263 , "Immune_Arena", "HUNTER"}, --Deterrence (not immune, parry chance increased by 100% and grants a 100% chance to deflect spells)
-	{1513, "CC_Arena", "HUNTER"},			-- Scare Beast (rank 1)
-	{14326, "CC_Arena", "HUNTER"},			-- Scare Beast (rank 2)
-	{14327, "CC_Arena", "HUNTER"},			-- Scare Beast (rank 3)
-	{3355, "CC_Arena", "HUNTER"},			-- Freezing Trap (rank 1)
-	{14308, "CC_Arena", "HUNTER"},			-- Freezing Trap (rank 2)
-	{14309, "CC_Arena", "HUNTER"},			-- Freezing Trap (rank 3)
-	{60210, "CC_Arena", "HUNTER"},			-- Freezing Arrow Effect
+	{1513, "CC_Arena", "HUNTER"},			-- Scare Beast 
+	{3355, "CC_Arena", "HUNTER"},			-- Freezing Trap 
 	{19386, "CC_Arena", "HUNTER"},			-- Wyvern Sting (talent) (rank 1)
-	{24132, "CC_Arena", "HUNTER"},			-- Wyvern Sting (talent) (rank 2)
-	{24133, "CC_Arena", "HUNTER"},			-- Wyvern Sting (talent) (rank 3)
-	{27068, "CC_Arena", "HUNTER"},			-- Wyvern Sting (talent) (rank 4)
-	{49011, "CC_Arena", "HUNTER"},			-- Wyvern Sting (talent) (rank 5)
-	{49012, "CC_Arena", "HUNTER"},			-- Wyvern Sting (talent) (rank 6)
 	{19503, "CC_Arena", "HUNTER"},			-- Scatter Shot (talent)
 	{34490 , "Silence_Arena", "HUNTER"}, --Silencing Shot
 	{51753 , "Special_High", "HUNTER"}, --Camouflage
 	{51755 , "Special_High", "HUNTER"}, --Camouflage
+	--{80325 , "Special_High", "HUNTER"}, --Camouflage (Perma Buff)
 	{5384 , "Special_High", "HUNTER"}, --Fiegn Death
 	{53476 , "Special_High", "HUNTER"}, --Intervene (Pet)
 	{34471 , "Special_High", "HUNTER"}, --The Beast Within (PvP)
 	{19574, "Ranged_Major_OffenisiveCDs", "HUNTER"}, --Bestial Wrath
 	{3045 , "Ranged_Major_OffenisiveCDs", "HUNTER"}, --Rapid Fire
-	{19306, "Roots_90_Snares", "HUNTER"},			-- Counterattack (talent) (rank 1)
-	{20909, "Roots_90_Snares", "HUNTER"},			-- Counterattack (talent) (rank 2)
-	{20910, "Roots_90_Snares", "HUNTER"},			-- Counterattack (talent) (rank 3)
-	{27067, "Roots_90_Snares", "HUNTER"},			-- Counterattack (talent) (rank 4)
-	{48998, "Roots_90_Snares", "HUNTER"},			-- Counterattack (talent) (rank 5)
-	{48999, "Roots_90_Snares", "HUNTER"},			-- Counterattack (talent) (rank 6)
+	{19306, "Roots_90_Snares", "HUNTER"},			-- Counterattack (talent) 
 	{19185, "Roots_90_Snares", "HUNTER"},			-- Entrapment (talent) (rank 1)
-	{64803, "Roots_90_Snares", "HUNTER"},			-- Entrapment (talent) (rank 2)
-	{64804, "Roots_90_Snares", "HUNTER"},			-- Entrapment (talent) (rank 3)
-	{53359 , "Disarms", "HUNTER"}, --Chimera Shot - Scorpid (talent)
 	{53480 , "Big_Defensive_CDs", "HUNTER"}, --Roar of Sacrifice
-	{3034 , "Player_Party_OffensiveCDs", "HUNTER"}, --Viper  Sting
+	{63087, "Small_Defensive_CDs", "HUNTER"},	-- Enrage
 	{54216 , "Freedoms_Speed", "HUNTER"}, --Master's Call
 	{5118 , "Freedoms_Speed", "HUNTER"}, --Aspect of the Cheetah
 	{13159 , "Freedoms_Speed", "HUNTER"}, --Aspect of the Pack (Raid)
+	{83559, "Freedoms_Speed", "HUNTER"}, --Posthaste
+	{35101 , "Snares_WithCDs", "HUNTER"}, --Concussive Barrage Proc
 	{5116 , "Snares_WithCDs", "HUNTER"}, --Concussive Shot
 	{2974 , "Snares_Casted_Melee", "HUNTER"}, --Wing Clip
 
 	----------------
 	-- Hunter Pets
 	----------------
+	{90337, "CC_Arena", "HUNTER"},				-- Bad Manner (Monkey)
 	{24394, "CC_Arena", "HUNTER"},				-- Intimidation (talent)
-	{50519, "CC_Arena", "HUNTER"},				-- Sonic Blast (rank 1) (Bat)
-	{53564, "CC_Arena", "HUNTER"},				-- Sonic Blast (rank 2) (Bat)
-	{53565, "CC_Arena", "HUNTER"},				-- Sonic Blast (rank 3) (Bat)
-	{53566, "CC_Arena", "HUNTER"},			-- Sonic Blast (rank 4) (Bat)
-	{53567, "CC_Arena", "HUNTER"},				-- Sonic Blast (rank 5) (Bat)
-	{53568, "CC_Arena", "HUNTER"},				-- Sonic Blast (rank 6) (Bat)
-	{50518, "CC_Arena", "HUNTER"},				-- Ravage (rank 1) (Ravager)
-	{53558, "CC_Arena", "HUNTER"},				-- Ravage (rank 2) (Ravager)
-	{53559, "CC_Arena", "HUNTER"},				-- Ravage (rank 3) (Ravager)
-	{53560, "CC_Arena", "HUNTER"},				-- Ravage (rank 4) (Ravager)
-	{53561, "CC_Arena", "HUNTER"},				-- Ravage (rank 5) (Ravager)
-	{53562, "CC_Arena", "HUNTER"},				-- Ravage (rank 6) (Ravager)
-	{4167, "Roots_90_Snares", "HUNTER"},				-- Web (rank 1) (Spider)
-	{4168, "Roots_90_Snares", "HUNTER"},			-- Web II
-	{4169, "Roots_90_Snares", "HUNTER"},			-- Web III
-	{54706, "Roots_90_Snares", "HUNTER"},				-- Venom Web Spray (rank 1) (Silithid)
-	{55505, "Roots_90_Snares", "HUNTER"},				-- Venom Web Spray (rank 2) (Silithid)
-	{55506, "Roots_90_Snares", "HUNTER"},				-- Venom Web Spray (rank 3) (Silithid)
-	{55507, "Roots_90_Snares", "HUNTER"},				-- Venom Web Spray (rank 4) (Silithid)
-	{55508, "Roots_90_Snares", "HUNTER"},				-- Venom Web Spray (rank 5) (Silithid)
-	{55509, "Roots_90_Snares", "HUNTER"},				-- Venom Web Spray (rank 6) (Silithid)
-	{50245, "Roots_90_Snares", "HUNTER"},			-- Pin (rank 1) (Crab)
-	{53544, "Roots_90_Snares", "HUNTER"},				-- Pin (rank 2) (Crab)
-	{53545, "Roots_90_Snares", "HUNTER"},				-- Pin (rank 3) (Crab)
-	{53546, "Roots_90_Snares", "HUNTER"},			-- Pin (rank 4) (Crab)
-	{53547, "Roots_90_Snares", "HUNTER"},			-- Pin (rank 5) (Crab)
-	{53548, "Roots_90_Snares", "HUNTER"},				-- Pin (rank 6) (Crab)
+	{50519, "CC_Arena", "HUNTER"},				-- Sonic Blast 
+	{4167, "Roots_90_Snares", "HUNTER"},				-- Web (Spider)
+	{54706, "Roots_90_Snares", "HUNTER"},				-- Venom Web Spray (Silithid)
+	{50245, "Roots_90_Snares", "HUNTER"},			-- 	Pin (Crab)
 	{53148, "Roots_90_Snares", "HUNTER"},				-- Charge (Bear and Carrion Bird)
 	{25999, "Roots_90_Snares", "HUNTER"},			-- Boar Charge (Boar)
 	{54404, "Disarms", "HUNTER"},			-- Dust Cloud (chance to hit reduced by 100%) (Tallstrider)
-	{50541, "Disarms", "HUNTER"},			-- Snatch (rank 1) (Bird of Prey)
-	{53537, "Disarms", "HUNTER"},			-- Snatch (rank 2) (Bird of Prey)
-	{53538, "Disarms", "HUNTER"},			-- Snatch (rank 3) (Bird of Prey)
-	{53540, "Disarms", "HUNTER"},			-- Snatch (rank 4) (Bird of Prey)
-	{53542, "Disarms", "HUNTER"},			-- Snatch (rank 5) (Bird of Prey)
-	{53543, "Disarms", "HUNTER"},			-- Snatch (rank 6) (Bird of Prey)
+	{50541, "Disarms", "HUNTER"},			-- Snatch (Bird of Prey)
+
 
 	----------------
 	-- Mage
 	----------------
 	{45438 , "Immune_Arena", "MAGE"}, --Ice Block
 	{"Polymorph" , "CC_Arena", "MAGE"},
-	{118,   "CC_Arena", "MAGE"},				-- Polymorph (rank 1)
-	{12824, "CC_Arena", "MAGE"},				-- Polymorph (rank 2)
-	{12825, "CC_Arena", "MAGE"},				-- Polymorph (rank 3)
-	{12826, "CC_Arena", "MAGE"},				-- Polymorph (rank 4)
+	{118,   "CC_Arena", "MAGE"},				-- Polymorph 
 	{28271, "CC_Arena", "MAGE"},				-- Polymorph: Turtle
 	{28272, "CC_Arena", "MAGE"},				-- Polymorph: Pig
 	{61305, "CC_Arena", "MAGE"},				-- Polymorph: Black Cat
@@ -415,46 +332,40 @@ local spellsArenaTable = {
 	{71319, "CC_Arena", "MAGE"},				-- Polymorph: Turkey
 	{61025, "CC_Arena", "MAGE"},				-- Polymorph: Serpent
 	{59634, "CC_Arena", "MAGE"},				-- Polymorph - Penguin (Glyph)
+	{82691, "CC_Arena", "MAGE"},				-- Ring of Frost
 	{12355, "CC_Arena", "MAGE"},				-- Impact (talent)
-	{31661, "CC_Arena", "MAGE"},				-- Dragon's Breath (rank 1) (talent)
-	{33041, "CC_Arena", "MAGE"},			-- Dragon's Breath (rank 2) (talent)
-	{33042, "CC_Arena", "MAGE"},				-- Dragon's Breath (rank 3) (talent)
-	{33043, "CC_Arena", "MAGE"},				-- Dragon's Breath (rank 4) (talent)
-	{42949, "CC_Arena", "MAGE"},				-- Dragon's Breath (rank 5) (talent)
-	{42950, "CC_Arena", "MAGE"},				-- Dragon's Breath (rank 6) (talent)
+	{83047, "CC_Arena", "MAGE"},				-- Improved Polymorph (talent)
+	{31661, "CC_Arena", "MAGE"},				-- Dragon's Breath 
 	{44572, "CC_Arena", "MAGE"},				-- Deep Freeze (talent)
 	{18469, "Silence_Arena"	, "MAGE"},		-- Counterspell - Silenced (rank 1) (Improved Counterspell talent)
 	{55021, "Silence_Arena"	, "MAGE"},				-- Counterspell - Silenced (rank 2) (Improved Counterspell talent)
 	{66 , "Special_High", "MAGE"}, --Invisibility
 	{32612 , "Special_High", "MAGE"}, --Invisibility
 	{12051 , "Special_High", "MAGE"}, --Evocation
-	{64346, "Disarms", "MAGE"},			-- Fiery Payback (talent)
-	{GetSpellInfo(11129), "Ranged_Major_OffenisiveCDs", "MAGE"}, --Combustion
+	--{64346, "Disarms", "MAGE"},			-- Fiery Payback (talent)
 	{12042, "Ranged_Major_OffenisiveCDs", "MAGE"}, --Arcane Power
 	{12043 , "Ranged_Major_OffenisiveCDs", "MAGE"}, --Presence of Mind
 	{12472, "Ranged_Major_OffenisiveCDs", "MAGE"}, --Icy Veins
-	{54748, "Ranged_Major_OffenisiveCDs", "MAGE"}, --Burning Det Aura Mastery
-	{122, "Roots_90_Snares", "MAGE"},			-- Frost Nova (rank 1)
-	{865, "Roots_90_Snares", "MAGE"},				-- Frost Nova (rank 2)
-	{6131, "Roots_90_Snares", "MAGE"},				-- Frost Nova (rank 3)
-	{10230, "Roots_90_Snares", "MAGE"},					-- Frost Nova (rank 4)
-	{27088, "Roots_90_Snares", "MAGE"},				-- Frost Nova (rank 5)
-	{42917, "Roots_90_Snares", "MAGE"},					-- Frost Nova (rank 6)
-	{12494, "Roots_90_Snares", "MAGE"},					-- Frostbite (talent)
+	{122, "Roots_90_Snares", "MAGE"},			-- Frost Nova 
+	{83302, "Roots_90_Snares", "MAGE"},					-- Imp CoC
 	{55080, "Roots_90_Snares", "MAGE"},					-- Shattered Barrier (talent)
+	{83073, "Roots_90_Snares", "MAGE"},					-- Shattered Barrier (talent)
 	{33395, "Roots_90_Snares", "MAGE"},					-- Freeze
 	--{110909  , "Big_Defensive_CDs", "MAGE"}, --Alter Time
 	--{342246 , "Big_Defensive_CDs", "MAGE"}, --Alter Time
 	--{198111 , "Big_Defensive_CDs", "MAGE"}, --Temporal Shield
-	--{87023 , "Big_Defensive_CDs", "MAGE"}, --Cauterilze
+	{87023 , "Big_Defensive_CDs", "MAGE"}, --Cauterilze
 	--{108839 , "Small_Offenisive_CDs", "MAGE"}, --Ice Floes
 	--{198065 , "Small_Defensive_CDs", "MAGE"}, --Prismatic Cloak
+	{83853 , "Player_Party_OffensiveCDs", "MAGE"}, --Combustion
+	{46989, "Freedoms_Speed", "MAGE"}, --Improved Blink
 	{31643, "Freedoms_Speed", "MAGE"}, --Blazing Speed
-	{GetSpellInfo(31643), "Freedoms_Speed", "MAGE"}, --Blazing Speed
+	{GetSpellInfo(31643) or 31643, "Freedoms_Speed", "MAGE"}, --Blazing Speed
+	{44614 , "Snares_WithCDs", "MAGE"}, --FFb Snare
 	{120 , "Snares_WithCDs", "MAGE"}, --Cone of Cold
-	{GetSpellInfo(120) , "Snares_WithCDs", "MAGE"}, --Cone of Cold
+	{GetSpellInfo(120) or 120 , "Snares_WithCDs", "MAGE"}, --Cone of Cold
 	{11426 , "Special_Low", "MAGE"}, --Ice Barrier
-	{GetSpellInfo(11426) , "Special_Low", "MAGE"}, --Ice Barrier
+	{GetSpellInfo(11426) or 11426 , "Special_Low", "MAGE"}, --Ice Barrier
 	{41425 , "Special_Low", "MAGE"}, --Hypothermia
 	{31589 , "Snares_Ranged_Spamable", "MAGE"}, --Slow
 
@@ -462,36 +373,26 @@ local spellsArenaTable = {
 	-- Paladin
 	----------------
 	{642 , "Immune_Arena", "PALADIN"}, -- Divine Shield
-	{19753 , "Immune_Arena", "PALADIN"}, -- Divine Intervention
-	{853, "CC_Arena", "PALADIN"},	-- Hammer of Justice (rank 1)
-	{5588, "CC_Arena", "PALADIN"},				-- Hammer of Justice (rank 2)
-	{5589, "CC_Arena", "PALADIN"},				-- Hammer of Justice (rank 3)
-	{10308, "CC_Arena", "PALADIN"},				-- Hammer of Justice (rank 4)
-	{2812, "CC_Arena", "PALADIN"},				-- Holy Wrath (rank 1)
-	{10318, "CC_Arena", "PALADIN"},				-- Holy Wrath (rank 2)
-	{27139, "CC_Arena", "PALADIN"},				-- Holy Wrath (rank 3)
-	{48816, "CC_Arena", "PALADIN"},				-- Holy Wrath (rank 4)
-	{48817, "CC_Arena", "PALADIN"},				-- Holy Wrath (rank 5)
-	{20170, "CC_Arena", "PALADIN"},				-- Stun (Seal of Justice)
+	{853, "CC_Arena", "PALADIN"},	-- Hammer of Justice 
+	{2812, "CC_Arena", "PALADIN"},				-- Holy Wrath
 	{10326, "CC_Arena", "PALADIN"},				-- Turn Evil
 	{20066, "CC_Arena", "PALADIN"},				-- Repentance (talent)
-	{63529, "Silence_Arena", "PALADIN"},		-- Silenced - Shield of the Templar (talent)
+	{31935, "Silence_Arena", "PALADIN"},		-- Silenced - Shield of the Templar (talent)
 	{31821 , "Special_High", "PALADIN"},			-- Aura Mastery
 	{31884, "Melee_Major_OffenisiveCDs", "PALADIN"}, --Avenging Wrath
-	{6940 , "Big_Defensive_CDs", "PALADIN"}, --Hand of Sacrifice
-	{64205, "Big_Defensive_CDs", "PALADIN"}, --Divine Sacrifice
-	{498 , "Big_Defensive_CDs", "PALADIN"}, --Divine Protection
+	{86698, "Melee_Major_OffenisiveCDs", "PALADIN"}, --Guardian of Ancinets Kings (Prot)
 	{1022, "Big_Defensive_CDs", "PALADIN"}, --Hand of Protection 
-	{5599, "Big_Defensive_CDs", "PALADIN"}, --Hand of Protection 
-	{10278, "Big_Defensive_CDs", "PALADIN"}, --Hand of Protection 
-	{1044 , "Big_Defensive_CDs", "PALADIN"}, --Hand of Freedom
+	{6940 , "Big_Defensive_CDs", "PALADIN"}, --Hand of Sacrifice
+	{70940, "Big_Defensive_CDs", "PALADIN"}, --Divine Guardian (Prot)
+	{498 , "Big_Defensive_CDs", "PALADIN"}, --Divine Protection
+	{86659, "Big_Defensive_CDs", "PALADIN"}, --Guardian of Ancinets Kings (Prot)
+	{31850 , "Big_Defensive_CDs", "PALADIN"}, --Ardent Defender (Prot)
 	{54428, "Big_Defensive_CDs", "PALADIN"}, -- Divine Plea
-	{31842, "Big_Defensive_CDs", "PALADIN"}, -- Divine Illumination (talent)
-	{31852 , "Big_Defensive_CDs", "PALADIN"}, --Ardent Defender
-	{20216 , "Small_Defensive_CDs", "PALADIN"}, --Divine Favor
+	{31842 , "Small_Defensive_CDs", "PALADIN"}, --Divine Favor (Holy)(Crite/Haste)
+	{86669, "Small_Defensive_CDs", "PALADIN"}, --Guardian of Ancinets Kings (Holy)
 	{1038 , "Small_Defensive_CDs", "PALADIN"}, --Hand of Salvation
-	{53659 , "Special_Low", "PALADIN"}, --Sacred Shield
-	{GetSpellInfo(53659) , "Special_Low", "PALADIN"}, --Sacred Shield
+	{96263 , "Small_Defensive_CDs", "PALADIN"}, --Sacred Shield
+	{1044 , "Freedoms_Speed", "PALADIN"}, --Hand of Freedom
 	{25771 , "Special_Low", "PALADIN"}, --Forbearance
 
 	----------------
@@ -499,48 +400,58 @@ local spellsArenaTable = {
 	----------------
 	{47585 , "Immune_Arena", "PRIEST"}, --Dispersion
 	{27827 , "Immune_Arena", "PRIEST"}, --Spirit of Redemption
-	{605, "CC_Arena", "PRIEST"},					-- Mind Control
-	{8122, "CC_Arena", "PRIEST"},					-- Psychic Scream (rank 1)
-	{8124, "CC_Arena", "PRIEST"},					-- Psychic Scream (rank 2)
-	{10888, "CC_Arena", "PRIEST"},					-- Psychic Scream (rank 3)
-	{10890, "CC_Arena", "PRIEST"},					-- Psychic Scream (rank 4)
-	{9484, "CC_Arena", "PRIEST"},					-- Shackle Undead (rank 1)
-	{9485, "CC_Arena", "PRIEST"},					-- Shackle Undead (rank 2)
-	{10955, "CC_Arena", "PRIEST"},					-- Shackle Undead (rank 3)
+
+
+	{8122, "CC_Arena", "PRIEST"},					-- Psychic Scream 
 	{64044, "CC_Arena", "PRIEST"},					-- Psychic Horror (talent)
+	{88625, "CC_Arena", "PRIEST"},					-- Chastise
+	{605, "CC_Arena", "PRIEST"},					-- Mind Control
+	{87204, "CC_Arena", "PRIEST"},					-- Sin and Punshment
+
+
 	{15487,"Silence_Arena",	"PRIEST"},			-- Silence (talent)
-	{14751 , "Special_High", "PRIEST"}, --Inner Focus
+
+	{96267 , "Special_High", "PRIEST"}, 	--Inner Focus
+
+	{87153, "Ranged_Major_OffenisiveCDs", "PRIEST"}, --Dark Arch Angel
+
+	{87194, "Roots_90_Snares", "PRIEST"},			--Paralysis
+	{9484, "Roots_90_Snares", "PRIEST"},			--Shackle Undead
+
 	{64058, "Disarms", "PRIEST"},			-- Psychic Horror (talent)
+
 	{33206 , "Big_Defensive_CDs", "PRIEST"}, --Pain Suprresion
+	{81782 , "Big_Defensive_CDs", "PRIEST"}, --Barrier
 	{47788 , "Big_Defensive_CDs", "PRIEST"}, --Guardian Spirit
 	{10060, "Big_Defensive_CDs", "PRIEST"}, --Power Infusion
+	--{14751 , "Small_Defensive_CDs", "PRIEST"}, --Chakra
 	{6346 , "Small_Defensive_CDs", "PRIEST"}, --Fear Ward
+	{81700 , "Small_Defensive_CDs", "PRIEST"}, --Archangel
+	{89485 , "Small_Defensive_CDs", "PRIEST"}, --Inner Focus
 
 	----------------
 	-- Rogue
 	----------------
 	{45182 , "Immune_Arena", "ROGUE"}, --Cheating Death
 	{2094, "CC_Arena", "ROGUE"},			-- Blind
-	{408, "CC_Arena", "ROGUE"},			-- Kidney Shot (rank 1)
-	{8643, "CC_Arena", "ROGUE"},				-- Kidney Shot (rank 2)
+	{408, "CC_Arena", "ROGUE"},			-- Kidney Shot
+
 	{1833, "CC_Arena", "ROGUE"},				-- Cheap Shot
-	{6770, "CC_Arena", "ROGUE"},				-- Sap (rank 1)
-	{2070, "CC_Arena", "ROGUE"},				-- Sap (rank 2)
-	{11297, "CC_Arena", "ROGUE"},				-- Sap (rank 3)
-	{51724, "CC_Arena", "ROGUE"},				-- Sap (rank 4)
+	{6770, "CC_Arena", "ROGUE"},				-- Sap 
+
 	{1776, "CC_Arena", "ROGUE"},				-- Gouge
 	{1330 , "Silence_Arena", "ROGUE"}, --Garrote - Silence_Arena
 	{18425 , "Silence_Arena", "ROGUE"}, --Kick - Silenced (talent)
-	--{212183 , "Special_High", "ROGUE"}, --Smoke Bomb
+	{86759 , "Silence_Arena", "ROGUE"}, --Kick - Silenced (talent)
+	{88611 , "Special_High", "ROGUE"}, --Smoke Bomb
 	{11327 , "Special_High", "ROGUE"}, --Vanish
 	{1856 , "Special_High", "ROGUE"}, --Vanish
-	{1857 , "Special_High", "ROGUE"}, --Vanish
 	{27617 , "Special_High", "ROGUE"}, --Vanish
-	{26889 , "Special_High", "ROGUE"}, --Vanish
 	--{115191 , "Special_High", "ROGUE"}, --Stealth
 	{1784 , "Special_High", "ROGUE"}, --Stealth
 
 	{51722 , "Disarms", "ROGUE"}, --Dismantle
+	{79126  , "Disarms", "ROGUE"},	-- Groggy 70%
 
 	{13750 , "Melee_Major_OffenisiveCDs", "ROGUE"}, --Adrenaline Rush
 	{51690 , "Melee_Major_OffenisiveCDs", "ROGUE"}, --Killing Spree (talent)
@@ -549,19 +460,20 @@ local spellsArenaTable = {
 
 	{31224 , "Big_Defensive_CDs", "ROGUE"}, --Cloak of Shadows
 	{5277, "Big_Defensive_CDs", "ROGUE"}, --Evasion
-	{26669, "Big_Defensive_CDs", "ROGUE"}, --Evasion
-
+	{74001, "Big_Defensive_CDs", "ROGUE"}, --Combat Readiness
+	{74002, "Big_Defensive_CDs", "ROGUE"}, --Combat Readiness Insight
 	{13877, "Small_Offenisive_CDs", "ROGUE"}, --Blade Flurry
 	{396936, "Small_Offenisive_CDs", "ROGUE"}, --Tricks of the Trade 15% DMG
 	{396937, "Small_Offenisive_CDs", "ROGUE"}, --Tricks of the Trade 15% DMG
 	{57933,	"Small_Offenisive_CDs", "ROGUE"}, --Tricks of the Trade 15% DMG
 	{57934 , "Small_Offenisive_CDs", "ROGUE"}, --Tricks of the Trade (From Rogue)
 	--{59628, "Small_Offenisive_CDs", "ROGUE"}, --Tricks of the Trade (Threat Only)
-
-	{11305 , "Freedoms_Speed", "ROGUE"}, --Sprint
+	{79140 , "Player_Party_OffensiveCDs", "ROGUE"}, --Vendetta
+	{79124 , "Player_Party_OffensiveCDs", "ROGUE"}, --Groggy 30%
+	{2983 , "Freedoms_Speed", "ROGUE"}, --Sprinte
 	{36554 , "Freedoms_Speed", "ROGUE"}, --Shadowstep
-
-
+	{GetSpellInfo(5760) or 5760 , "Special_Low", "ROGUE"}, --Mind-numbing Poison
+	{26679 , "Snares_Ranged_Spamable", "ROGUE"}, --Deadly Throw
 	{3409 , "Snares_Casted_Melee", "ROGUE"}, --Crippling Poison
 
 	----------------
@@ -569,65 +481,57 @@ local spellsArenaTable = {
 	----------------
 	{16188 , "Drink_Purge", "SHAMAN"}, --Nature's Swfitness
 	{8178 ,  "Immune_Arena", "SHAMAN"}, --Grounding Totem Effect
+
 	{"Hex" , "CC_Arena", "SHAMAN"},
+	{77505 , "CC_Arena", "SHAMAN"}, --Earthquake
 	{58861 , "CC_Arena", "SHAMAN"}, --Bash (Spirit Wolf)
+	{76780 , "CC_Arena", "SHAMAN"}, --Bind Elemental
 	{39796, "CC_Arena", "SHAMAN"},  --Stoneclaw Stun (Stoneclaw Totem)
 
 	{16166 , "Ranged_Major_OffenisiveCDs", "SHAMAN"}, --Elemental Mastery (talent)
-	{2825  , "Ranged_Major_OffenisiveCDs", "SHAMAN"}, --Bloodlust
-	{32182, "Ranged_Major_OffenisiveCDs", "SHAMAN"}, --Heroism
+	{64701 , "Ranged_Major_OffenisiveCDs", "SHAMAN"}, --Elemental Mastery (talent)
+	--{2825  , "Ranged_Major_OffenisiveCDs", "SHAMAN"}, --Bloodlust
+	--{32182, "Ranged_Major_OffenisiveCDs", "SHAMAN"}, --Heroism
 
 	{64695 , "Roots_90_Snares", "SHAMAN"}, --Earthgrab
 	{63685, "Roots_90_Snares", "SHAMAN"}, --Freeze (Frozen Power talent)
 
+	{98007 , "Big_Defensive_CDs", "SHAMAN"}, --Spirit Link Totem
 	{30823 , "Big_Defensive_CDs", "SHAMAN"}, --Shamanistic Rage (talent) (damage taken reduced by 30%)
 
+	{79206,	"Small_Offenisive_CDs", "SHAMAN"}, --Spiritwalkers Grace
 
 	{58875 , "Freedoms_Speed", "SHAMAN"}, --Spirit Walk
 	{2645 , "Freedoms_Speed", "SHAMAN"}, --Ghost Wolf
 
 	{16191, "Special_Low", "SHAMAN"}, --Mana Tide
+	{55277, "Special_Low", "SHAMAN"}, --Stoneclaw
 
-	{8056 , "Snares_Ranged_Spamable", "SHAMAN"},			-- Frost Shock (rank 1)
-	{8058 , "Snares_Ranged_Spamable", "SHAMAN"},			-- Frost Shock (rank 2)
-	{10472 , "Snares_Ranged_Spamable", "SHAMAN"},			-- Frost Shock (rank 3)
-	{10473 , "Snares_Ranged_Spamable", "SHAMAN"},			-- Frost Shock (rank 4)
-	{25464 , "Snares_Ranged_Spamable", "SHAMAN"},			-- Frost Shock (rank 5)
-	{49235 , "Snares_Ranged_Spamable", "SHAMAN"},			-- Frost Shock (rank 6)
-	{49236 , "Snares_Ranged_Spamable", "SHAMAN"},			-- Frost Shock (rank 7)
+
+	{8056 , "Snares_Ranged_Spamable", "SHAMAN"},			-- Frost Shock 
+
 
 
 	----------------
 	-- Warlock
 	----------------
-	{18708 , "Drink_Purge", "WARLOCK"}, --Fel Domination
+--	{18708 , "Drink_Purge", "WARLOCK"}, 				--Fel Domination
 
-	{710 ,"CC_Arena", "WARLOCK"},				-- Banish (rank 1)
-	{18647 ,"CC_Arena", "WARLOCK"},					-- Banish (rank 2)
-	{5782 ,"CC_Arena", "WARLOCK"},						-- Fear (rank 1)
-	{6213 ,"CC_Arena", "WARLOCK"},						-- Fear (rank 2)
-	{6215 ,"CC_Arena", "WARLOCK"},						-- Fear (rank 3)
-	{5484 ,"CC_Arena", "WARLOCK"},						-- Howl of Terror (rank 1)
-	{17928 ,"CC_Arena", "WARLOCK"},					-- Howl of Terror (rank 2)
-	{6789 ,"CC_Arena", "WARLOCK"},						-- Death Coil (rank 1)
-	{17925 ,"CC_Arena", "WARLOCK"},						-- Death Coil (rank 2)
-	{17926 ,"CC_Arena", "WARLOCK"},						-- Death Coil (rank 3)
-	{27223 ,"CC_Arena", "WARLOCK"},						-- Death Coil (rank 4)
-	{47859 ,"CC_Arena", "WARLOCK"},						-- Death Coil (rank 5)
-	{47860 ,"CC_Arena", "WARLOCK"},						-- Death Coil (rank 6)
-	{22703 ,"CC_Arena", "WARLOCK"},						-- Inferno Effect
-	{30283 ,"CC_Arena", "WARLOCK"},						-- Shadowfury (rank 1) (talent)
-	{30413 ,"CC_Arena", "WARLOCK"},						-- Shadowfury (rank 2) (talent)
-	{30414 ,"CC_Arena", "WARLOCK"},						-- Shadowfury (rank 3) (talent)
-	{47846 ,"CC_Arena", "WARLOCK"},						-- Shadowfury (rank 4) (talent)
-	{47847 ,"CC_Arena", "WARLOCK"},						-- Shadowfury (rank 5) (talent)
-	{60995 ,"CC_Arena", "WARLOCK"},						-- Demon Charge (metamorphosis talent)
+	{5782 ,"CC_Arena", "WARLOCK"},						-- Fear
+	{5484 ,"CC_Arena", "WARLOCK"},						-- Howl of Terror
+	{6789 ,"CC_Arena", "WARLOCK"},						-- Death Coil
+	{710 ,"CC_Arena", "WARLOCK"},						-- Banish 
+	{93986 ,"CC_Arena", "WARLOCK"},						-- Aura of Foreboding
+	{6358 ,"CC_Arena", "WARLOCK"},						-- Seduction (Succubus)
+	{89766 ,"CC_Arena", "WARLOCK"},						-- Axe Toss (Felguard)
+	{30283 ,"CC_Arena", "WARLOCK"},						-- Shadowfury (talent)
+	{85387 ,"CC_Arena", "WARLOCK"},						-- Aftermath
 	{54786 ,"CC_Arena", "WARLOCK"},						-- Demon Leap (metamorphosis talent)
-	{30153 ,"CC_Arena", "WARLOCK"},					-- Intercept Stun (rank 1) (Felguard)
-	{30195 ,"CC_Arena", "WARLOCK"},					-- Intercept Stun (rank 2) (Felguard)
-	{30197 ,"CC_Arena", "WARLOCK"},					-- Intercept Stun (rank 3) (Felguard)
-	{47995 ,"CC_Arena", "WARLOCK"},					-- Intercept Stun (rank 4) (Felguard)
-	{6358 ,"CC_Arena", "WARLOCK"},					-- Seduction (Succubus)
+
+
+	{22703 ,"CC_Arena", "WARLOCK"},						-- Inferno Effect
+	{60995 ,"CC_Arena", "WARLOCK"},						-- Demon Charge (metamorphosis talent)
+	{30153 ,"CC_Arena", "WARLOCK"},					-- Intercept Stun  (Felguard)
 	{19482 ,"CC_Arena", "WARLOCK"},					-- War Stomp (Doomguard)
 	{32752 ,"CC_Arena", "WARLOCK"},					-- Summoning Disorientation
 
@@ -635,16 +539,31 @@ local spellsArenaTable = {
 	{24259 , "Silence_Arena", "WARLOCK"}, --Spell Lock (Felhunter)
 
 	{47241, "Ranged_Major_OffenisiveCDs", "WARLOCK"}, --Metamorphosis
+	{79463, "Ranged_Major_OffenisiveCDs", "WARLOCK"}, --Demon Soul Incubus Both
+	{79460, "Ranged_Major_OffenisiveCDs", "WARLOCK"}, --Demon Soul Fel Hunter
+	{79464, "Ranged_Major_OffenisiveCDs", "WARLOCK"}, --Demon Soul Void walker
+	{79459, "Ranged_Major_OffenisiveCDs", "WARLOCK"}, --Demon Soul Imp
+	{79462, "Ranged_Major_OffenisiveCDs", "WARLOCK"}, --Demon Soul Imp
 
+	{93987, "Roots_90_Snares", "WARLOCK"},			--Aura of Foreboding
+
+	{79268, "Big_Defensive_CDs", "WARLOCK"}, --Soul Harvest
+
+	{79437 , "Small_Defensive_CDs", "WARLOCK"}, -- Soulburn: Healthstone
 	{7812 , "Small_Defensive_CDs", "WARLOCK"}, -- Sacrfice
-	{GetSpellInfo(7812) , "Small_Defensive_CDs", "WARLOCK"}, -- Sacrfice
+	{GetSpellInfo(7812) or 7812 , "Small_Defensive_CDs", "WARLOCK"}, -- Sacrfice
 
 	{63311 , "Snares_WithCDs", "WARLOCK"}, -- Glyph of Shadowflame
 
-	{GetSpellInfo(1714) , "Special_Low", "WARLOCK"}, --Curse of Tongues
-	{GetSpellInfo(702) , "Special_Low", "WARLOCK"}, --Curse of Weakness
+	{79438 , "Freedoms_Speed", "WARLOCK"}, --Soulburn: Demonic Cirlce
+
+	{1714 , "Special_Low", "WARLOCK"}, --Curse of Tongues
+	{91711 , "Special_Low", "WARLOCK"}, --Nether Ward
+
 
 	{18223 , "Snares_Ranged_Spamable", "WARLOCK"}, --Curse of Exhaustion
+
+	{702 , "Snares_Casted_Melee", "WARLOCK"}, --Curse of Weakness
 
 
 
@@ -655,19 +574,18 @@ local spellsArenaTable = {
 
 	{7922 ,"CC_Arena", "WARRIOR"},					-- Charge (rank 1/2/3)
 	{20253 ,"CC_Arena", "WARRIOR"},				-- Intercept
+	{85388 ,"CC_Arena", "WARRIOR"},			-- -- Throwdown
 	{5246 ,"CC_Arena", "WARRIOR"},				-- Intimidating Shout
-	{20511 ,"CC_Arena", "WARRIOR"},				-- Intimidating Shout
 	{12809 ,"CC_Arena", "WARRIOR"},			-- Concussion Blow (talent)
 	{46968 ,"CC_Arena", "WARRIOR"},			-- Shockwave (talent)
 
-	{74347 , "Silence_Arena", "WARRIOR"},			-- Silenced - Gag Order (Improved Shield Bash talent)
 	{18498 , "Silence_Arena", "WARRIOR"},		-- Silenced - Gag Order (Improved Shield Bash talent)
 
 	{23920 , "Special_High", "WARRIOR"}, -- Spell Reflection
 	{59725 , "Special_High", "WARRIOR"}, -- Spell Reflection
 	{3411 , "Special_High", "WARRIOR"}, -- Intervene
 
-	{58373 , "Roots_90_Snares", "WARRIOR"}, --Improved Hwamstring (talent)
+	{23694 , "Roots_90_Snares", "WARRIOR"}, --Improved Hwamstring (talent)
 
 	{676 , "Disarms", "WARRIOR"}, --Disarm
 
@@ -680,12 +598,11 @@ local spellsArenaTable = {
 	{20230 , "Big_Defensive_CDs", "WARRIOR"}, -- Retaliation
 	{12976 , "Big_Defensive_CDs", "WARRIOR"}, -- Last Stand
 
-	{64850 , "Player_Party_OffensiveCDs", "WARRIOR"}, --Unrelenting Assault
-	{GetSpellInfo(64850) , "Player_Party_OffensiveCDs", "WARRIOR"}, --Unrelenting Assault
-
+	{85730 , "Small_Offenisive_CDs", "WARRIOR"}, -- Deadly Calm
 	{12328 , "Small_Offenisive_CDs", "WARRIOR"}, -- Sweeping Strikes
 
 	{2565 , "Small_Defensive_CDs", "WARRIOR"}, -- Shield Block
+	{97463 , "Small_Defensive_CDs", "WARRIOR"}, -- Rally
 
 	{12323 , "Snares_WithCDs", "WARRIOR"}, -- Piercing Howl
 
@@ -710,12 +627,13 @@ local spellsArenaTable = {
 
 
 	{28880, "Small_Defensive_CDs", "Racials"},-- Gift of the Naaru
-	{GetSpellInfo(28880), "Small_Defensive_CDs", "Racials"},-- Gift of the Naaru
+	{GetSpellInfo(28880) or 28880, "Small_Defensive_CDs", "Racials"},-- Gift of the Naaru
 	{65116, "Small_Defensive_CDs", "Racials"}, -- Stoneform
-	{GetSpellInfo(65116), "Small_Defensive_CDs", "Racials"},-- Stoneform
-	{GetSpellInfo(71635), "Small_Defensive_CDs", "PvP"},-- Aegis of Dalaran
+	{GetSpellInfo(65116) or 65116, "Small_Defensive_CDs", "Racials"},-- Stoneform
+	{GetSpellInfo(71635) or 71635, "Small_Defensive_CDs", "PvP"},-- Aegis of Dalaran
 
 	{"Gladiator's Emblem", "Small_Defensive_CDs", "PvP"}, -- Gladiator's Emblem
+	{"Tremendous Fortitude", "Small_Defensive_CDs", "PvP"}, -- Gladiator's Emblem
 
 	{34709, "Special_Low", "PvP"}, --Shadow Sight
 
@@ -726,59 +644,30 @@ local spellsArenaTable = {
 	{"PVP", --TAB
 
 	
-	{51209 , "CC", nil,  "DEATHKNIGHT"}, --Hungering Cold (talent)
+	{49203 , "CC", nil,  "DEATHKNIGHT"}, --Hungering Cold (talent)
 	{47481 , "CC", nil,  "DEATHKNIGHT"}, --Gnaw
+	{91800 , "CC", nil, "DEATHKNIGHT"}, --Gnaw
+	{91797 , "CC", nil, "DEATHKNIGHT"}, --Monstrous Blow
 
 	{33786 , "CC", nil, "DRUID"}, 	--Cyclone
-	{5211 , "CC", nil, "DRUID"},	-- Bash (rank 1)
-	{6798 , "CC", nil, "DRUID"},	-- Bash (rank 2)
-	{8983 , "CC", nil, "DRUID"},	-- Bash (rank 3)
-	{9005 , "CC", nil, "DRUID"},	-- Pounce (rank 1)
-	{9823 , "CC", nil, "DRUID"},	-- Pounce (rank 2)
-	{9827 , "CC", nil, "DRUID"},	-- Pounce (rank 3)
-	{27006 , "CC", nil, "DRUID"},	-- Pounce (rank 4)
-	{49803 , "CC", nil, "DRUID"},	-- Pounce (rank 5)
-	{22570 , "CC", nil, "DRUID"},	-- Maim (rank 1)
-	{49802 , "CC", nil, "DRUID"},	-- Maim (rank 2)
-	{GetSpellInfo(16922) , "CC", nil, "DRUID"},	-- Imp Starfire Stun
+	{5211 , "CC", nil, "DRUID"},	-- Bash
+	{9005 , "CC", nil, "DRUID"},	-- Pounce
+	{22570 , "CC", nil, "DRUID"},	-- Maim
 	{2637 , "CC", nil, "DRUID"},	-- Hibernate (rank 1)
-	{18657 , "CC", nil, "DRUID"},	-- Hibernate (rank 2)
-	{18658 , "CC", nil, "DRUID"},	-- Hibernate (rank 3)
 
-	{1513, "CC", nil, "HUNTER"},			-- Scare Beast (rank 1)
-	{14326, "CC", nil, "HUNTER"},			-- Scare Beast (rank 2)
-	{14327, "CC", nil, "HUNTER"},			-- Scare Beast (rank 3)
-	{3355, "CC", nil, "HUNTER"},			-- Freezing Trap (rank 1)
-	{14308, "CC", nil, "HUNTER"},			-- Freezing Trap (rank 2)
-	{14309, "CC", nil, "HUNTER"},			-- Freezing Trap (rank 3)
-	{60210, "CC", nil, "HUNTER"},			-- Freezing Arrow Effect
-	{19386, "CC", nil, "HUNTER"},			-- Wyvern Sting (talent) (rank 1)
-	{24132, "CC", nil, "HUNTER"},			-- Wyvern Sting (talent) (rank 2)
-	{24133, "CC", nil, "HUNTER"},			-- Wyvern Sting (talent) (rank 3)
-	{27068, "CC", nil, "HUNTER"},			-- Wyvern Sting (talent) (rank 4)
-	{49011, "CC", nil, "HUNTER"},			-- Wyvern Sting (talent) (rank 5)
-	{49012, "CC", nil, "HUNTER"},			-- Wyvern Sting (talent) (rank 6)
+
+	{1513, "CC", nil, "HUNTER"},			-- Scare Beast 
+	{3355, "CC", nil, "HUNTER"},			-- Freezing Trap 
+	{19386, "CC", nil, "HUNTER"},			-- Wyvern Sting (talent) 
 	{19503, "CC", nil, "HUNTER"},			-- Scatter Shot (talent)
 
+	{90337, "CC", nil, "HUNTER"},				-- Bad Manner
 	{24394, "CC", nil, "HUNTER"},				-- Intimidation (talent)
-	{50519, "CC", nil, "HUNTER"},				-- Sonic Blast (rank 1) (Bat)
-	{53564, "CC", nil, "HUNTER"},				-- Sonic Blast (rank 2) (Bat)
-	{53565, "CC", nil, "HUNTER"},				-- Sonic Blast (rank 3) (Bat)
-	{53566, "CC", nil, "HUNTER"},				-- Sonic Blast (rank 4) (Bat)
-	{53567, "CC", nil, "HUNTER"},				-- Sonic Blast (rank 5) (Bat)
-	{53568, "CC", nil, "HUNTER"},				-- Sonic Blast (rank 6) (Bat)
-	{50518, "CC", nil, "HUNTER"},				-- Ravage (rank 1) (Ravager)
-	{53558, "CC", nil, "HUNTER"},				-- Ravage (rank 2) (Ravager)
-	{53559, "CC", nil, "HUNTER"},				-- Ravage (rank 3) (Ravager)
-	{53560, "CC", nil, "HUNTER"},				-- Ravage (rank 4) (Ravager)
-	{53561, "CC", nil, "HUNTER"},				-- Ravage (rank 5) (Ravager)
-	{53562, "CC", nil, "HUNTER"},				-- Ravage (rank 6) (Ravager)
+	{50519, "CC", nil, "HUNTER"},				-- Sonic Blast (Bat)
+
 
 	{"Polymorph" , "CC", nil, "MAGE"},
 	{118,   "CC", nil, "MAGE"},				-- Polymorph (rank 1)
-	{12824, "CC", nil, "MAGE"},				-- Polymorph (rank 2)
-	{12825, "CC", nil, "MAGE"},				-- Polymorph (rank 3)
-	{12826, "CC", nil, "MAGE"},				-- Polymorph (rank 4)
 	{28271, "CC", nil, "MAGE"},				-- Polymorph: Turtle
 	{28272, "CC", nil, "MAGE"},				-- Polymorph: Pig
 	{61305, "CC", nil, "MAGE"},				-- Polymorph: Black Cat
@@ -787,86 +676,58 @@ local spellsArenaTable = {
 	{71319, "CC", nil, "MAGE"},				-- Polymorph: Turkey
 	{61025, "CC", nil, "MAGE"},				-- Polymorph: Serpent
 	{59634, "CC", nil, "MAGE"},				-- Polymorph - Penguin (Glyph)
+	{82691, "CC", nil, "MAGE"},				-- Ring of Frost
+	{83047, "CC", nil, "MAGE"},				-- Improved Polymorph (talent)
 	{12355, "CC", nil, "MAGE"},				-- Impact (talent)
-	{31661, "CC", nil, "MAGE"},				-- Dragon's Breath (rank 1) (talent)
-	{33041, "CC", nil, "MAGE"},				-- Dragon's Breath (rank 2) (talent)
-	{33042, "CC", nil, "MAGE"},				-- Dragon's Breath (rank 3) (talent)
-	{33043, "CC", nil, "MAGE"},				-- Dragon's Breath (rank 4) (talent)
-	{42949, "CC", nil, "MAGE"},				-- Dragon's Breath (rank 5) (talent)
-	{42950, "CC", nil, "MAGE"},				-- Dragon's Breath (rank 6) (talent)
+	{31661, "CC", nil, "MAGE"},				-- Dragon's Breath (talent)
 	{44572, "CC", nil, "MAGE"},				-- Deep Freeze (talent)
 
-	{853, "CC", nil, "PALADIN"},				-- Hammer of Justice (rank 1)
-	{5588, "CC", nil, "PALADIN"},				-- Hammer of Justice (rank 2)
-	{5589, "CC", nil, "PALADIN"},				-- Hammer of Justice (rank 3)
-	{10308, "CC", nil, "PALADIN"},				-- Hammer of Justice (rank 4)
-	{2812, "CC", nil, "PALADIN"},				-- Holy Wrath (rank 1)
-	{10318, "CC", nil, "PALADIN"},				-- Holy Wrath (rank 2)
-	{27139, "CC", nil, "PALADIN"},				-- Holy Wrath (rank 3)
-	{48816, "CC", nil, "PALADIN"},				-- Holy Wrath (rank 4)
-	{48817, "CC", nil, "PALADIN"},				-- Holy Wrath (rank 5)
-	{20170, "CC", nil, "PALADIN"},				-- Stun (Seal of Justice)
+	{853, "CC", nil, "PALADIN"},				-- Hammer of Justice
+	{2812, "CC", nil, "PALADIN"},				-- Holy Wrath
 	{10326, "CC", nil, "PALADIN"},				-- Turn Evil
 	{20066, "CC", nil, "PALADIN"},				-- Repentance (talent)
 
+	{8122, "CC", nil, "PRIEST"},				-- Psychic Scream 
 	{605, "CC", nil, "PRIEST"},					-- Mind Control
-	{8122, "CC", nil, "PRIEST"},				-- Psychic Scream (rank 1)
-	{8124, "CC", nil, "PRIEST"},				-- Psychic Scream (rank 2)
-	{10888, "CC", nil, "PRIEST"},				-- Psychic Scream (rank 3)
-	{10890, "CC", nil, "PRIEST"},				-- Psychic Scream (rank 4)
-	{9484, "CC", nil, "PRIEST"},				-- Shackle Undead (rank 1)
-	{9485, "CC", nil,"PRIEST"},					-- Shackle Undead (rank 2)
-	{10955, "CC", nil, "PRIEST"},				-- Shackle Undead (rank 3)
+	{88625, "CC", nil, "PRIEST"},				-- Chastise
+	{87204, "CC", nil, "PRIEST"},				-- Sin and Punishment
 	{64044, "CC", nil, "PRIEST"},				-- Psychic Horror (talent)
 
 	{2094, "CC", nil, "ROGUE"},				-- Blind
-	{408, "CC", nil, "ROGUE"},				-- Kidney Shot (rank 1)
-	{8643, "CC", nil, "ROGUE"},				-- Kidney Shot (rank 2)
+	{408, "CC", nil, "ROGUE"},				-- Kidney Shot 
 	{1833, "CC", nil, "ROGUE"},				-- Cheap Shot
-	{6770, "CC", nil, "ROGUE"},				-- Sap (rank 1)
-	{2070, "CC", nil, "ROGUE"},				-- Sap (rank 2)
-	{11297, "CC", nil, "ROGUE"},			-- Sap (rank 3)
-	{51724, "CC", nil, "ROGUE"},			-- Sap (rank 4)
+	{6770, "CC", nil, "ROGUE"},				-- Sap 
 	{1776, "CC", nil, "ROGUE"},				-- Gouge
 
 
 	{"Hex" , "CC", nil, "SHAMAN"},
-	{58861 , "CC", nil, "SHAMAN"}, --Bash (Spirit Wolf)
-	{39796, "CC", nil, "SHAMAN"},  --Stoneclaw Stun (Stoneclaw Totem)
+	{58861 , "CC", nil, "SHAMAN"}, 		--Bash (Spirit Wolf)
+	{39796, "CC", nil, "SHAMAN"},  		--Stoneclaw Stun (Stoneclaw Totem)
+	{77505 , "CC", nil, "SHAMAN"}, 		--Earthquake
+	{76780 , "CC", nil, "SHAMAN"}, 		--Bind Elemental
 
-	{710 ,"CC",  nil, "WARLOCK"},				-- Banish (rank 1)
-	{18647 ,"CC",  nil, "WARLOCK"},					-- Banish (rank 2)
-	{5782 ,"CC",  nil, "WARLOCK"},						-- Fear (rank 1)
-	{6213 ,"CC",  nil, "WARLOCK"},						-- Fear (rank 2)
-	{6215 ,"CC",  nil, "WARLOCK"},						-- Fear (rank 3)
-	{5484 ,"CC",  nil, "WARLOCK"},						-- Howl of Terror (rank 1)
-	{17928 ,"CC",  nil, "WARLOCK"},					-- Howl of Terror (rank 2)
-	{6789 ,"CC",  nil, "WARLOCK"},						-- Death Coil (rank 1)
-	{17925 ,"CC",  nil, "WARLOCK"},						-- Death Coil (rank 2)
-	{17926 ,"CC",  nil, "WARLOCK"},						-- Death Coil (rank 3)
-	{27223 ,"CC",  nil, "WARLOCK"},						-- Death Coil (rank 4)
-	{47859 ,"CC",  nil, "WARLOCK"},						-- Death Coil (rank 5)
-	{47860 ,"CC",  nil, "WARLOCK"},						-- Death Coil (rank 6)
-	{22703 ,"CC",  nil, "WARLOCK"},						-- Inferno Effect
-	{30283 ,"CC",  nil, "WARLOCK"},						-- Shadowfury (rank 1) (talent)
-	{30413 ,"CC",  nil, "WARLOCK"},						-- Shadowfury (rank 2) (talent)
-	{30414 ,"CC",  nil, "WARLOCK"},						-- Shadowfury (rank 3) (talent)
-	{47846 ,"CC",  nil, "WARLOCK"},						-- Shadowfury (rank 4) (talent)
-	{47847 ,"CC",  nil, "WARLOCK"},						-- Shadowfury (rank 5) (talent)
-	{60995 ,"CC",  nil, "WARLOCK"},						-- Demon Charge (metamorphosis talent)
-	{54786 ,"CC",  nil, "WARLOCK"},						-- Demon Leap (metamorphosis talent)
-	{30153 ,"CC",  nil, "WARLOCK"},					-- Intercept Stun (rank 1) (Felguard)
-	{30195 ,"CC",  nil, "WARLOCK"},					-- Intercept Stun (rank 2) (Felguard)
-	{30197 ,"CC",  nil, "WARLOCK"},					-- Intercept Stun (rank 3) (Felguard)
-	{47995 ,"CC",  nil, "WARLOCK"},					-- Intercept Stun (rank 4) (Felguard)
-	{6358 ,"CC",  nil, "WARLOCK"},					-- Seduction (Succubus)
-	{19482 ,"CC",  nil, "WARLOCK"},					-- War Stomp (Doomguard)
-	{32752 ,"CC",  nil, "WARLOCK"},					-- Summoning Disorientation
+	{5782 ,"CC", nil, "WARLOCK"},						-- Fear
+	{5484 ,"CC", nil, "WARLOCK"},						-- Howl of Terror
+	{6789 ,"CC", nil, "WARLOCK"},						-- Death Coil
+	{710 ,"CC", nil, "WARLOCK"},						-- Banish 
+	{93986 ,"CC", nil, "WARLOCK"},						-- Aura of Foreboding
+	{6358 ,"CC", nil, "WARLOCK"},						-- Seduction (Succubus)
+	{89766 ,"CC", nil, "WARLOCK"},						-- Axe Toss (Felguard)
+	{30283 ,"CC", nil, "WARLOCK"},						-- Shadowfury (talent)
+	{54786 ,"CC", nil, "WARLOCK"},						-- Demon Leap (metamorphosis talent)
+	{85387 ,"CC", nil, "WARLOCK"},						-- Aftermath
+
+
+	{22703 ,"CC", nil, "WARLOCK"},						-- Inferno Effect
+	{60995 ,"CC", nil, "WARLOCK"},						-- Demon Charge (metamorphosis talent)
+	{30153 ,"CC", nil, "WARLOCK"},					-- Intercept Stun (rank 1) (Felguard)
+	{19482 ,"CC", nil, "WARLOCK"},					-- War Stomp (Doomguard)
+	{32752 ,"CC", nil, "WARLOCK"},					-- Summoning Disorientation
 
 	{7922 ,"CC",  nil, "WARRIOR"},					-- Charge (rank 1/2/3)
 	{20253 ,"CC",  nil, "WARRIOR"},				-- Intercept
 	{5246 ,"CC",  nil, "WARRIOR"},				-- Intimidating Shout
-	{20511 ,"CC",  nil, "WARRIOR"},				-- Intimidating Shout
+	{85388 ,"CC",  nil, "WARRIOR"},			-- Throwdown
 	{12809 ,"CC",  nil, "WARRIOR"},			-- Concussion Blow (talent)
 	{46968 ,"CC",  nil, "WARRIOR"},			-- Shockwave (talent)
 
@@ -874,16 +735,17 @@ local spellsArenaTable = {
 
 
 	{47476  , "Silence", nil,  "DEATHKNIGHT"}, -- Strangulate
+	{81261  , "Silence", nil,  "DRUID"}, -- Strangulate
 	{34490 , "Silence", nil,  "HUNTER"}, --Silencing Shot
 	{18469, "Silence", nil,  "MAGE"},		-- Counterspell - Silenced (rank 1) (Improved Counterspell talent)
 	{55021, "Silence", nil,  "MAGE"},				-- Counterspell - Silenced (rank 2) (Improved Counterspell talent)
-	{63529, "Silence", nil, "PALADIN"},		-- Silenced - Shield of the Templar (talent)
+	{31935, "Silence", nil, "PALADIN"},		-- Silenced - Avenger's Shield
 	{15487, "Silence", nil,	"PRIEST"},			-- Silence (talent)
-	{1330 , "Silence", nil, "ROGUE"}, --Garrote - Silence_Arena
-	{18425 , "Silence", nil, "ROGUE"}, --Kick - Silenced (talent)
-	{31117 , "Silence", nil, "WARLOCK"}, --Unstable Affliction
-	{24259 ,  "Silence", nil, "WARLOCK"}, --Spell Lock (Felhunter)
-	{74347 , "Silence", nil, "WARRIOR"},			-- Silenced - Gag Order (Improved Shield Bash talent)
+	{1330 , "Silence", nil, "ROGUE"}, 		--Garrote - Silence_Arena
+	{18425 , "Silence", nil, "ROGUE"}, 		--Kick - Silenced (talent)
+	{86759 , "Silence", nil, "ROGUE"}, 		--Kick - Silenced (talent)
+	{31117 , "Silence", nil, "WARLOCK"}, 		--Unstable Affliction
+	{24259 ,  "Silence", nil, "WARLOCK"}, 		--Spell Lock (Felhunter)
 	{18498 , "Silence", nil, "WARRIOR"},		-- Silenced - Gag Order (Improved Shield Bash talent
 	{25046 , "Silence", nil, "Racials"},				-- Arcane Torrent (blood elf racial)
 	{28730 , "Silence", nil, "Racials"},				-- Arcane Torrent (blood elf racial)
@@ -891,62 +753,29 @@ local spellsArenaTable = {
 
 
 	--{212638 , "RootPhyiscal_Special"},				-- Tracker's Net (pvp honor talent) -- Also -80% hit chance melee & range physical (CC and Root category)
-
-	{339 , "Root", nil, "DRUID"}, 	-- Entangling Roots (rank 1)
-	{1062 , "Root", nil, "DRUID"}, 	-- Entangling Roots (rank 2)
-	{5195 , "Root", nil, "DRUID"}, 	-- Entangling Roots (rank 3)
-	{5196 , "Root", nil, "DRUID"}, 	-- Entangling Roots (rank 4)
-	{9852 , "Root", nil, "DRUID"}, 	-- Entangling Roots (rank 5)
-	{9853 , "Root", nil, "DRUID"}, 	-- Entangling Roots (rank 6)
-	{26989 , "Root", nil, "DRUID"}, -- Entangling Roots (rank 7)
-	{53308 , "Root", nil, "DRUID"}, -- Entangling Roots (rank 8)
-	{19975 , "Root", nil, "DRUID"},	-- Entangling Roots (rank 1) (Nature's Grasp spell)
-	{19974 , "Root", nil, "DRUID"},	-- Entangling Roots (rank 2) (Nature's Grasp spell)
-	{19973 , "Root", nil, "DRUID"},	-- Entangling Roots (rank 3) (Nature's Grasp spell)
-	{19972 , "Root", nil, "DRUID"},	-- Entangling Roots (rank 4) (Nature's Grasp spell)
-	{19971 , "Root", nil, "DRUID"},	-- Entangling Roots (rank 5) (Nature's Grasp spell)
-	{19970 , "Root", nil, "DRUID"},	-- Entangling Roots (rank 6) (Nature's Grasp spell)
-	{27010 , "Root", nil, "DRUID"},	-- Entangling Roots (rank 7) (Nature's Grasp spell)
-	{53313 , "Root", nil, "DRUID"},	-- Entangling Roots (rank 8) (Nature's Grasp spell)
-	{GetSpellInfo(16979) , "Root", nil, "DRUID"},	-- Feral Charge Effect (Feral Charge talent)
+	{96294 , "Root", nil, "DEATHKNIGHT"}, 	-- CHains of Ice Root
+	{96293 , "Root", nil, "DEATHKNIGHT"}, 	-- CHains of Ice Root
+	{339 , "Root", nil, "DRUID"}, 	-- Entangling Roots
+	{19975 , "Root", nil, "DRUID"},	-- Entangling Roots (Nature's Grasp spell)
+	{GetSpellInfo(16979) or 16979 , "Root", nil, "DRUID"},	-- Feral Charge Effect (Feral Charge talent)
 	{45334 , "Root", nil, "DRUID"},			-- Feral Charge Effect (Feral Charge talent)
-	{19306, "Root", nil, "HUNTER"},			-- Counterattack (talent) (rank 1)
-	{20909, "Root", nil, "HUNTER"},			-- Counterattack (talent) (rank 2)
-	{20910, "Root", nil, "HUNTER"},			-- Counterattack (talent) (rank 3)
-	{27067, "Root", nil, "HUNTER"},			-- Counterattack (talent) (rank 4)
-	{48998, "Root", nil, "HUNTER"},			-- Counterattack (talent) (rank 5)
-	{48999, "Root", nil, "HUNTER"},			-- Counterattack (talent) (rank 6)
-	{19185, "Root", nil, "HUNTER"},			-- Entrapment (talent) (rank 1)
-	{64803, "Root", nil, "HUNTER"},			-- Entrapment (talent) (rank 2)
-	{64804, "Root", nil, "HUNTER"},			-- Entrapment (talent) (rank 3)
-	{4167, "Root", nil, "HUNTER"},			-- Web (rank 1) (Spider)
-	{4168, "Root", nil, "HUNTER"},			-- Web II
-	{4169, "Root", nil, "HUNTER"},			-- Web III
-	{54706, "Root", nil, "HUNTER"},			-- Venom Web Spray (rank 1) (Silithid)
-	{55505, "Root", nil, "HUNTER"},			-- Venom Web Spray (rank 2) (Silithid)
-	{55506, "Root", nil, "HUNTER"},			-- Venom Web Spray (rank 3) (Silithid)
-	{55507, "Root", nil, "HUNTER"},			-- Venom Web Spray (rank 4) (Silithid)
-	{55508, "Root", nil, "HUNTER"},			-- Venom Web Spray (rank 5) (Silithid)
-	{55509, "Root", nil, "HUNTER"},			-- Venom Web Spray (rank 6) (Silithid)
-	{50245, "Root", nil, "HUNTER"},			-- Pin (rank 1) (Crab)
-	{53544, "Root", nil, "HUNTER"},			-- Pin (rank 2) (Crab)
-	{53545, "Root", nil, "HUNTER"},			-- Pin (rank 3) (Crab)
-	{53546, "Root", nil, "HUNTER"},			-- Pin (rank 4) (Crab)
-	{53547, "Root", nil, "HUNTER"},			-- Pin (rank 5) (Crab)
-	{53548, "Root", nil, "HUNTER"},			-- Pin (rank 6) (Crab)
+	{19306, "Root", nil, "HUNTER"},			-- Counterattack (talent)
+	{19185, "Root", nil, "HUNTER"},			-- Entrapment (talent)
+	{4167, "Root", nil, "HUNTER"},			-- Web (Spider)
+	{54706, "Root", nil, "HUNTER"},			-- Venom Web Spray (Silithid)
+	{50245, "Root", nil, "HUNTER"},			-- Pin (Crab)
 	{53148, "Root", nil, "HUNTER"},			-- Charge (Bear and Carrion Bird)
 	{25999, "Root", nil, "HUNTER"},			-- Boar Charge (Boar)
-	{122, "Root", nil, "MAGE"},				-- Frost Nova (rank 1)
-	{865, "Root", nil, "MAGE"},				-- Frost Nova (rank 2)
-	{6131, "Root", nil, "MAGE"},			-- Frost Nova (rank 3)
-	{10230, "Root", nil, "MAGE"},			-- Frost Nova (rank 4)
-	{27088, "Root", nil, "MAGE"},			-- Frost Nova (rank 5)
-	{42917, "Root", nil, "MAGE"},			-- Frost Nova (rank 6)
-	{12494, "Root", nil, "MAGE"},			-- Frostbite (talent)
+	{122, "Root", nil, "MAGE"},				-- Frost Nova 
+	{83302, "Root", nil, "MAGE"},			-- Imp Cone of Cold
 	{55080, "Root", nil, "MAGE"},			-- Shattered Barrier (talent)
+	{83073, "Root", nil, "MAGE"},			-- Shattered Barrier (talent)
 	{33395, "Root", nil, "MAGE"},			-- Freeze
+	{87194, "Root", nil, "PRIEST"},			-- Paralysis
+	{9484, "Root", nil, "PRIEST"},			-- Shackle Undead
 	{64695 , "Root", nil, "SHAMAN"}, 		-- Earthgrab
 	{63685, "Root", nil, "SHAMAN"}, 		-- Freeze (Frozen Power talent)
+	{93987, "Root", nil, "WARLOCK"},			--Aura of Foreboding
 	{23694 , "Root", nil, "WARRIOR"}, 		-- Imp Hamstring
 
 
@@ -956,30 +785,28 @@ local spellsArenaTable = {
 	{27827  , "ImmunePlayer", "Spirit of".."\n".."Redemption", "PRIEST"},			-- Spirit of Redemption
 
 
-	--{77606  , "Disarm_Warning"},   -- Dark Simulacrum
+	{77606  , "Disarm_Warning", "Dark".."\n".."Simulacrum", "DEATHKNIGHT"},   -- Dark Simulacrum
 	--{322442 , "Disarm_Warning"}, --Thoughtstolen
 
 	--{117405 , "CC_Warning", "Binding Shot".."\n".."WARNING!!"},	    -- Binding Shot
 	--{191241 , "CC_Warning", "Sticky".."\n".."Bomb"},	    -- Sticky Bomb
-	--{407032 , "CC_Warning", "Disarmed".."\n".."Sticky Tar".."\n".."Bomb"}, --Sticky Tar Bomb Expoldes
+	{61882 , "CC_Warning", "Earthquake", "SHAMAN"}, --Earthquake
 
 	{5215   , "Stealth", "Prowl", "DRUID"},  -- Prowl
-	{9913   , "Stealth", "Prowl", "DRUID"},  -- Prowl
-	{6783   , "Stealth", "Prowl", "DRUID"},  -- Prowl
+
 	{66     , "Stealth", "Invisibility", "MAGE"},   -- Invis
 	{32612  , "Stealth", "Invisibility", "MAGE"}, 	-- Invis
 	{58984  , "Stealth", nil, "Racials"},     -- Meld
 
 
-	{19753  , "Immune", "Divine".."\n".."Intervention","PALADIN"},			-- Divine Intervention
 	{1022   , "Immune", "Hand of".."\n".."Protection", "PALADIN"},	    	-- Hand of Protection
-	{5599   , "Immune", "Hand of".."\n".."Protection", "PALADIN"},	    	-- Hand of Protection
-	{10278  , "Immune", "Hand of".."\n".."Protection", "PALADIN"},	    	-- Hand of Protection
+
 
 	--  "ImmuneSpell",
 	--	"ImmunePhysical",
 
 	{31821 , "AuraMastery_Cast_Auras", "Aura".."\n".."Mastery", "PALADIN"},			-- Aura Mastery
+	{96267 , "AuraMastery_Cast_Auras", "Inner".."\n".."Focus", "PRIEST"},			-- Inner Focus Strength & Soul
 	--{289655 , "AuraMastery_Cast_Auras", "Holy Word".."\n".."Concentration"},-- Holy Word: Concentration
 
 	--{127797 , "ROP_Vortex", "Ursol's".."\n".."Vortex"},				-- Ursol's Vortex
@@ -988,55 +815,54 @@ local spellsArenaTable = {
 	--{383870 , "ROP_Vortex", "Swoop".."\n".."Up"}, 				-- Chrono Loop
 	--{353293 , "ROP_Vortex", "Shadow".."\n".."Rift"}, 				-- Shadow Rift
 
-	{53359 , "Disarm", nil, "HUNTER"}, 			--Chimera Shot - Scorpid (talent)
+
 	{54404, "Disarm", nil, "HUNTER"},			-- Dust Cloud (chance to hit reduced by 100%) (Tallstrider)
-	{50541, "Disarm", nil, "HUNTER"},			-- Snatch (rank 1) (Bird of Prey)
-	{53537, "Disarm", nil, "HUNTER"},			-- Snatch (rank 2) (Bird of Prey)
-	{53538, "Disarm", nil, "HUNTER"},			-- Snatch (rank 3) (Bird of Prey)
-	{53540, "Disarm", nil, "HUNTER"},			-- Snatch (rank 4) (Bird of Prey)
-	{53542, "Disarm", nil, "HUNTER"},			-- Snatch (rank 5) (Bird of Prey)
-	{53543, "Disarm", nil, "HUNTER"},			-- Snatch (rank 6) (Bird of Prey)
-	{64346, "Disarm", nil,  "MAGE"},			-- Fiery Payback (talent)
+	{50541, "Disarm", nil, "HUNTER"},			-- Snatch (Bird of Prey)
+	--{64346, "Disarm", nil,  "MAGE"},			-- Fiery Payback (talent)
 	{64058, "Disarm", nil, "PRIEST"},			-- Psychic Horror (talent)
 	{51722 , "Disarm", nil, "ROGUE"},			-- Dismantle
+	--{79126  , "Disarm", nil, "ROGUE"},			-- Groggy
 	{676 , "Disarm", nil, "WARRIOR"},			-- Disarm
 
 
-	{1714   , "Haste_Reduction", "Curse of".."\n".."Tongues"},			-- Curse of Tongues
-	{GetSpellInfo(1714)  , "Haste_Reduction", "Curse of".."\n".."Tongues"},			-- Curse of Tongues
+	{1714   , "Haste_Reduction", "Curse of".."\n".."Tongues", "WARLOCK"},			-- Curse of Tongues
+	{GetSpellInfo(1714) or 1714 , "Haste_Reduction", "Curse of".."\n".."Tongues", "WARLOCK"},			-- Curse of Tongues
 
 
-	{702    , "Dmg_Hit_Reduction", "Curse of".."\n".."Weakness"},   -- Curse of Weakness
-	{GetSpellInfo(702)   , "Dmg_Hit_Reduction", "Curse of".."\n".."Weakness"},   -- Curse of Weakness
+	{702    , "Dmg_Hit_Reduction", "Curse of".."\n".."Weakness", "WARLOCK"},   -- Curse of Weakness
+	{GetSpellInfo(702) or 702  , "Dmg_Hit_Reduction", "Curse of".."\n".."Weakness", "WARLOCK"},   -- Curse of Weakness
 
 	--Interrupt
 
 	--{57934 , "AOE_DMG_Modifiers", "Tricks"},				-- Tricks of the Trade
-	{396936 , "AOE_DMG_Modifiers", "Tricks"},				-- Tricks of the Trade
-	{396937 , "AOE_DMG_Modifiers", "Tricks"},				-- Tricks of the Trade
-	{57933 , "AOE_DMG_Modifiers", "Tricks"},				-- Tricks of the Trade
+	{396936 , "AOE_DMG_Modifiers", "Tricks", "ROGUE"},				-- Tricks of the Trade
+	{396937 , "AOE_DMG_Modifiers", "Tricks", "ROGUE"},				-- Tricks of the Trade
+	{57933 , "AOE_DMG_Modifiers", "Tricks", "ROGUE"},				-- Tricks of the Trade
 
-	--{212183 , "Friendly_Smoke_Bomb", "Smoke".."\n".."Bomb"},			-- Smoke Bomb
+	{88611 , "Friendly_Smoke_Bomb", "Smoke".."\n".."Bomb"},			-- Smoke Bomb
 
 	{8178   , "AOE_Spell_Refections", "Grounding".."\n".."Totem", "SHAMAN"},		-- Grounding Totem Effect (Grounding Totem)
 
 
 	{31643, "Speed_Freedoms", "Blazing".."\n".."Speed",  "MAGE"}, --Blazing Speed
-	{GetSpellInfo(31643), "Speed_Freedoms", "Blazing".."\n".."Speed", "MAGE"}, --Blazing Speed
+	{GetSpellInfo(31643) or 31643, "Speed_Freedoms", "Blazing".."\n".."Speed", "MAGE"}, --Blazing Speed
 
+	{77764 ,  "Freedoms", "Stampeding".."\n".."Roar", "DRUID"}, --Stampeding Roar (Feral)
+	{77761,  "Freedoms", "Stampeding".."\n".."Roar", "DRUID"}, --Stampeding Roar (Bear)
+	{1850 ,  "Freedoms", "Dash", "DRUID"}, --Dash
 
-	{33357 ,  "Freedoms", "Dash", "DRUID"}, --Dash
-	{GetSpellInfo(33357) ,  "Freedoms", "Dash", "DRUID"}, --Dash
 	{54216 , "Freedoms", "Master's".."\n".."Call", "HUNTER"},		-- Master's Call
 	{"Master's Call" , "Freedoms", "Master's".."\n".."Call", "HUNTER"},		-- Master's Call
 	{1044 , "Freedoms", "Hand of".."\n".."Freedom", "PALADIN"},	 --Blessing of Freedom (Not Purgeable)
 	{36554 , "Freedoms", nil, "ROGUE"},		-- Shadowstep
-	{11305 , "Freedoms", nil, "ROGUE"},			-- Sprint
+	{2983 , "Freedoms", nil, "ROGUE"},			-- Sprint
 	{58875 , "Freedoms", nil, "SHAMAN"},		-- Spirit Walk
+	{79438 , "Freedoms", nil, "WARLOCK"}, 	--Soulburn: Demonic Cirlce
 	{54861 , "Freedoms", "Nitro".."\n".."Boots"},		-- Nitro Boots
 
 
 	{53476 , "Friendly_Defensives", "Intervene", "HUNTER"}, --Intervene (Pet)
+	{87023 , "Friendly_Defensives", "Cauterize", "MAGE"}, --Cauterize
 	{6940 , "Friendly_Defensives", "Hand of".."\n".."Sacrifice", "PALADIN"},			-- Blessing of Sacrifice
 	{3411 , "Friendly_Defensives", "Intervene", "WARRIOR"},		-- Intervene
 
@@ -1048,12 +874,13 @@ local spellsArenaTable = {
 	{6346, "CC_Reduction", "Fear".."\n".."Ward", "PRIEST"},		-- Fear Ward
 
 
-	{GetSpellInfo(11129), "Personal_Offensives", "Combustion", "MAGE"}, --Combustion
+	--{GetSpellInfo(11129) or 11129, "Personal_Offensives", "Combustion", "MAGE"}, --Combustion
 	{12042, "Personal_Offensives",  "Arcane".."\n".."Power", "MAGE"}, --Arcane Power
 	{12043 , "Personal_Offensives",  "Presence".."\n".."of Mind", "MAGE"}, --Presence of Mind
 	{12472, "Personal_Offensives",  "Icy".."\n".."Veins", "MAGE"}, --Icy Veins
 	{33891, "Personal_Offensives", "Tree of".."\n".."Life", "DRUID"},	-- Tree of Life
-	{14751, "Personal_Offensives", "Inner".."\n".."Focus", "PRIEST"},	-- Inner Focus
+	{89485, "Personal_Offensives", "Inner".."\n".."Focus", "PRIEST"},	-- Inner Focus
+	{87153, "Personal_Offensives", "Dark".."\n".."Archangel", "PRIEST"},	-- Dark Archangel
 
 
 	{22842, "Peronsal_Defensives", "Frenzied".."\n".."Regeneration", "DRUID"},		-- Frenzied Regeneration
@@ -1061,8 +888,8 @@ local spellsArenaTable = {
 
 	
 	{10060,  "Movable_Cast_Auras", "Power".."\n".."Infusion", "PRIEST"},		-- Power Infusion
-	{2825, "Movable_Cast_Auras", "Bloodlust", "SHAMAN"},	-- Bloodlust (Shamanism pvp talent)
-	{32182, "Movable_Cast_Auras", "Heroism", "SHAMAN"},	-- Heroism (Shamanism pvp talent
+	--{2825, "Movable_Cast_Auras", "Bloodlust", "SHAMAN"},	-- Bloodlust (Shamanism pvp talent)
+	--{32182, "Movable_Cast_Auras", "Heroism", "SHAMAN"},	-- Heroism (Shamanism pvp talent
 
 
 	{29166, "Mana_Regen", "Innervate", "DRUID"},		-- Innervate
@@ -1070,141 +897,74 @@ local spellsArenaTable = {
 	--"Other", --
 	--"PvE", --PVE only
 
-	{45524, "SnareSpecial", "Chains".."\n".."of Ice", "DEATHKNIGHT"}, 		-- Chains of Ice
+	--{45524, "SnareSpecial", "Chains".."\n".."of Ice", "DEATHKNIGHT"}, 		-- Chains of Ice
 
 
+	{45524, "SnarePhysical70", "Chains".."\n".."of Ice", "DEATHKNIGHT"}, 		-- Chains of Ice
 	{15571, "SnarePhysical70", nil, "HUNTER"},			-- Dazed From Aspect of the Cheetah/Pact
+	{3409, "SnarePhysical70",  nil, "ROGUE"},			-- Crippling Poison (Poison)
 	{31125, "SnarePhysical70", nil, "ROGUE"},			-- Dazed (Blade Twisting) (rank 1) (talent)
 	{51585, "SnarePhysical70", nil, "ROGUE"},			-- Dazed (Blade Twisting) (rank 2) (talent)
+	--{26679, "SnarePhysical70",  nil, "ROGUE"},			-- Deadly Throw  w/Glyph
 	{63311, "SnarePhysical70", nil, "WARLOCK"},			-- Shadowflame
 
 
-
+	{61394, "SnareMagic70",	nil, "HUNTER"},				-- Glyph of Freezing Trap
+	{11113, "SnareMagic70",	nil, "MAGE"},				-- Blast Wave (talent) (rank 1)
+	{44614, "SnareMagic70",	nil, "MAGE"},				-- Frostfire Bolt 
 	{31589, "SnareMagic70",	nil, "MAGE"},				-- Slow
 	{18118, "SnareMagic70", nil, "WARLOCK"},			--  Aftermath
 
 
 	{58617, "SnarePhysical50", nil, "DEATHKNIGHT"}, 	-- Glyph of Heart Strike
-	{50436, "SnarePhysical50", nil, "DEATHKNIGHT"}, 	-- Icy Clutch (talent)
 	{68766, "SnarePhysical50", nil, "DEATHKNIGHT"}, 	-- Desecration (talent)
 	{414266,"SnarePhysical50", nil, "DEATHKNIGHT"}, 	-- Desecration (talent)
+	{414268,"SnarePhysical50", nil, "DEATHKNIGHT"}, 	-- Desecration (talent) Rank 2
+	{50435, "SnarePhysical50", nil, "DEATHKNIGHT"},		-- Chillblains Rank 2
 	{50259, "SnarePhysical50", nil, "DRUID"},			-- Dazed
-	{61391, "SnarePhysical50", nil, "DRUID"},			-- Typhoon (talent) (rank 1)
-	{61390, "SnarePhysical50", nil, "DRUID"},			-- Typhoon (talent) (rank 2)
-	{61388, "SnarePhysical50", nil, "DRUID"},			-- Typhoon (talent) (rank 3)
-	{61387, "SnarePhysical50", nil, "DRUID"},			-- Typhoon (talent) (rank 4)
-	{53227, "SnarePhysical50", nil, "DRUID"},			-- Typhoon (talent) (rank 5)
+	{61391, "SnarePhysical50", nil, "DRUID"},			-- Typhoon (talent) 
 	{5116, "SnarePhysical50", nil, "HUNTER"},			-- Concussive Shot
+	{2974, "SnarePhysical50", nil, "HUNTER"},			-- FWing Clip
 	{13809, "SnarePhysical50", nil, "HUNTER"},			-- Frost Trap
 	{13810, "SnarePhysical50", nil, "HUNTER"},			-- Frost Trap Aura
 	{35101, "SnarePhysical50", nil, "HUNTER"},			-- Concussive Barrage (talent)
-	{50271, "SnarePhysical50", nil, "HUNTER"},			-- Tendon Rip (rank 1) (Hyena)
-	{53571, "SnarePhysical50", nil, "HUNTER"},			-- Tendon Rip (rank 2) (Hyena)
-	{53572, "SnarePhysical50", nil, "HUNTER"},			-- Tendon Rip (rank 3) (Hyena)
-	{53573, "SnarePhysical50", nil, "HUNTER"},			-- Tendon Rip (rank 4) (Hyena)
-	{53574, "SnarePhysical50", nil, "HUNTER"},			-- Tendon Rip (rank 5) (Hyena)
-	{53575, "SnarePhysical50", nil, "HUNTER"},			-- Tendon Rip (rank 6) (Hyena)
-	{54644, "SnarePhysical50", nil, "HUNTER"},			-- Froststorm Breath (rank 1) (Chimaera)
-	{55488, "SnarePhysical50", nil, "HUNTER"},			-- Froststorm Breath (rank 2) (Chimaera)
-	{55489, "SnarePhysical50", nil, "HUNTER"},			-- Froststorm Breath (rank 3) (Chimaera)
-	{55490, "SnarePhysical50", nil, "HUNTER"},			-- Froststorm Breath (rank 4) (Chimaera)
-	{55491, "SnarePhysical50", nil, "HUNTER"},			-- Froststorm Breath (rank 5) (Chimaera)
-	{55492, "SnarePhysical50",	nil, "HUNTER"},			-- Froststorm Breath (rank 6) (Chimaera)
-	{12486, "SnarePhysical50",	nil, "MAGE"},			-- Chilled (rank 3) (Improved Blizzard talent)
-	{12485, "SnarePhysical50",	nil, "MAGE"},			-- Chilled (rank 2) (Improved Blizzard talent)
-	{11113, "SnarePhysical50",	nil, "MAGE"},			-- Blast Wave (talent) (rank 1)
-	{13018, "SnarePhysical50",	nil, "MAGE"},			-- Blast Wave (talent) (rank 2)
-	{13019, "SnarePhysical50",	nil, "MAGE"},			-- Blast Wave (talent) (rank 3)
-	{13020, "SnarePhysical50",	nil, "MAGE"},			-- Blast Wave (talent) (rank 4)
-	{13021, "SnarePhysical50",	nil, "MAGE"},			-- Blast Wave (talent) (rank 5)
-	{27133, "SnarePhysical50",	nil, "MAGE"},			-- Blast Wave (talent) (rank 6)
-	{33933, "SnarePhysical50",	nil, "MAGE"},			-- Blast Wave (talent) (rank 7)
-	{42944, "SnarePhysical50",	nil, "MAGE"},			-- Blast Wave (talent) (rank 8)
-	{42945, "SnarePhysical50",	nil, "MAGE"},			-- Blast Wave (talent) (rank 9)
-	{15407, "SnarePhysical50",  nil, "PRIEST"},			-- Mind Flay (talent) (rank 1)
-	{17311, "SnarePhysical50",  nil, "PRIEST"},			-- Mind Flay (talent) (rank 2)
-	{17312, "SnarePhysical50",  nil, "PRIEST"},			-- Mind Flay (talent) (rank 3)
-	{17313, "SnarePhysical50",  nil, "PRIEST"},			-- Mind Flay (talent) (rank 4)
-	{17314, "SnarePhysical50",  nil, "PRIEST"},			-- Mind Flay (talent) (rank 5)
-	{18807, "SnarePhysical50",  nil, "PRIEST"},			-- Mind Flay (talent) (rank 6)
-	{25387, "SnarePhysical50",  nil, "PRIEST"},			-- Mind Flay (talent) (rank 7)
-	{48155, "SnarePhysical50",  nil, "PRIEST"},			-- Mind Flay (talent) (rank 8)
-	{48156, "SnarePhysical50",  nil, "PRIEST"},			-- Mind Flay (talent) (rank 9)
+	{50271, "SnarePhysical50", nil, "HUNTER"},			-- Tendon Rip (Hyena)
+	{54644, "SnarePhysical50", nil, "HUNTER"},			-- Froststorm Breath (Chimaera)
 	{26679, "SnarePhysical50",  nil, "ROGUE"},			-- Deadly Throw (rank 1)
-	{48673, "SnarePhysical50",  nil, "ROGUE"},			-- Deadly Throw (rank 2)
-	{48674, "SnarePhysical50",  nil, "ROGUE"},			-- Deadly Throw (rank 3)
+	{12485, "SnarePhysical50",	nil, "MAGE"},			-- Chilled (rank 2) (Improved Blizzard talent)
+	{84721, "SnarePhysical50",	nil, "MAGE"},			-- Frozen Orb
+	{15407, "SnarePhysical50",  nil, "PRIEST"},			-- Mind Flay (talent) 
 	{51693, "SnarePhysical50",  nil, "ROGUE"},			-- Waylay (talent)
 	{8034, "SnarePhysical50",  nil, "SHAMAN"},			-- Frostbrand Attack (rank 1)
-	{8037, "SnarePhysical50",  nil, "SHAMAN"},			-- Frostbrand Attack (rank 2)
-	{10458, "SnarePhysical50",  nil, "SHAMAN"},			-- Frostbrand Attack (rank 3)
-	{16352, "SnarePhysical50",  nil, "SHAMAN"},			-- Frostbrand Attack (rank 4)
-	{16353, "SnarePhysical50",  nil, "SHAMAN"},			-- Frostbrand Attack (rank 5)
-	{25501, "SnarePhysical50",  nil, "SHAMAN"},			-- Frostbrand Attack (rank 6)
-	{58797, "SnarePhysical50",  nil, "SHAMAN"},			-- Frostbrand Attack (rank 7)
-	{58798, "SnarePhysical50",  nil, "SHAMAN"},			-- Frostbrand Attack (rank 8)
-	{58799, "SnarePhysical50",  nil, "SHAMAN"},			-- Frostbrand Attack (rank 9)
-	{29703, "SnarePhysical50",  nil, "WARRIOR"},		-- Dazed (Shield Bash)
 	{1715, "SnarePhysical50",  nil, "WARRIOR"},			-- Hamstring
 	{12323, "SnarePhysical50",  nil, "WARRIOR"},		-- Piercing Howl (talent)
 
 
-	{58181, "SnarePosion50", nil, "DRUID"},			-- Infected Wounds (Disease) Rank 3
-	{3409, "SnarePosion50",  nil, "ROGUE"},			-- Crippling Poison (Poison)
+	{58180, "SnarePosion50", nil, "DRUID"},			-- Infected Wounds Rank 2
+	--{3409, "SnarePosion50",  nil, "ROGUE"},			-- Crippling Poison (Poison)
 
 
-	{120, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold (rank 1)
-	{8492, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold (rank 2)
-	{10159, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold (rank 3)
-	{10160, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold (rank 4)
-	{10161, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold (rank 5)
-	{27087, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold (rank 6)
-	{42930, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold (rank 7)
-	{42931, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold (rank 8)
+	{120, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold 
 	{"Frostbolt", "SnareMagic50", nil, "MAGE"},		-- Frostbolt
-	{116, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 1)
-	{205, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 2)
-	{837, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 3)
-	{7322, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 4)
-	{8406, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 5)
-	{8407, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 6)
-	{8408, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 7)
-	{10179, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 8)
-	{10180, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 9)
-	{10181, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 10)
-	{25304, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 11)
-	{27071, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 12)
-	{27072, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 13)
-	{38697, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 14)
-	{42841, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 15)
-	{42842, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (rank 16)
+	{116, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt 
 	{59638, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (Mirror Images)
-	{44614, "SnareMagic50",	nil, "MAGE"},			-- Frostfire Bolt (rank 1)
-	{47610, "SnareMagic50",	nil, "MAGE"},			-- Frostfire Bolt (rank 2)
-	{31935, "SnareMagic50",	nil, "PALADIN"},		-- Avenger's Shield (rank 1) (talent)
-	{32699, "SnareMagic50",	nil, "PALADIN"},		-- Avenger's Shield (rank 2) (talent)
-	{32700, "SnareMagic50",	nil, "PALADIN"},		-- Avenger's Shield (rank 3) (talent)
-	{48826, "SnareMagic50",	nil, "PALADIN"},		-- Avenger's Shield (rank 4) (talent)
-	{48827, "SnareMagic50",	nil, "PALADIN"},		-- Avenger's Shield (rank 5) (talent)
-	{8056, "SnareMagic50", nil, "SHAMAN"},			-- Frost Shock (rank 1)
-	{8058, "SnareMagic50", nil, "SHAMAN"},			-- Frost Shock (rank 2)
-	{10472, "SnareMagic50", nil, "SHAMAN"},			-- Frost Shock (rank 3)
-	{10473, "SnareMagic50", nil, "SHAMAN"},			-- Frost Shock (rank 4)
-	{25464, "SnareMagic50", nil, "SHAMAN"},			-- Frost Shock (rank 5)
-	{49235, "SnareMagic50", nil, "SHAMAN"},			-- Frost Shock (rank 6)
-	{49236, "SnareMagic50", nil, "SHAMAN"},			-- Frost Shock (rank 7)
+	{63529, "SnareMagic50",	nil, "PALADIN"},		-- Avenger's Shield 
+	{8056, "SnareMagic50", nil, "SHAMAN"},			-- Frost Shock
 	{3600, "SnareMagic50", nil, "SHAMAN"},			-- Earthbind
+	{100955, "SnareMagic50", nil, "SHAMAN"},			-- Thunderstorm
 
 
+	{414206, "SnarePhysical30", nil, "DEATHKNIGHT"},	-- Desecration (talent) Rank 1
+	{50434, "SnarePhysical30", nil, "DEATHKNIGHT"},		-- Chillblains Rank 1
 	{12484, "SnarePhysical30",	nil, "MAGE"},		-- Chilled (rank 1) (Improved Blizzard talent)
 
-
-	{58180, "SnareMagic30", nil, "DRUID"},			-- Infected Wounds Rank 2
+	{58179,  "SnareMagic30", nil, "DRUID"}, 		-- Infected Wounds Rank 1
 	{6136, "SnareMagic30", nil, "MAGE"},			-- Chilled (Frost Armor)
 	{7321, "SnareMagic30", nil, "MAGE"},			-- Chilled (Ice Armor)
 	{18223, "SnareMagic30", nil, "WARLOCK"},			-- Curse of Exhaustion
+	{60947, "SnareMagic30", nil, "WARLOCK"},			-- Nightmare
 
 
-	{58179,  "Snare", nil, "DRUID"}, 		-- Infected Wounds Rank 1
 	{89,  "Snare", nil, "WARLOCK"}, 		-- Cripple
 
 
@@ -1220,7 +980,6 @@ local spellsArenaTable = {
 	{48792, "Other", nil, "DEATHKNIGHT"}, 				-- Icebound Fortitude
 	{51271, "Other", nil, "DEATHKNIGHT"}, 				-- Unbreakable Armor (talent)
 	{49039, "Other", nil, "DEATHKNIGHT"}, 				-- Lichborne (talent)
-	{49796, "Other", nil, "DEATHKNIGHT"}, 				-- Deathchill (talent)
 	{47484, "Other", nil, "DEATHKNIGHT"}, 				-- Huddle (not immune, damage taken reduced 50%) (Turtle)
 
 	----------------
@@ -1229,20 +988,10 @@ local spellsArenaTable = {
 
 	{50334 , "Other", nil, "DRUID"},		-- Berserk (talent)
 	{17116 , "Other", nil, "DRUID"},		-- Nature's Swiftness (talent)
-	{16689 , "Other", nil, "DRUID"},		-- Nature's Grasp (rank 1)
-	{16810 , "Other", nil, "DRUID"},		-- Nature's Grasp (rank 2)
-	{16811 , "Other", nil, "DRUID"},		-- Nature's Grasp (rank 3)
-	{16812 , "Other", nil, "DRUID"},		-- Nature's Grasp (rank 4)
-	{16813 , "Other", nil, "DRUID"},		-- Nature's Grasp (rank 5)
-	{17329 , "Other", nil, "DRUID"},		-- Nature's Grasp (rank 6)
-	{27009 , "Other", nil, "DRUID"},		-- Nature's Grasp (rank 7)
-	{53312 , "Other", nil, "DRUID"},		-- Nature's Grasp (rank 8)
+	{16689 , "Other", nil, "DRUID"},		-- Nature's Grasp
 	{22812 , "Other", nil, "DRUID"},		-- Barkskin
 	--{29166 , "Other", nil, "DRUID"},		-- Innervate
-	{48505 , "Other", nil, "DRUID"},		-- Starfall (talent) (rank 1)
-	{53199 , "Other", nil, "DRUID"},		-- Starfall (talent) (rank 2)
-	{53200 , "Other", nil, "DRUID"},		-- Starfall (talent) (rank 3)
-	{53201 , "Other", nil, "DRUID"},		-- Starfall (talent) (rank 4)
+	{48505 , "Other", nil, "DRUID"},		-- Starfall (talent)
 	{69369 , "Other", nil, "DRUID"},		-- Predator's Swiftness (talent)
 
 
@@ -1268,25 +1017,21 @@ local spellsArenaTable = {
 	-- Mage
 	----------------
 
-	--Using them On Myself if Playing Mage 
+	{83853 , "Other", nil, "MAGE"},	--Combustion
 
 	----------------
 	-- Paladin
 	----------------
 
 	{31884, "Other", nil, "PALADIN"}, --Avenging Wrath
-	--{6940 , "Other", nil, "PALADIN"}, --Hand of Sacrifice
+	{86659 , "Other", nil, "PALADIN"}, --GoAK
+	{86669 , "Other", nil, "PALADIN"}, --GoAK
+	{86698, "Other", nil, "PALADIN"}, --GoAK
 	{64205, "Other", nil, "PALADIN"}, --Divine Sacrifice
 	{498 , "Other", nil, "PALADIN"}, --Divine Protection
-	--{1022, "Other", nil, "PALADIN"}, --Hand of Protection 
-	--{5599, "Other", nil, "PALADIN"}, --Hand of Protection 
-	--{10278, "Other", nil, "PALADIN"}, --Hand of Protection 
-	--{1044 , "Other", nil, "PALADIN"}, --Hand of Freedom
 	{54428, "Other", nil, "PALADIN"}, -- Divine Plea
 	{31842, "Other", nil, "PALADIN"}, -- Divine Illumination (talent)
-	{31852, "Other", nil, "PALADIN"}, --Ardent Defender
-
-	{20216 , "Other", nil, "PALADIN"}, --Divine Favor
+	{31850, "Other", nil, "PALADIN"}, --Ardent Defender
 	{1038 , "Other", nil, "PALADIN"}, --Hand of Salvation
 	{25771 , "Other", nil, "PALADIN"}, --Forbearance
 
@@ -1304,10 +1049,12 @@ local spellsArenaTable = {
 	{31224  , "Other", nil, "ROGUE"},	     	-- Cloak of Shadows
 	{51690  , "Other", nil, "ROGUE"},			-- Killing Spree
 	{13750  , "Other", nil, "ROGUE"},			-- Adrenaline Rush
-
+	{51713  , "Other", nil, "ROGUE"},			-- Shadow Dance
 	{45182  , "Other", nil, "ROGUE"},			-- Cheating Death (-85% damage taken)
 	{5277   , "Other", nil, "ROGUE"},	      	-- Evasion (dodge chance increased by 100%)
-	{26669  , "Other", nil, "ROGUE"},	     	-- Evasion (dodge chance increased by 100%)
+	{74001  , "Other", nil, "ROGUE"},	     	-- Combat Readiness
+	{74002  , "Other", nil, "ROGUE"},	     	-- Combat Readiness Insight
+	{79140  , "Other", nil, "ROGUE"},	     	-- Vendetta
 
 	----------------
 	-- Shaman
@@ -1315,18 +1062,23 @@ local spellsArenaTable = {
 
 	{16188 , "Other", nil, "SHAMAN"}, --Nature's Swfitness
 	{16166 , "Other", nil, "SHAMAN"}, --Elemental Mastery (talent)
+	{64701 , "Other", nil, "SHAMAN"}, --Elemental Mastery (talent)
 	{30823 , "Other", nil, "SHAMAN"}, --Shamanistic Rage (talent) (damage taken reduced by 30%)
 	--{58875 , "Other", nil, "SHAMAN"}, --Spirit Walk
 	{2645 , "Other", nil, "SHAMAN"}, --Ghost Wolf
+	{98007 , "Other", nil, "SHAMAN"}, --Spirit Link
+	{79206 , "Other", nil, "SHAMAN"}, --Spiritwalkers Grace
 
 
 	----------------
 	-- Warlock
 	----------------
 
-	{47241 , "Other", nil, "WARLOCK"},				-- Metamorphosis
-	{18708 , "Other", nil, "WARLOCK"},				-- Fel Domination (talent)
-	{4511 , "Other", nil, "WARLOCK"},				-- Phase Shift (Imp)
+	{47241, "Other", nil, "WARLOCK"}, --Metamorphosis
+	{79463, "Other", nil, "WARLOCK"}, --Demon Soul Incubus Both
+	{79460, "Other", nil, "WARLOCK"}, --Demon Soul Fel Hunter
+	{79464, "Other", nil, "WARLOCK"}, --Demon Soul Void walker
+	{79459, "Other", nil, "WARLOCK"}, --Demon Soul Imp
 
 
 	----------------
@@ -6555,7 +6307,9 @@ function LoseControl:CompileSpells(typeUpdate)
 		for l = 2, #spellsTable[i] do
 			local spellID, prio = unpack(spellsTable[i][l])
 			tblinsert(spells[i][tabsIndex[prio]], ({spellID, prio}))
-			spellsLua[spellID] = true
+			if spellID then 
+				spellsLua[spellID] = true
+			end
 		end
 	end
 
@@ -6563,7 +6317,9 @@ function LoseControl:CompileSpells(typeUpdate)
 		for l = 2, #spellsTable[i] do
 			local spellID, prio, string = unpack(spellsTable[i][l])
 			if string then
-				_G.LoseControlDB.customString[spellID] = string
+				if spellID then 
+					_G.LoseControlDB.customString[spellID] = string
+				end
 			end
 		end
     end
@@ -6571,7 +6327,9 @@ function LoseControl:CompileSpells(typeUpdate)
 	for i = 1, #cleuSpells do 	
 		local spellID, duration, prio, arena, string = unpack(cleuSpells[i])
 		if string then
-			_G.LoseControlDB.customString[spellID] = string
+			if spellID then
+				_G.LoseControlDB.customString[spellID] = string
+			end
 		end
 	end
 
@@ -6599,7 +6357,7 @@ function LoseControl:CompileSpells(typeUpdate)
 	end
 	for i = 2, #spellsTable[1] do 
 		local spellID, prio, string, class = unpack(spellsTable[1][i])
-		if class then 
+		if class and spellID then 
 			classIds[spellID] = class
 			local name = GetSpellInfo(spellID)
 			if name and not classIds[name] then
@@ -6609,7 +6367,7 @@ function LoseControl:CompileSpells(typeUpdate)
 	end
 	for i = 1, #spellsArenaTable do 
 		local spellID, prio, class = unpack(spellsArenaTable[i])
-		if class then 
+		if class and spellID then
 			classIds[spellID] = class
 			local name = GetSpellInfo(spellID)
 			if name and not classIds[name] then
@@ -6628,7 +6386,7 @@ function LoseControl:CompileSpells(typeUpdate)
 			local removed = 0
 			for x = 1, (#spells[i][l]) do
 				local spellID, prio = unpack(spells[i][l][x])
-				if (not hash[spellID]) and (not customSpells[spellID]) then
+				if (not hash[spellID]) and (not customSpells[spellID]) and spellID then
 					hash[spellID] = {spellID, prio}
 				else
 					if customSpells[spellID] then
@@ -6643,7 +6401,11 @@ function LoseControl:CompileSpells(typeUpdate)
 							if type(spellID) == "number" then
 								if GetSpellInfo(spellID) then
 									local name = GetSpellInfo(spellID)
-									print("|cff00ccffLoseControl|r : "..CspellID.." : "..Cprio.." ("..name..") Modified Spell ".."|cff009900Removed |r"  ..spellID.." |cff009900: |r"..prio)
+									if name then 
+										print("|cff00ccffLoseControl|r : "..CspellID.." : "..Cprio.." ("..spellID..") Modified Spell ".."|cff009900Removed |r"  ..spellID.." |cff009900: |r"..prio)
+									else
+										print("|cff00ccffLoseControl|r : "..CspellID.." : "..Cprio.." ("..name..") Modified Spell ".."|cff009900Removed |r"  ..spellID.." |cff009900: |r"..prio)
+									end
 								end
 							else
 								print("|cff00ccffLoseControl|r : "..CspellID.." : "..Cprio.." (not spellId) Modified Spell ".."|cff009900Removed |r"  ..spellID.." |cff009900: |r"..prio)
@@ -6652,15 +6414,21 @@ function LoseControl:CompileSpells(typeUpdate)
 							removed = removed + 1
 						end
 					else
-						local HspellID, Hprio = unpack(hash[spellID])
-						if type(spellID) == "number" then
-							local name = GetSpellInfo(spellID)
-							print("|cff00ccffLoseControl|r : "..HspellID.." : "..Hprio.." ("..name..") ".."|cffff0000Duplicate Spell in Lua |r".."|cff009900Removed |r"  ..spellID.." |cff009900: |r"..prio)
-						else
-							print("|cff00ccffLoseControl|r : "..HspellID.." : "..Hprio.." (not spellId) ".."|cff009900Duplicate Spell in Lua |r".."|cff009900Removed |r"  ..spellID.." |cff009900: |r"..prio)
+						if spellID then
+							local HspellID, Hprio = unpack(hash[spellID])
+							if type(spellID) == "number" then
+								local name = GetSpellInfo(spellID)
+								if name then 
+									print("|cff00ccffLoseControl|r : "..HspellID.." : "..Hprio.." ("..name..") ".."|cffff0000Duplicate Spell in Lua |r".."|cff009900Removed |r"  ..spellID.." |cff009900: |r"..prio)
+								else
+									print("|cff00ccffLoseControl|r : "..HspellID.." : "..Hprio.." ("..spellID..") ".."|cffff0000Duplicate Spell in Lua |r".."|cff009900Removed |r"  ..spellID.." |cff009900: |r"..prio)
+								end
+							else
+								print("|cff00ccffLoseControl|r : "..HspellID.." : "..Hprio.." (not spellId) ".."|cff009900Duplicate Spell in Lua |r".."|cff009900Removed |r"  ..spellID.." |cff009900: |r"..prio)
+							end
+							tblinsert(toremove, {i , l, x, removed, spellID})
+							removed = removed + 1
 						end
-						tblinsert(toremove, {i , l, x, removed, spellID})
-						removed = removed + 1
 					end
 				end
 			end
@@ -6690,7 +6458,9 @@ function LoseControl:CompileSpells(typeUpdate)
 	for i = 1, #spells do
 		for l = 1, #spells[i] do
 			for x = 1, #spells[i][l] do
-				spellIds[spells[i][l][x][1]] = spells[i][l][x][2]
+				if spells[i][l][x][1] then
+					spellIds[spells[i][l][x][1]] = spells[i][l][x][2]
+				end
 			end
 		end
 	end
@@ -7549,9 +7319,9 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 		-----------------------------------------------------------------------------------------------------------------
 		--SmokeBomb Check
 		-----------------------------------------------------------------------------------------------------------------
-		if ((event == "SPELL_CAST_SUCCESS") and (spellId == 212182 or spellId == 359053)) then
+		if ((event == "SPELL_CAST_SUCCESS") and (spellId == 76577 or spellId == 359053)) then
 			if (sourceGUID ~= nil) then
-				local duration = 5
+				local duration = 6
 				local expirationTime = GetTime() + duration
 				if (SmokeBombAuras[sourceGUID] == nil) then
 					SmokeBombAuras[sourceGUID] = {}
@@ -7797,7 +7567,7 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 
 			local time = GetTime()
 
-			if spellId == 8143 then 
+			--[[if spellId == 8143 then 
 				if InterruptAuras[sourceGUID] then 
 					for k, v in pairs(InterruptAuras[sourceGUID]) do
 						if v.spellId == 8143 then
@@ -7810,7 +7580,7 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 						end
 					end
 				end
-			end
+			end]]
 
 
 
@@ -7834,13 +7604,17 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 				end
 				local guid = destGUID
 				print(sourceName.." Summoned "..namePrint.." "..substring(destGUID, -7).." for "..duration.." LC")
-				if spellId == 8143 then 
+
+				--[[if spellId == 8143 then 
 					local duration = 3
 					local expirationTime = GetTime() + duration
 					tblinsert(InterruptAuras[sourceGUID], { ["spellId"] = spellId, ["name"] = name, ["duration"] = duration, ["expirationTime"] = expirationTime, ["priority"] = priority, ["spellCategory"] = spellCategory, ["icon"] = icon, ["spellSchool"] = spellSchool, ["hue"] = hue, ["destGUID"] = destGUID, ["sourceName"] = sourceName, ["namePrint"] = namePrint, ["spell"] = spellId,  ["OldTime"] = time})
 				else
 					tblinsert(InterruptAuras[sourceGUID], { ["spellId"] = spellId, ["name"] = name, ["duration"] = duration, ["expirationTime"] = expirationTime, ["priority"] = priority, ["spellCategory"] = spellCategory, ["icon"] = icon, ["spellSchool"] = spellSchool, ["hue"] = hue, ["destGUID"] = destGUID, ["sourceName"] = sourceName, ["namePrint"] = namePrint, ["spell"] = spellId})
-				end
+				end]]
+
+				tblinsert(InterruptAuras[sourceGUID], { ["spellId"] = spellId, ["name"] = name, ["duration"] = duration, ["expirationTime"] = expirationTime, ["priority"] = priority, ["spellCategory"] = spellCategory, ["icon"] = icon, ["spellSchool"] = spellSchool, ["hue"] = hue, ["destGUID"] = destGUID, ["sourceName"] = sourceName, ["namePrint"] = namePrint, ["spell"] = spellId})
+				
 				UpdateUnitAuraByUnitGUID(sourceGUID, -20)
 				local ticker = 1
 				self.ticker = C_Timer.NewTicker(.1, function()
@@ -7849,13 +7623,13 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 							if v.destGUID and v.spell ~= 394243 and v.spell ~= 387979 and v.spell ~= 394235 then --Dimensional Rift Hack
 								if substring(v.destGUID, -5) == substring(guid, -5) then --string.sub is to help witj Mirror Images bug
 
-									if v.spellId == 8143 and InterruptAuras[sourceGUID].newtime and InterruptAuras[sourceGUID].newtime > v.OldTime then 
+								--[[if v.spellId == 8143 and InterruptAuras[sourceGUID].newtime and InterruptAuras[sourceGUID].newtime > v.OldTime then 
 										InterruptAuras[sourceGUID][k] = nil
 										UpdateUnitAuraByUnitGUID(sourceGUID, -20)
 										self.ticker:Cancel()
 										print("Deleted LC GUID Ticker")
 										break
-									end
+									end]]
 
 									if ObjectDNE(v.destGUID) then
 										print(v.sourceName.." "..ObjectDNE(v.destGUID, ticker, v.namePrint, v.sourceName).." "..v.namePrint.." "..substring(v.destGUID, -7).." left w/ "..strformat("%.2f", v.expirationTime-GetTime()).." LC C_Ticker")
@@ -7869,7 +7643,7 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 					end
 					ticker = ticker + 1
 				end, duration * 10 + 5)
-				if spellId == 8143 then 
+				--[[if spellId == 8143 then 
 					self.Tremmor = C_Timer.NewTicker(3, function()
 						local object
 						if InterruptAuras[sourceGUID] then 
@@ -7902,7 +7676,7 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 							end
 						end
 					end, 100)
-				end
+				end]]
 			end
 		end
 
@@ -8083,7 +7857,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			if (not enabled[spellId]) and (not enabled[name]) then spellId = nil; name = nil end
 
 			-----------------------------------------------------------------------------------------------------------------
-			--Enemy Duel
+			--[[Enemy Duel
 			-----------------------------------------------------------------------------------------------------------------
 			if spellId == 207736 then --Shodowey Duel enemy on friendly, friendly frame (red)
 				if DuelAura[UnitGUID(unitId)] then --enemyDuel
@@ -8103,12 +7877,12 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 						spellIds[spellId] = "Special_High"
 					end
 	  			end
-			end
+			end]]
 
 			-----------------------------------------------------------------------------------------------------------------
 			--SmokeBomb Check For Arena
 			-----------------------------------------------------------------------------------------------------------------
-			if spellId == 212183 then -- Smoke Bomb
+			if spellId == 88611 then -- Smoke Bomb
 				if source and SmokeBombAuras[UnitGUID(source)] then
 					--print(source)
 					if UnitIsEnemy("player", source) then --still returns true for an enemy currently under mindcontrol I can add your fix.
@@ -8211,6 +7985,8 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				--icon = 132307
 			end
 
+			
+
 
 			-----------------------------------------------------------------------------
 			--Prio Change Spell Id same for Friend and Enemey buff/debuff Hacks
@@ -8220,33 +7996,45 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			end]]
 
 			-----------------------------------------------------------------------------------------------------------------
-			--Prio Change Hide Surrander if Debuff
+			--[[Prio Change Hide Surrander if Debuff
 			-----------------------------------------------------------------------------------------------------------------
 			if spellId == 319952 then
 				spellIds[spellId] = "None" --Surrander to Madness Pop on enemy hide
-			end
+			end]]
 
 			-----------------------------------------------------------------------------
 			--Prio Change
 			-----------------------------------------------------------------------------
 
-			--[[if spellId == 334275 then ----Amplify Curse's Exhaustion
-				local tooltipData = C_TooltipInfo.GetUnitAura(unitId, i, "HARMFUL")
-				TooltipUtil.SurfaceArgs(tooltipData)
-		
-				for _, line in ipairs(tooltipData.lines) do
-					TooltipUtil.SurfaceArgs(line)
+
+			if spellId == 26679 then 
+				local tooltipData = CreateFrame("GameTooltip", "LCDThrowScanSpellDescTooltip", UIParent, "GameTooltipTemplate")
+				tooltipData:SetOwner(UIParent, "ANCHOR_NONE")
+				if nameplateID then
+					tooltipData:SetUnitDebuff(unitId, i, "HARMFUL")
+				else
+					tooltipData:SetSpellByID(spellId)
 				end
-				--print("Unit Aura: ", tooltipData.lines[1].leftText)
-				--print("Aura Info: ", tooltipData.lines[2].leftText)
-				if strfind(tooltipData.lines[2].leftText, "70") then
-					spellIds[spellId] = "SnareMagic70"
+				local found
+				for i = 1 , tooltipData:NumLines() do
+					local text =_G["LCDThrowScanSpellDescTooltipTextLeft"..i]; 
+					text = text:GetText()
+					if text and (type(text == "string")) then
+						if strfind(text, "70") then 
+							found = true
+						end
+					end
+				end
+				if found then 
+					spellIds[spellId] = "SnarePhysical70"
 					count = 70
 				else
-					spellIds[spellId] = "SnarePosion50"
+					spellIds[spellId] = "SnarePhysical50"
 				end
 			end
 
+
+			--[[
 			if spellId == 702 then ----Amplify Curse's Weakness
 				local tooltipData = C_TooltipInfo.GetUnitAura(unitId, i, "HARMFUL")
 				TooltipUtil.SurfaceArgs(tooltipData)
@@ -8301,12 +8089,20 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			end
 			]]
 
+			if spellId == 79126 then
+				count = 70
+			end  
+		
+			if spellId == 79124 then
+				count = 30
+			end  
+
 			-----------------------------------------------------------------------------------------------------------------
 			--Hue Change
 			-----------------------------------------------------------------------------------------------------------------
-			if spellId == 320035 then -- Mirros of Torment Haste Reduction
+			--[[if spellId == 320035 then -- Mirros of Torment Haste Reduction
 				hue = "Purple"
-			end
+			end]]
 
 			local spellCategory = spellIds[spellId] or spellIds[name]
 			local Priority = priority[spellCategory]
@@ -8425,21 +8221,21 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			end
 
 			-----------------------------------------------------------------------------------------------------------------
-			--SGrounds Add Timer Check For Arena
+			--[[SGrounds Add Timer Check For Arena
 			-----------------------------------------------------------------------------------------------------------------
 			if spellId == 289655 then -- SGrounds
 				if source and SGrounds[UnitGUID(source)] then
 					duration = SGrounds[UnitGUID(source)].duration
 					expirationTime = SGrounds[UnitGUID(source)].expirationTime
 				end
-			end
+			end]]
 
 
 			-----------------------------------------------------------------------------------------------------------------
 			--Totems Add Timer Check For Arena
 			-----------------------------------------------------------------------------------------------------------------
 
-			if spellId == 201633 then -- Earthen Totem (Totems Need a Spawn Time Check)
+			--[[if spellId == 201633 then -- Earthen Totem (Totems Need a Spawn Time Check)
 				if source then
 					local guid = UnitGUID(source)
 					local spawnTime
@@ -8455,7 +8251,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 						expirationTime = Earthen[spawnTime].expirationTime
 					end
 				end
-			end
+			end]]
 
 			if spellId == 8178 then -- Grounding (Totems Need a Spawn Time Check)
 				if source then
@@ -8475,7 +8271,32 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				end
 			end
 
-			if spellId == 236321 then -- WarBanner (Totems Need a Spawn Time Check)
+			if spellId == 871 then 
+				local tooltipData = CreateFrame("GameTooltip", "LCDWallScanSpellDescTooltip", UIParent, "GameTooltipTemplate")
+				tooltipData:SetOwner(UIParent, "ANCHOR_NONE")
+				if unitId then
+					tooltipData:SetUnitBuff(unitId, i, "HELPFUL")
+				else
+					tooltipData:SetSpellByID(spellId)
+				end
+				local found
+				for i = 1 , tooltipData:NumLines() do
+					local text =_G["LCDWallScanSpellDescTooltipTextLeft"..i]; 
+					text = text:GetText()
+					if text and (type(text == "string")) then
+						if strfind(text, "60") then 
+							found = true
+						end
+					end
+				end
+				if found then 
+					count = 60
+				else
+					count = 40
+				end
+			end
+
+			--[[if spellId == 236321 then -- WarBanner (Totems Need a Spawn Time Check)
 				if source then
 					local guid = UnitGUID(source)
 					local spawnTime
@@ -8504,12 +8325,35 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 					duration = WarBanner[1].duration 
 					expirationTime = WarBanner[1].expirationTime
 				end
-			end
+			end]]
 
 			-----------------------------------------------------------------------------------------------------------------
 			--Two Buff conidtions Icy Veins Stacks
 			-----------------------------------------------------------------------------------------------------------------
-			if spellId == 12472 then
+			
+			if spellId == 74001 then
+				for i = 1, 40 do
+					local _, _, c, _, d, e, _, _, _, s = UnitAura(unitId, i, "HELPFUL")
+					if not s then break end
+					if s == 74002 then
+						count = c
+					end
+				end
+			end
+
+			if spellId == 74002 then
+				for i = 1, 40 do
+					local _, _, c, _, d, e, _, _, _, s = UnitAura(unitId, i, "HELPFUL")
+					if not s then break end
+					if s == 74001 then
+						spellId = nil
+					else
+						icon = 458725
+					end
+				end
+			end
+
+			--[[if spellId == 12472 then
 				for i = 1, 40 do
 					local _, _, c, _, d, e, _, _, _, s = UnitAura(unitId, i, "HELPFUL")
 					if not s then break end
@@ -8519,6 +8363,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				end
 			end
 
+
 			if name == "Stealth" then
 				for i = 1, 40 do
 					local n, i, c, dt, d, e, so, _, _, s = UnitAura(unitId, i, "HELPFUL")
@@ -8527,7 +8372,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 						name, icon, count, dispelType, duration, expirationTime, source, _, _, spellId = n, i, c, dt, d, e, so, _, _, s
 					end
 				end
-			end
+			end]]
 
 
 			-----------------------------------------------------------------------------
@@ -8545,7 +8390,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			-----------------------------------------------------------------------------
 			--Player Only Hacks to Disable on party12 or Target, Focus, Pet and Player Frame
 			------------------------------------------------------------------------------
-			if strmatch(unitId, "arena") then
+			--[[if strmatch(unitId, "arena") then
 			else
 				if (spellId == 331937) or (spellId == 354054) then --Euphoria Venthyr Haste Buff Hack or Fatal Flaw Versa
 					if unitId ~= "player" then
@@ -8553,7 +8398,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 					else
 						spellIds[spellId] = "Movable_Cast_Auras"
 					end
-				end
+				end]]
 
 				--[[if (spellId == 213610) then --Hide Holy Ward
 					if unitId == "player" then
@@ -8565,7 +8410,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 					end
 				end]]
 
-				if (spellId == 332505) then --Soulsteel Clamps Hack player Only
+				--[[if (spellId == 332505) then --Soulsteel Clamps Hack player Only
 					if unitId ~= "player" then
 						spellIds[spellId] = "None"
 					elseif strmatch(unitId, "arena") then
@@ -8584,7 +8429,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 						spellIds[spellId] = "Movable_Cast_Auras"
 					end
 				end
-			end
+			end]]
 
 			-----------------------------------------------------------------------------------------------------------------
 			--Icon Changes
@@ -8623,7 +8468,22 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				icon = 136091
 			end
 
+			if spellId == 63087 then --raptor strike dmg reduced
+				icon = 136094
+			end
 
+			if spellId == 87153 then --dark archangel
+				icon = "Interface\\Icons\\ability_priest_darkarchangel"
+			end
+
+			if spellId == 96267 then --ineer focus aura mastery
+				icon = 237544
+			end
+
+			
+			if spellId == 55277 then --stoneclaw totem
+				icon = 136097
+			end
 
 			-----------------------------------------------------------------------------
 			--Prio Change: Same Spell Id , Differnt Spec
@@ -8665,7 +8525,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			-----------------------------------------------------------------------------------------------------------------
 			--Prio Change: Buff
 			-----------------------------------------------------------------------------------------------------------------
-			if spellId == 205630 then
+			--[[if spellId == 205630 then
 				spellIds[spellId] = "None" --I'lldians Grasp Hide CC on Friends
 			end
 
@@ -8674,13 +8534,13 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				if unitId == "player" then
 					spellIds[spellId] = "Personal_Offensives"
 				end
-			end
+			end]]
 
 			-----------------------------------------------------------------------------------------------------------------
 			--Count Editing
 			-----------------------------------------------------------------------------------------------------------------
 
-			if spellId == 248646 then -- WW Tiger Eye Stacks, Removes Timer
+			--[[if spellId == 248646 then -- WW Tiger Eye Stacks, Removes Timer
 				duration = 0
 				expirationTime = GetTime() + 1
 			end
@@ -8693,12 +8553,12 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			if spellId == 334320 then -- Lock Drain LIfe Stacks, Removes Timer  247676
 				duration = 0
 				expirationTime = GetTime() + 1
-			end
+			end]]
 
 			-----------------------------------------------------------------------------w
 			--Ghost Wolf hack for Spectral Recovery and Spirit Wolf
 			------------------------------------------------------------------------------
-			if spellId == 2645 then
+			--[[if spellId == 2645 then
 				local ghostwolf = {}
 				for i = 1, 40 do
 					local _, _, c, _, _, _, _, _, _, s = UnitAura(unitId, i, "HELPFUL")
@@ -8721,7 +8581,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 						hue = "GhostPurple"
 					end
 				end
-			end
+			end]]
 
 			local spellCategory = spellIds[spellId] or spellIds[name]
 			local Priority = priority[spellCategory]
@@ -9430,7 +9290,8 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 					self:SetSwipeColor(0, 0, 0, LoseControlDB.DrawSwipeSetting)	---- Orginally 0.8 This is the default alpha of the normal swipe cooldown texture ADD OPTION FOR THIS
 				end
 			else
-				SetPortraitToTexture(self.texture, Icon) -- Sets the texture to be displayed from a filHuee applying a circular opacity mask making it look round like portraits
+				self.texture:SetTexture(Icon)
+				SetPortraitToTexture(self.texture, self.texture:GetTexture()) -- Sets the texture to be displayed from a filHuee applying a circular opacity mask making it look round like portraits
 				self:SetSwipeTexture("Interface\\CHARACTERFRAME\\TempPortraitAlphaMaskSmall")
 				self.texture:SetDesaturated(nil) --Destaurate Icon
 				self.texture:SetVertexColor(1, 1, 1)
@@ -9489,7 +9350,9 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 		else
 			ActionButton_HideOverlayGlow(self)
 		end
+
 		self.texture:SetTexCoord(0.01, .99, 0.01, .99) -- smallborder
+
 		self.spellCategory = spellIds[Spell]
 		self.Priority = priority[self.spellCategory]
 		self:Show()
