@@ -7603,7 +7603,7 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 					icon = 2065626
 				end
 				local guid = destGUID
-				print(sourceName.." Summoned "..namePrint.." "..substring(destGUID, -7).." for "..duration.." LC")
+				--print(sourceName.." Summoned "..namePrint.." "..substring(destGUID, -7).." for "..duration.." LC")
 
 				--[[if spellId == 8143 then 
 					local duration = 3
@@ -7632,7 +7632,7 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 									end]]
 
 									if ObjectDNE(v.destGUID) then
-										print(v.sourceName.." "..ObjectDNE(v.destGUID, ticker, v.namePrint, v.sourceName).." "..v.namePrint.." "..substring(v.destGUID, -7).." left w/ "..strformat("%.2f", v.expirationTime-GetTime()).." LC C_Ticker")
+										--print(v.sourceName.." "..ObjectDNE(v.destGUID, ticker, v.namePrint, v.sourceName).." "..v.namePrint.." "..substring(v.destGUID, -7).." left w/ "..strformat("%.2f", v.expirationTime-GetTime()).." LC C_Ticker")
 										InterruptAuras[sourceGUID][k] = nil
 										UpdateUnitAuraByUnitGUID(sourceGUID, -20)
 									break
