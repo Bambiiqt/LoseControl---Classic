@@ -1,4 +1,4 @@
-
+--	local name, _, _, stacks, duration, expirationTime = AuraUtil.FindAuraByName(value.dotname, "target", "PLAYER|HARMFUL" );
 
 --Anchor to Gladius and Stealth/Alpha w/Gloss Option  Added
 --Player LOCBliz Add All New CC  Added
@@ -174,7 +174,8 @@ local interrupts = {
 	{80964, 4, "DRUID"},	-- Skull Bash (Druid)(Bear)
 	{78675 , 1, "DRUID"},		-- Solar Beam (Druid)
 	{47528  , 4, "DEATHKNIGHT"},		-- Mind Freeze (Death Knight)
-	{47482  , 2, "DEATHKNIGHT"},		-- Leap (Death Knight Ghoul)
+	{91807 , 2, "DEATHKNIGHT"},		-- Leap (Death Knight Ghoul)
+	{91802 , 2, "DEATHKNIGHT"},		-- Leap (Death Knight Ghoul)
 
 
 }
@@ -388,6 +389,7 @@ local spellsArenaTable = {
 	{86659, "Big_Defensive_CDs", "PALADIN"}, --Guardian of Ancinets Kings (Prot)
 	{31850 , "Big_Defensive_CDs", "PALADIN"}, --Ardent Defender (Prot)
 	{54428, "Big_Defensive_CDs", "PALADIN"}, -- Divine Plea
+	{85696, "Small_Offenisive_CDs", "PALADIN"}, --Zealotry
 	{31842 , "Small_Defensive_CDs", "PALADIN"}, --Divine Favor (Holy)(Crite/Haste)
 	{86669, "Small_Defensive_CDs", "PALADIN"}, --Guardian of Ancinets Kings (Holy)
 	{1038 , "Small_Defensive_CDs", "PALADIN"}, --Hand of Salvation
