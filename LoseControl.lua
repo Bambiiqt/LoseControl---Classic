@@ -429,6 +429,7 @@ local spellsArenaTable = {
 	{6346 , "Small_Defensive_CDs", "PRIEST"}, --Fear Ward
 	{81700 , "Small_Defensive_CDs", "PRIEST"}, --Archangel
 	{89485 , "Small_Defensive_CDs", "PRIEST"}, --Inner Focus
+	{96219, "Freedoms_Speed", "PRIEST"}, --Holy Walk
 
 	----------------
 	-- Rogue
@@ -855,6 +856,7 @@ local spellsArenaTable = {
 	{54216 , "Freedoms", "Master's".."\n".."Call", "HUNTER"},		-- Master's Call
 	{"Master's Call" , "Freedoms", "Master's".."\n".."Call", "HUNTER"},		-- Master's Call
 	{1044 , "Freedoms", "Hand of".."\n".."Freedom", "PALADIN"},	 --Blessing of Freedom (Not Purgeable)
+	{96219, "Freedoms", "Holy".."\n".."Walk",  "PRIEST"}, --Holy Walk -- 4 Set
 	{36554 , "Freedoms", nil, "ROGUE"},		-- Shadowstep
 	{2983 , "Freedoms", nil, "ROGUE"},			-- Sprint
 	{58875 , "Freedoms", nil, "SHAMAN"},		-- Spirit Walk
