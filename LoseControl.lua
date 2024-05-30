@@ -381,6 +381,7 @@ local spellsArenaTable = {
 	{31935, "Silence_Arena", "PALADIN"},		-- Silenced - Shield of the Templar (talent)
 	{31821 , "Special_High", "PALADIN"},			-- Aura Mastery
 	{31884, "Melee_Major_OffenisiveCDs", "PALADIN"}, --Avenging Wrath
+	{85696, "Melee_Major_OffenisiveCDs", "PALADIN"}, --Zealotry
 	{86698, "Melee_Major_OffenisiveCDs", "PALADIN"}, --Guardian of Ancinets Kings (Prot)
 	{1022, "Big_Defensive_CDs", "PALADIN"}, --Hand of Protection 
 	{6940 , "Big_Defensive_CDs", "PALADIN"}, --Hand of Sacrifice
@@ -389,7 +390,6 @@ local spellsArenaTable = {
 	{86659, "Big_Defensive_CDs", "PALADIN"}, --Guardian of Ancinets Kings (Prot)
 	{31850 , "Big_Defensive_CDs", "PALADIN"}, --Ardent Defender (Prot)
 	{54428, "Big_Defensive_CDs", "PALADIN"}, -- Divine Plea
-	{85696, "Small_Offenisive_CDs", "PALADIN"}, --Zealotry
 	{31842 , "Small_Defensive_CDs", "PALADIN"}, --Divine Favor (Holy)(Crite/Haste)
 	{86669, "Small_Defensive_CDs", "PALADIN"}, --Guardian of Ancinets Kings (Holy)
 	{1038 , "Small_Defensive_CDs", "PALADIN"}, --Hand of Salvation
@@ -402,7 +402,6 @@ local spellsArenaTable = {
 	----------------
 	{47585 , "Immune_Arena", "PRIEST"}, --Dispersion
 	{27827 , "Immune_Arena", "PRIEST"}, --Spirit of Redemption
-
 
 	{8122, "CC_Arena", "PRIEST"},					-- Psychic Scream 
 	{64044, "CC_Arena", "PRIEST"},					-- Psychic Horror (talent)
