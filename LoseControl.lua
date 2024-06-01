@@ -172,6 +172,7 @@ local interrupts = {
 	{26090 , 2, "HUNTER"},		-- Pummel (gorilla) (Hunter)
 	{80965, 4, "DRUID"},	-- Skull Bash (Druid)(Feral)
 	{80964, 4, "DRUID"},	-- Skull Bash (Druid)(Bear)
+	{93985, 4, "DRUID"},	-- Skull Bash (Druid)(Bear)
 	{78675 , 1, "DRUID"},		-- Solar Beam (Druid)
 	{47528  , 4, "DEATHKNIGHT"},		-- Mind Freeze (Death Knight)
 	{91807 , 2, "DEATHKNIGHT"},		-- Leap (Death Knight Ghoul)
@@ -294,6 +295,7 @@ local spellsArenaTable = {
 	{3045 , "Ranged_Major_OffenisiveCDs", "HUNTER"}, --Rapid Fire
 	{19306, "Roots_90_Snares", "HUNTER"},			-- Counterattack (talent) 
 	{19185, "Roots_90_Snares", "HUNTER"},			-- Entrapment (talent) (rank 1)
+	{64803, "Roots_90_Snares", "HUNTER"},			-- Entrapment (talent) (rank 1)
 	{53480 , "Big_Defensive_CDs", "HUNTER"}, --Roar of Sacrifice
 	{63087, "Small_Defensive_CDs", "HUNTER"},	-- Enrage
 	{54216 , "Freedoms_Speed", "HUNTER"}, --Master's Call
@@ -476,6 +478,7 @@ local spellsArenaTable = {
 	{36554 , "Freedoms_Speed", "ROGUE"}, --Shadowstep
 	{GetSpellInfo(5760) or 5760 , "Special_Low", "ROGUE"}, --Mind-numbing Poison
 	{26679 , "Snares_Ranged_Spamable", "ROGUE"}, --Deadly Throw
+	{25809 , "Snares_Casted_Melee", "ROGUE"}, --Crippling Poison
 	{3409 , "Snares_Casted_Melee", "ROGUE"}, --Crippling Poison
 
 	----------------
@@ -485,6 +488,7 @@ local spellsArenaTable = {
 	{8178 ,  "Immune_Arena", "SHAMAN"}, --Grounding Totem Effect
 
 	{"Hex" , "CC_Arena", "SHAMAN"},
+	{51514 , "CC_Arena", "SHAMAN"},	--Hex
 	{77505 , "CC_Arena", "SHAMAN"}, --Earthquake
 	{58861 , "CC_Arena", "SHAMAN"}, --Bash (Spirit Wolf)
 	{76780 , "CC_Arena", "SHAMAN"}, --Bind Elemental
@@ -575,9 +579,11 @@ local spellsArenaTable = {
 	{46924  , "Immune_Arena", "WARRIOR"}, -- Bladestorm (not immune to dmg}, only to LoC)
 
 	{7922 ,"CC_Arena", "WARRIOR"},					-- Charge (rank 1/2/3)
+	{96273 ,"CC_Arena", "WARRIOR"},					-- Charge (rank 1/2/3)
 	{20253 ,"CC_Arena", "WARRIOR"},				-- Intercept
 	{85388 ,"CC_Arena", "WARRIOR"},			-- -- Throwdown
 	{5246 ,"CC_Arena", "WARRIOR"},				-- Intimidating Shout
+	{20511 ,"CC_Arena", "WARRIOR"},				-- Intimidating Shout
 	{12809 ,"CC_Arena", "WARRIOR"},			-- Concussion Blow (talent)
 	{46968 ,"CC_Arena", "WARRIOR"},			-- Shockwave (talent)
 
@@ -703,6 +709,7 @@ local spellsArenaTable = {
 
 
 	{"Hex" , "CC", nil, "SHAMAN"},
+	{51514 , "CC", nil, "SHAMAN"},		-- Hex
 	{58861 , "CC", nil, "SHAMAN"}, 		--Bash (Spirit Wolf)
 	{39796, "CC", nil, "SHAMAN"},  		--Stoneclaw Stun (Stoneclaw Totem)
 	{77505 , "CC", nil, "SHAMAN"}, 		--Earthquake
@@ -727,8 +734,10 @@ local spellsArenaTable = {
 	{32752 ,"CC", nil, "WARLOCK"},					-- Summoning Disorientation
 
 	{7922 ,"CC",  nil, "WARRIOR"},					-- Charge (rank 1/2/3)
+	{96273 ,"CC",  nil, "WARRIOR"},					-- Charge (rank 1/2/3)
 	{20253 ,"CC",  nil, "WARRIOR"},				-- Intercept
 	{5246 ,"CC",  nil, "WARRIOR"},				-- Intimidating Shout
+	{20511 ,"CC",  nil, "WARRIOR"},				-- Intimidating Shout
 	{85388 ,"CC",  nil, "WARRIOR"},			-- Throwdown
 	{12809 ,"CC",  nil, "WARRIOR"},			-- Concussion Blow (talent)
 	{46968 ,"CC",  nil, "WARRIOR"},			-- Shockwave (talent)
@@ -763,6 +772,7 @@ local spellsArenaTable = {
 	{45334 , "Root", nil, "DRUID"},			-- Feral Charge Effect (Feral Charge talent)
 	{19306, "Root", nil, "HUNTER"},			-- Counterattack (talent)
 	{19185, "Root", nil, "HUNTER"},			-- Entrapment (talent)
+	{64803, "Root", nil, "HUNTER"},			-- Entrapment (talent)
 	{4167, "Root", nil, "HUNTER"},			-- Web (Spider)
 	{54706, "Root", nil, "HUNTER"},			-- Venom Web Spray (Silithid)
 	{50245, "Root", nil, "HUNTER"},			-- Pin (Crab)
@@ -944,7 +954,7 @@ local spellsArenaTable = {
 
 
 	{58180, "SnarePosion50", nil, "DRUID"},			-- Infected Wounds Rank 2
-	--{3409, "SnarePosion50",  nil, "ROGUE"},			-- Crippling Poison (Poison)
+	{25809, "SnarePosion50",  nil, "ROGUE"},			-- Crippling Poison (Poison)
 
 
 	{120, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold 
@@ -958,6 +968,7 @@ local spellsArenaTable = {
 
 
 	{414206, "SnarePhysical30", nil, "DEATHKNIGHT"},	-- Desecration (talent) Rank 1
+	{414207, "SnarePhysical30", nil, "DEATHKNIGHT"},	-- Desecration (talent) Rank 1
 	{50434, "SnarePhysical30", nil, "DEATHKNIGHT"},		-- Chillblains Rank 1
 	{12484, "SnarePhysical30",	nil, "MAGE"},		-- Chilled (rank 1) (Improved Blizzard talent)
 
@@ -969,6 +980,8 @@ local spellsArenaTable = {
 
 
 	{89,  "Snare", nil, "WARLOCK"}, 		-- Cripple
+	{20170,  "Snare", nil, "PALADIN"}, 		-- Seal of Justice
+
 
 
 
@@ -7980,7 +7993,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				icon = 135848
 			end
 
-			if spellId == 7922 then --charge
+			if spellId == 7922 or spellId == 96273  then --charge
 				icon = 132337
 			end
 
@@ -9293,8 +9306,9 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 					self:SetSwipeColor(0, 0, 0, LoseControlDB.DrawSwipeSetting)	---- Orginally 0.8 This is the default alpha of the normal swipe cooldown texture ADD OPTION FOR THIS
 				end
 			else
-				self.texture:SetTexture(Icon)
-				SetPortraitToTexture(self.texture, self.texture:GetTexture()) -- Sets the texture to be displayed from a filHuee applying a circular opacity mask making it look round like portraits
+				--self.texture:SetTexture(Icon)
+				--SetPortraitToTexture(self.texture, self.texture:GetTexture()) -- Sets the texture to be displayed from a filHuee applying a circular opacity mask making it look round like portraits
+				SetPortraitToTexture(self.texture, Icon)
 				self:SetSwipeTexture("Interface\\CHARACTERFRAME\\TempPortraitAlphaMaskSmall")
 				self.texture:SetDesaturated(nil) --Destaurate Icon
 				self.texture:SetVertexColor(1, 1, 1)
