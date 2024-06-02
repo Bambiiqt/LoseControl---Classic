@@ -134,6 +134,7 @@ local cleuSpells = { -- nil = Do Not Show
 
 	{51533, 45, nil,  "Small_Offenisive_CDs", "Feral Spirit", "Feral Spirit", "SHAMAN"}, --Disc Pet Summmon --Enemy_Smoke_Bomb
 	{8143, 8.5, "CC_Reduction",  "Special_Low", "Tremor".."\n".."Totem", "Tremor", "SHAMAN"}, --Shaman Tremor Totem ***ONLY WORKS FOR THE CASTER (Totemic Focus: Makes it 13)  **HAS TEXT ADD IN LOOP**
+	{16190, 18, nil,  "Special_Low", "Mana".."\n".."Tide", "Mana", "SHAMAN"}, --Mana Tide
 
 	{34433, 15, nil,  "Small_Offenisive_CDs", "Shadowfiend", "Shadowfiend", "PREIST"}, --Disc Pet Summmon --Enemy_Smoke_Bomb
 
@@ -184,8 +185,9 @@ local interrupts = {
 local StealthTable = {
 	[5215] = true, --prowl
 	[5384] = true, --feign death
-	[51753] = true, --Camouflage
-	[51755] = true, --Camouflage 
+	[80325] = true, --Camouflage
+	--[51753] = true, --Camouflage
+	--[51755] = true, --Camouflage 
 	--[80325] = true, --Camouflage Perma Buff
 	[66] = true, --Invisibility
 	[32612] = true, --Invisibility
@@ -255,8 +257,10 @@ local spellsArenaTable = {
 	{29166 , "Big_Defensive_CDs", "DRUID"}, --Innervate
 	{33891 , "Big_Defensive_CDs", "DRUID"}, --Incarnation: Tree of Life
 	{61336 , "Big_Defensive_CDs", "DRUID"}, --Survival Instincts
-	{22842 , "Big_Defensive_CDs", "DRUID"}, --Frenzied Regenerationw+  
+	
 	{5217, "Small_Offenisive_CDs", "DRUID"}, --Tiger's Fury
+
+	{22842 , "Small_Defensive_CDs", "DRUID"}, --Frenzied Regenerationw+  
 	{5229, "Small_Defensive_CDs", "DRUID"},	-- Enrage
 	{16689 , "Small_Defensive_CDs", "DRUID"},	-- Nature's Grasp
 	{1850, "Freedoms_Speed", "DRUID"}, --Dash
@@ -285,9 +289,10 @@ local spellsArenaTable = {
 	{19386, "CC_Arena", "HUNTER"},			-- Wyvern Sting (talent) (rank 1)
 	{19503, "CC_Arena", "HUNTER"},			-- Scatter Shot (talent)
 	{34490 , "Silence_Arena", "HUNTER"}, --Silencing Shot
-	{51753 , "Special_High", "HUNTER"}, --Camouflage
-	{51755 , "Special_High", "HUNTER"}, --Camouflage
+
+	{80325, "Special_High", "HUNTER"}, --Camouflage
 	--{80325 , "Special_High", "HUNTER"}, --Camouflage (Perma Buff)
+
 	{5384 , "Special_High", "HUNTER"}, --Fiegn Death
 	{53476 , "Special_High", "HUNTER"}, --Intervene (Pet)
 	{34471 , "Special_High", "HUNTER"}, --The Beast Within (PvP)
@@ -302,6 +307,8 @@ local spellsArenaTable = {
 	{5118 , "Freedoms_Speed", "HUNTER"}, --Aspect of the Cheetah
 	{13159 , "Freedoms_Speed", "HUNTER"}, --Aspect of the Pack (Raid)
 	{83559, "Freedoms_Speed", "HUNTER"}, --Posthaste
+	{51753 , "Special_Low", "HUNTER"}, --Camouflage
+	{51755 , "Special_Low", "HUNTER"}, --Camouflage
 	{35101 , "Snares_WithCDs", "HUNTER"}, --Concussive Barrage Proc
 	{5116 , "Snares_WithCDs", "HUNTER"}, --Concussive Shot
 	{2974 , "Snares_Casted_Melee", "HUNTER"}, --Wing Clip
@@ -361,6 +368,8 @@ local spellsArenaTable = {
 	--{108839 , "Small_Offenisive_CDs", "MAGE"}, --Ice Floes
 	--{198065 , "Small_Defensive_CDs", "MAGE"}, --Prismatic Cloak
 	{83853 , "Player_Party_OffensiveCDs", "MAGE"}, --Combustion
+	{44544, "Small_Offenisive_CDs", "MAGE"}, --FOF
+    {64343, "Small_Offenisive_CDs", "MAGE"}, --Impact
 	{46989, "Freedoms_Speed", "MAGE"}, --Improved Blink
 	{31643, "Freedoms_Speed", "MAGE"}, --Blazing Speed
 	{GetSpellInfo(31643) or 31643, "Freedoms_Speed", "MAGE"}, --Blazing Speed
@@ -604,12 +613,12 @@ local spellsArenaTable = {
 	{55694 , "Big_Defensive_CDs", "WARRIOR"}, -- Enraged Regeneration
 	{871 , "Big_Defensive_CDs", "WARRIOR"}, -- Shield Wall
 	{20230 , "Big_Defensive_CDs", "WARRIOR"}, -- Retaliation
-	{12976 , "Big_Defensive_CDs", "WARRIOR"}, -- Last Stand
 
 	{85730 , "Small_Offenisive_CDs", "WARRIOR"}, -- Deadly Calm
 	{12328 , "Small_Offenisive_CDs", "WARRIOR"}, -- Sweeping Strikes
 
 	{2565 , "Small_Defensive_CDs", "WARRIOR"}, -- Shield Block
+	{12976 , "Small_Defensive_CDs", "WARRIOR"}, -- Last Stand
 	{97463 , "Small_Defensive_CDs", "WARRIOR"}, -- Rally
 
 	{12323 , "Snares_WithCDs", "WARRIOR"}, -- Piercing Howl
