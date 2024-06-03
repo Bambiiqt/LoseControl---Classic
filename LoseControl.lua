@@ -573,6 +573,7 @@ local spellsArenaTable = {
 	{79438 , "Freedoms_Speed", "WARLOCK"}, --Soulburn: Demonic Cirlce
 
 	{1714 , "Special_Low", "WARLOCK"}, --Curse of Tongues
+	{86211, "Special_Low", "WARLOCK"}, --Soulswap
 	{91711 , "Special_Low", "WARLOCK"}, --Nether Ward
 
 
