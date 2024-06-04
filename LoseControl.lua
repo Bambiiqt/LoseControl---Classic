@@ -174,7 +174,8 @@ local interrupts = {
 	{80965, 4, "DRUID"},	-- Skull Bash (Druid)(Feral)
 	{80964, 4, "DRUID"},	-- Skull Bash (Druid)(Bear)
 	{93985, 4, "DRUID"},	-- Skull Bash (Druid)(Bear)
-	{78675 , 1, "DRUID"},		-- Solar Beam (Druid)
+	{97547, 5, "DRUID"},    --SolarBeam
+	--{78675 , 1, "DRUID"},		-- Solar Beam (Druid)
 	{47528  , 4, "DEATHKNIGHT"},		-- Mind Freeze (Death Knight)
 	{91807 , 2, "DEATHKNIGHT"},		-- Leap (Death Knight Ghoul)
 	{91802 , 2, "DEATHKNIGHT"},		-- Leap (Death Knight Ghoul)
