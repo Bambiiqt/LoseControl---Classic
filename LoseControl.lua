@@ -7822,7 +7822,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 	local maxExpirationTime = 0
 	local newExpirationTime = 0
 	local maxPriorityIsInterrupt = false
-	local Icon, Duration, Hue, Name, Spell, Count, Text, DispelType
+	local Icon, Duration, Hue, Name, Spell, Count, Text, DispelType, SpellCategory
 	local LayeredHue = nil
 	local forceEventUnitAuraAtEnd = false
 	local buffs= {} 
@@ -8034,7 +8034,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			-----------------------------------------------------------------------------
 
 
-			if spellId == 26679 then 
+			if spellId == 26679 then  -- dEADLY tHROW
 				local tooltipData = CreateFrame("GameTooltip", "LCDThrowScanSpellDescTooltip", UIParent, "GameTooltipTemplate")
 				tooltipData:SetOwner(UIParent, "ANCHOR_NONE")
 				if nameplateID then
@@ -8116,11 +8116,11 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			end
 			]]
 
-			if spellId == 79126 then
+			if spellId == 79126 then --Groggy (Rogue)
 				count = 70
 			end  
 		
-			if spellId == 79124 then
+			if spellId == 79124 then --Groggy (Rogue)
 				count = 30
 			end  
 
@@ -8173,6 +8173,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								SpellCategory = spellCategory
 								if dispelType then DispelType = dispelType else DispelType = "none" end
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 							elseif Priority > maxPriority then
@@ -8186,6 +8187,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								SpellCategory = spellCategory
 								if dispelType then DispelType = dispelType else DispelType = "none" end
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 							end
@@ -8200,6 +8202,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								SpellCategory = spellCategory
 								if dispelType then DispelType = dispelType else DispelType = "none" end
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 							elseif Priority > maxPriority then
@@ -8213,6 +8216,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								SpellCategory = spellCategory
 								if dispelType then DispelType = dispelType else DispelType = "none" end
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 							end
@@ -8298,7 +8302,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				end
 			end
 
-			if spellId == 871 then 
+			if spellId == 871 then --Shield Wall Value
 				local tooltipData = CreateFrame("GameTooltip", "LCDWallScanSpellDescTooltip", UIParent, "GameTooltipTemplate")
 				tooltipData:SetOwner(UIParent, "ANCHOR_NONE")
 				if unitId then
@@ -8358,7 +8362,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			--Two Buff conidtions Icy Veins Stacks
 			-----------------------------------------------------------------------------------------------------------------
 			
-			if spellId == 74001 then
+			if spellId == 74001 then --Combat Readiness
 				for i = 1, 40 do
 					local _, _, c, _, d, e, _, _, _, s = UnitAura(unitId, i, "HELPFUL")
 					if not s then break end
@@ -8368,7 +8372,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				end
 			end
 
-			if spellId == 74002 then
+			if spellId == 74002 then --Combat Readiness
 				for i = 1, 40 do
 					local _, _, c, _, d, e, _, _, _, s = UnitAura(unitId, i, "HELPFUL")
 					if not s then break end
@@ -8653,6 +8657,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								SpellCategory = spellCategory
 								DispelType = "Buff"
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 							elseif Priority > maxPriority then
@@ -8666,6 +8671,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								SpellCategory = spellCategory
 								DispelType = "Buff"
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 							end
@@ -8680,6 +8686,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								SpellCategory = spellCategory
 								DispelType = "Buff"
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 							elseif Priority > maxPriority then
@@ -8693,6 +8700,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								SpellCategory = spellCategory
 								DispelType = "Buff"
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 							end
@@ -8791,6 +8799,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 										Name = name
 										Count = count
 										Spell = spellId
+										SpellCategory = spellCategory
 										DispelType = "CLEU"
 										Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 										local nextTimerUpdate = expirationTime - GetTime() + 0.05
@@ -8824,6 +8833,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 										Name = name
 										Count = count
 										Spell = spellId
+										SpellCategory = spellCategory
 										DispelType = "CLEU"
 										Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 										local nextTimerUpdate = expirationTime - GetTime() + 0.05
@@ -8858,6 +8868,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 										Name = name
 										Count = count
 										Spell = spellId
+										SpellCategory = spellCategory
 										DispelType = "CLEU"
 										Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 										local nextTimerUpdate = expirationTime - GetTime() + 0.05
@@ -8891,6 +8902,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 										Name = name
 										Count = count
 										Spell = spellId
+										SpellCategory = spellCategory
 										DispelType = "CLEU"
 										Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
 										local nextTimerUpdate = expirationTime - GetTime() + 0.05
@@ -9067,7 +9079,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 	end
 
 	if typeUpdate == -999 then 
-		SecondaryIconData = {["maxPriority"] = maxPriority, ["maxExpirationTime"] = maxExpirationTime, ["newExpirationTime"] = newExpirationTime, ["Duration"] = Duration, ["Icon"] = Icon, ["forceEventUnitAuraAtEnd"] = forceEventUnitAuraAtEnd, ["Hue"] = Hue, ["Name"] = Name, ["Count"] = Count, ["DispelType"] = DispelType, ["Text"] = Text, ["Spell"] = Spell, ["LayeredHue"] = LayeredHue}
+		SecondaryIconData = {["maxPriority"] = maxPriority, ["maxExpirationTime"] = maxExpirationTime, ["newExpirationTime"] = newExpirationTime, ["Duration"] = Duration, ["Icon"] = Icon, ["forceEventUnitAuraAtEnd"] = forceEventUnitAuraAtEnd, ["Hue"] = Hue, ["Name"] = Name, ["Count"] = Count, ["DispelType"] = DispelType, ["Text"] = Text, ["Spell"] = Spell, ["LayeredHue"] = LayeredHue,  ["SpellCategory"] = SpellCategory}
 		return 
 	end
 
@@ -9583,6 +9595,12 @@ function LoseControl:SecondaryIcon(frame, LayeredHue, spellCategory)
 	local Text = SecondaryIconData.Text
 	local Spell = SecondaryIconData.Spell
 	local LayeredHue = SecondaryIconData.LayeredHue
+	local SpellCategory = SecondaryIconData.SpellCategory
+
+	if SpellCategory == "Friendly_Smoke_Bomb" then -- If the Second Icon is Ever Friendly Bomb it Needs to be White
+		LayeredHue = nil
+		Hue = nil
+	end
 	
 	playerSecondaryIcon:SetWidth(frame:GetWidth()*.85)
 	playerSecondaryIcon:SetHeight(frame:GetHeight()*.85)
