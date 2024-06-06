@@ -565,6 +565,7 @@ local spellsArenaTable = {
 
 	{79268, "Big_Defensive_CDs", "WARLOCK"}, --Soul Harvest
 
+	{86211, "Small_Offenisive_CDs", "WARLOCK"}, --Soulswap
 	{79437 , "Small_Defensive_CDs", "WARLOCK"}, -- Soulburn: Healthstone
 	{7812 , "Small_Defensive_CDs", "WARLOCK"}, -- Sacrfice
 	{GetSpellInfo(7812) or 7812 , "Small_Defensive_CDs", "WARLOCK"}, -- Sacrfice
@@ -574,7 +575,6 @@ local spellsArenaTable = {
 	{79438 , "Freedoms_Speed", "WARLOCK"}, --Soulburn: Demonic Cirlce
 
 	{1714 , "Special_Low", "WARLOCK"}, --Curse of Tongues
-	{86211, "Special_Low", "WARLOCK"}, --Soulswap
 	{91711 , "Special_Low", "WARLOCK"}, --Nether Ward
 
 
@@ -8012,7 +8012,9 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				--icon = 132307
 			end
 
-			
+			if spellId == 5484 then --howl of terror
+				icon = "Interface\\Icons\\ability_warlock_howlofterror"
+			end
 
 
 			-----------------------------------------------------------------------------
