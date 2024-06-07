@@ -171,6 +171,7 @@ local interrupts = {
 	{96231 , 4, "PALADIN"},		--Rebuke
 	{2139   , 7, "MAGE"},		-- Counterspell (Mage)
 	{26090 , 2, "HUNTER"},		-- Pummel (gorilla) (Hunter)
+	{34490 , 3, "HUNTER"},		--Silence Intterupt
 	{80965, 4, "DRUID"},	-- Skull Bash (Druid)(Feral)
 	{80964, 4, "DRUID"},	-- Skull Bash (Druid)(Bear)
 	{93985, 4, "DRUID"},	-- Skull Bash (Druid)(Bear)
@@ -289,7 +290,7 @@ local spellsArenaTable = {
 	{3355, "CC_Arena", "HUNTER"},			-- Freezing Trap 
 	{19386, "CC_Arena", "HUNTER"},			-- Wyvern Sting (talent) (rank 1)
 	{19503, "CC_Arena", "HUNTER"},			-- Scatter Shot (talent)
-	{34490 , "Silence_Arena", "HUNTER"}, --Silencing Shot
+	{GetSpellInfo(34490) , "Silence_Arena", "HUNTER"}, --Silencing Shot
 
 	{80325, "Special_High", "HUNTER"}, --Camouflage
 	--{80325 , "Special_High", "HUNTER"}, --Camouflage (Perma Buff)
@@ -758,7 +759,7 @@ local spellsArenaTable = {
 
 	{47476  , "Silence", nil,  "DEATHKNIGHT"}, -- Strangulate
 	{81261  , "Silence", nil,  "DRUID"}, -- Strangulate
-	{34490 , "Silence", nil,  "HUNTER"}, --Silencing Shot
+	{GetSpellInfo(34490) , "Silence", nil,  "HUNTER"}, --Silencing Shot
 	{18469, "Silence", nil,  "MAGE"},		-- Counterspell - Silenced (rank 1) (Improved Counterspell talent)
 	{55021, "Silence", nil,  "MAGE"},				-- Counterspell - Silenced (rank 2) (Improved Counterspell talent)
 	{31935, "Silence", nil, "PALADIN"},		-- Silenced - Avenger's Shield
