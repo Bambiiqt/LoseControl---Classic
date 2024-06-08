@@ -371,7 +371,7 @@ local spellsArenaTable = {
 	--{198065 , "Small_Defensive_CDs", "MAGE"}, --Prismatic Cloak
 	{83853 , "Player_Party_OffensiveCDs", "MAGE"}, --Combustion
 	{44544, "Small_Offenisive_CDs", "MAGE"}, --FOF
-    {64343, "Small_Offenisive_CDs", "MAGE"}, --Impact
+    {48108, "Small_Offenisive_CDs", "MAGE"}, --Hot STreak
 	{46989, "Freedoms_Speed", "MAGE"}, --Improved Blink
 	{31643, "Freedoms_Speed", "MAGE"}, --Blazing Speed
 	{GetSpellInfo(31643) or 31643, "Freedoms_Speed", "MAGE"}, --Blazing Speed
