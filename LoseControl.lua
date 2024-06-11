@@ -6974,13 +6974,14 @@ local function UpdateUnitAuraByUnitGUID(unitGUID, typeUpdate)
 end
 
 
-function LoseControl:ARENA_OPPONENT_UPDATE()
-
+function LoseControl:ARENA_OPPONENT_UPDATE(...)
+	local unit, arg2 = ...;
 	local unitId = self.unitId
 	local frame = self.frame
 	if (frame == nil) or (unitId == nil) or not(strfind(unitId, "arena")) then
 		return
 	end
+	print(unitId.." "..unit.." "..arg2)
 	local inInstance, instanceType = IsInInstance()
 	self:RegisterUnitEvents(
 		frame.enabled and not (
@@ -6988,13 +6989,13 @@ function LoseControl:ARENA_OPPONENT_UPDATE()
 		)
 	)
 	self.unitGUID = UnitGUID(self.unitId)
-	self:CheckSUFUnitsAnchors(true)
+	--self:CheckSUFUnitsAnchors(true)
 	self:CheckGladiusUnitsAnchors(true)
-  	self:CheckGladdyUnitsAnchors(true)
+  	--self:CheckGladdyUnitsAnchors(true)
 
 
 	if enabled and not self.unlockMode then
-		self:UNIT_AURA(unitId, updatedAuras, 0)
+		--self:UNIT_AURA(unitId, updatedAuras, 0)
 	end
 end
 
@@ -7050,8 +7051,12 @@ ArenaSeen:SetScript("OnEvent", function(self, event, ...)
 				UpdateUnitAuraByUnitGUID(guid, -200)
 			elseif arg2 == "destroyed" then
 				Arenastealth[unit] = nil
+				local guid = UnitGUID(unit)
+				UpdateUnitAuraByUnitGUID(guid, -200)
 			elseif arg2 == "cleared" then
 				Arenastealth[unit] = nil
+				local guid = UnitGUID(unit)
+				UpdateUnitAuraByUnitGUID(guid, -200)
 			end
 		end
 	end
@@ -9485,6 +9490,7 @@ function LoseControl:Silence(frame,  LayeredHue, spellCategory)
 	local priority = LoseControlDB.priority
 	for i = 1, 40 do
 		local name, icon, count, debuffType, duration, expirationTime, source, _, _, spellId = UnitAura("player", i, "HARMFUL")
+		if not name then break end
 		if duration == 0 and expirationTime == 0 then
 			expirationTime = GetTime() + 1 -- normal expirationTime = 0
 		end
@@ -9501,6 +9507,7 @@ function LoseControl:Silence(frame,  LayeredHue, spellCategory)
   	end
 	for i = 1, 40 do
 		local name, icon, count, debuffType, duration, expirationTime, source, _, _, spellId = UnitAura("player", i, "HELPFUL")
+		if not name then break end
 		if duration == 0 and expirationTime == 0 then
 			expirationTime = GetTime() + 1 -- normal expirationTime = 0
 		end
@@ -9597,11 +9604,12 @@ function LoseControl:SecondaryIcon(frame, LayeredHue, spellCategory)
 	local DispelType = SecondaryIconData.DispelType
 	local Text = SecondaryIconData.Text
 	local Spell = SecondaryIconData.Spell
-	local LayeredHue = SecondaryIconData.LayeredHue
+	local SecondaryLayeredHue = SecondaryIconData.LayeredHue
 	local SpellCategory = SecondaryIconData.SpellCategory
 
 	if SpellCategory == "Friendly_Smoke_Bomb" then -- If the Second Icon is Ever Friendly Bomb it Needs to be White
 		LayeredHue = nil
+		SecondaryLayeredHue = nil
 		Hue = nil
 	end
 	
@@ -9626,8 +9634,8 @@ function LoseControl:SecondaryIcon(frame, LayeredHue, spellCategory)
 		playerSecondaryIcon:Hide()
 	elseif maxExpirationTime then
 		playerSecondaryIcon.maxExpirationTime = maxExpirationTime
-		if Hue then
-			if Hue == "Red" then -- Changes Icon Hue to Red
+		if Hue or LayeredHue or SecondaryLayeredHue then
+			if Hue == "Red" or LayeredHue or SecondaryLayeredHue then -- Changes Icon Hue to Red
 				playerSecondaryIcon.texture:SetTexture(Icon)   --Set Icon
 				playerSecondaryIcon.texture:SetDesaturated(1) --Destaurate Icon
 				playerSecondaryIcon.texture:SetVertexColor(1, .25, 0); --Red Hue Set For Icon
