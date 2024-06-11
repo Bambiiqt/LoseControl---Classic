@@ -7010,6 +7010,7 @@ local ArenaSeen = CreateFrame("Frame")
 ArenaSeen:RegisterEvent("ARENA_OPPONENT_UPDATE")
 ArenaSeen:SetScript("OnEvent", function(self, event, ...)
 	local unit, arg2 = ...;
+	print(unit.." "..arg2)
 	if (event == "ARENA_OPPONENT_UPDATE") then
 		if (unit =="arena1") or (unit =="arena2") or (unit =="arena3") or (unit =="arena4") or (unit =="arena5") then
 			if arg2 == "seen" then
@@ -7052,11 +7053,15 @@ ArenaSeen:SetScript("OnEvent", function(self, event, ...)
 			elseif arg2 == "destroyed" then
 				Arenastealth[unit] = nil
 				local guid = UnitGUID(unit)
-				UpdateUnitAuraByUnitGUID(guid, -200)
+				if guid then 
+					UpdateUnitAuraByUnitGUID(guid, -200)
+				end
 			elseif arg2 == "cleared" then
 				Arenastealth[unit] = nil
 				local guid = UnitGUID(unit)
-				UpdateUnitAuraByUnitGUID(guid, -200)
+				if guid then 
+					UpdateUnitAuraByUnitGUID(guid, -200)
+				end
 			end
 		end
 	end
