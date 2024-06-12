@@ -6803,7 +6803,6 @@ function LoseControl:ARENA_OPPONENT_UPDATE(...)
 	local unitId = self.unitId
 	local frame = self.frame
 	if UnitIsUnit(unitId, unit) then
-		print("LC "..unit.." "..arg2)
 		local guid = UnitGUID(unit)
 		if arg2 == "seen" and UnitExists(unit) then
 			if (frame == nil) or (unitId == nil) or not(strfind(unitId, "arena")) then
@@ -8782,7 +8781,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								self:UNIT_AURA(unitId, updatedAuras, -5)
 						end)
 						foundbuff = 1
-						--print(unitId, "Unseen or Stealth w/", buffs[i].col3.name)
+						print(unitId, "Unseen or Stealth w/", buffs[i].col3.name)
 						break
 					elseif ((buffs[i].col1 == priority.Special_High and StealthTable[buffs[i].col3.spellId]) or (buffs[i].col3.name == "FriendlyShadowyDuel") or (buffs[i].col3.name == "EnemyShadowyDuel")) then --and ((duration == 0) or (buffs[i].col3.expirationTime < (GetTime() + .10))) then
 						maxExpirationTime = GetTime() + 1
@@ -8792,7 +8791,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 						Hue = buffs[i].col3.hue
 						Name = buffs[i].col3.name
 						foundbuff = 1
-						--print(unitId, "Permanent Stealthed w/", buffs[i].col3.name)
+						print(unitId, "Permanent Stealthed w/", buffs[i].col3.name)
 						break
 					elseif ((buffs[i].col3.expirationTime > GetTime() + .10) and (buffs[i].col3.duration ~= 0 ) and (buffs[i].col1 <= priority.Special_High and not StealthTable[buffs[i].col3.spellId])) then
 						maxExpirationTime = buffs[i].col3.expirationTime
@@ -8809,7 +8808,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								self:UNIT_AURA(unitId, updatedAuras, -5)
 						end)
 						foundbuff = 1
-						--print(unitId, "Unseen or Stealth w/", buffs[i].col3.name)
+						print(unitId, "Unseen or Stealth w/", buffs[i].col3.name)
 						break
 					end
 				end
@@ -8820,7 +8819,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 					forceEventUnitAuraAtEnd = forceEventUnitAuraAtEnd
 					Hue = Hue
 					Name = Name
-					--print(unitId, "No Stealth Buff Found")
+					print(unitId, "No Stealth Buff Found")
 					if unitId == "arena1" and GladiusClassIconFramearena1 and GladiusHealthBararena1 then
 						GladiusClassIconFramearena1:SetAlpha(GladiusHealthBararena1:GetAlpha())
 					end
