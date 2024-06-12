@@ -177,9 +177,10 @@ local interrupts = {
 	{93985, 4, "DRUID"},	-- Skull Bash (Druid)(Bear)
 	{97547, 5, "DRUID"},    --SolarBeam
 	--{78675 , 1, "DRUID"},		-- Solar Beam (Druid)
+	{47482, 2, "DEATHKNIGHT"},		-- Leap (Death Knight Ghoul)
 	{47528  , 4, "DEATHKNIGHT"},		-- Mind Freeze (Death Knight)
-	{91807 , 2, "DEATHKNIGHT"},		-- Leap (Death Knight Ghoul)
-	{91802 , 2, "DEATHKNIGHT"},		-- Leap (Death Knight Ghoul)
+
+
 
 
 }
@@ -208,13 +209,13 @@ local spellsArenaTable = {
 	----------------
 	{48707 , "Immune_Arena", "DEATHKNIGHT"}, --Anti-Magic Shell
 	{49203 , "CC_Arena", "DEATHKNIGHT"}, --Hungering Cold (talent)
-	{47481 , "CC_Arena", "DEATHKNIGHT"}, --Gnaw
 	{91800 , "CC_Arena", "DEATHKNIGHT"}, --Gnaw
 	{91797 , "CC_Arena", "DEATHKNIGHT"}, --Monstrous Blow
 	{47476 , "Silence_Arena", "DEATHKNIGHT"}, --Strangulate
 	--{47568 , "Melee_Major_OffenisiveCDs", "DEATHKNIGHT"}, --Empower Rune Weapon (NO AURA)
 	{96294 , "Roots_90_Snares", "DEATHKNIGHT"}, 	-- CHains of Ice Root
 	{96293 , "Roots_90_Snares", "DEATHKNIGHT"}, 	-- CHains of Ice Root
+	{91807 , "Roots_90_Snares", "DEATHKNIGHT"}, 	-- Shambling Rush
 	{49016 , "Melee_Major_OffenisiveCDs", "DEATHKNIGHT"}, --Unholy Frenzy
 	{51271 , "Melee_Major_OffenisiveCDs", "DEATHKNIGHT"}, --Pillar of Frost
 	{81256 , "Melee_Major_OffenisiveCDs", "DEATHKNIGHT"}, --Dancing Rune Weapon
@@ -665,7 +666,6 @@ local spellsArenaTable = {
 
 	
 	{49203 , "CC", nil,  "DEATHKNIGHT"}, --Hungering Cold (talent)
-	{47481 , "CC", nil,  "DEATHKNIGHT"}, --Gnaw
 	{91800 , "CC", nil, "DEATHKNIGHT"}, --Gnaw
 	{91797 , "CC", nil, "DEATHKNIGHT"}, --Monstrous Blow
 
@@ -778,6 +778,7 @@ local spellsArenaTable = {
 	--{212638 , "RootPhyiscal_Special"},				-- Tracker's Net (pvp honor talent) -- Also -80% hit chance melee & range physical (CC and Root category)
 	{96294 , "Root", nil, "DEATHKNIGHT"}, 	-- CHains of Ice Root
 	{96293 , "Root", nil, "DEATHKNIGHT"}, 	-- CHains of Ice Root
+	{91807 , "Root", nil, "DEATHKNIGHT"},  	-- Shambling Rush
 	{339 , "Root", nil, "DRUID"}, 	-- Entangling Roots
 	{19975 , "Root", nil, "DRUID"},	-- Entangling Roots (Nature's Grasp spell)
 	{GetSpellInfo(16979) or 16979 , "Root", nil, "DRUID"},	-- Feral Charge Effect (Feral Charge talent)
