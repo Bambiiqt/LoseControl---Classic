@@ -6917,23 +6917,6 @@ local function ActionButton_HideOverlayGlow(button)
 
 end
 
--- Function to check if pvp talents are active for the player
-local function ArePvpTalentsActive()
-    local inInstance, instanceType = IsInInstance()
-    if inInstance and (instanceType == "pvp" or instanceType == "arena") then
-        return true
-    elseif inInstance and (instanceType == "party" or instanceType == "raid" or instanceType == "scenario") then
-        return false
-    else
-        local talents = C_SpecializationInfo.GetAllSelectedPvpTalentIDs()
-        for _, pvptalent in pairs(talents) do
-            local spellID = select(6, GetPvpTalentInfoByID(pvptalent))
-            if IsPlayerSpell(spellID) then
-                return true
-            end
-        end
-    end
-end
 
 local function interruptDuration(destGUID, duration)
 	local _, destClass = GetPlayerInfoByGUID(destGUID)
@@ -6944,12 +6927,9 @@ local function interruptDuration(destGUID, duration)
 			break
 		end
 	end
-	local duration3 = duration
-	if (unitIdFromGUID ~= nil) then
-		local duration3 = duration
-		local shamTranquilAirBuff = false
+	--[[if (unitIdFromGUID ~= nil) then
 		local _, destClass = GetPlayerInfoByGUID(destGUID)
-		for i = 1, 120 do
+		for i = 1, 40 do
 			local _, _, _, _, _, _, _, _, _, auxSpellId = UnitAura(unitIdFromGUID, i, "HELPFUL")
 			if not auxSpellId then break end
 			if (destClass == "DRUID") then
@@ -6959,30 +6939,9 @@ local function interruptDuration(destGUID, duration)
 			end
 			if auxSpellId == 317920 then		-- Concentration Aura (Paladin) [Interrupted Mechanic Duration -30% (stacks)]
 				duration = duration * 0.7
-			elseif auxSpellId == 383020 then	-- Tranquil Air (Shaman) [Interrupted Mechanic Duration -50% (doesn't stack)]
-				shamTranquilAirBuff = true
 			end
 		end
-		for i = 1, 120 do
-			local _, _, _, _, _, _, _, _, _, auxSpellId = UnitAura(unitIdFromGUID, i, "HARMFUL")
-			if not auxSpellId then break end
-			if auxSpellId == 372048 then	-- Oppressing Roar (Evoker) [Interrupted Mechanic Duration +30%/+50% (PvP/PvE) (stacks)]
-				if ArePvpTalentsActive() then
-					duration = duration * 1.3
-					duration3 = duration3 * 1.3
-				else
-					duration = duration * 1.5
-					duration3 = duration3 * 1.5
-				end
-			end
-		end
-		if (shamTranquilAirBuff) then
-			duration3 = duration3 * 0.5
-			if (duration3 < duration) then
-				duration = duration3
-			end
-		end
-	end
+	end]]
 	return duration
 end
 
