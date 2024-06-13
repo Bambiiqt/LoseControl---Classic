@@ -7091,7 +7091,7 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 		-----------------------------------------------------------------------------------------------------------------
 		if ((event == "SPELL_CAST_SUCCESS") and (spellId == 76577 or spellId == 359053)) then
 			if (sourceGUID ~= nil) then
-				local duration = 6
+				local duration = 5 + 1
 				local expirationTime = GetTime() + duration
 				if (SmokeBombAuras[sourceGUID] == nil) then
 					SmokeBombAuras[sourceGUID] = {}
@@ -7128,7 +7128,7 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 		-----------------------------------------------------------------------------------------------------------------
 		if ((event == "SPELL_CAST_SUCCESS") and (spellId == 62618)) then
 			if (sourceGUID ~= nil) then
-				local duration = 10
+				local duration = 10 + 1
 				local expirationTime = GetTime() + duration
 				if (Barrier[sourceGUID] == nil) then
 					Barrier[sourceGUID] = {}
@@ -7996,6 +7996,8 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				end
 			end
 
+
+
 			-----------------------------------------------------------------------------------------------------------------
 			--[[SGrounds Add Timer Check For Arena
 			-----------------------------------------------------------------------------------------------------------------
@@ -8800,6 +8802,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 		end
 	end
 
+
 	for i = 1, #buffs do --creates a layered hue for every icon when a specific priority, or spellid is present
 		if not buffs[i] then break end
 			if (buffs[i].col3.name == "EnemySmokeBomb") or (buffs[i].col3.name == "EnemyShadowyDuel") then --layered hue conidition
@@ -8809,11 +8812,15 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 						self.LayeredHue = true
 						Hue = "Red"
 					end
-				local remaining = buffs[i].col3.expirationTime - GetTime() -- refires on layer exit, to reset the icons
-				if  remaining  < 0.05 then
-					 remaining  = 0.05
-				end
-				Ctimer(remaining + .05, function() self:UNIT_AURA(unitId, updatedAuras, -55) end)
+					local remaining = buffs[i].col3.expirationTime - GetTime() -- refires on layer exit, to reset the icons
+					if  remaining  < 0.05 then
+						remaining  = 0.05
+					end
+					if not self.EnemySmokeBomb_Found then
+						Ctimer(remaining + .05, function() print(self:GetName().." "..buffs[i].col3.spellId.." ".. GetTime());  self.EnemySmokeBomb_Found = nil; self:UNIT_AURA(unitId, updatedAuras, -55) end)
+						self.EnemySmokeBomb_Found = true
+					end
+				break
 			end
 		end
 	end
