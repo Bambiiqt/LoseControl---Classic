@@ -482,7 +482,7 @@ local spellsArenaTable = {
 	{396936, "Small_Offenisive_CDs", "ROGUE"}, --Tricks of the Trade 15% DMG
 	{396937, "Small_Offenisive_CDs", "ROGUE"}, --Tricks of the Trade 15% DMG
 	{57933,	"Small_Offenisive_CDs", "ROGUE"}, --Tricks of the Trade 15% DMG
-	{57934 , "Small_Offenisive_CDs", "ROGUE"}, --Tricks of the Trade (From Rogue)
+	--{57934 , "Small_Offenisive_CDs", "ROGUE"}, --Tricks of the Trade (From Rogue)
 	--{59628, "Small_Offenisive_CDs", "ROGUE"}, --Tricks of the Trade (Threat Only)
 	{79140 , "Player_Party_OffensiveCDs", "ROGUE"}, --Vendetta
 	{79124 , "Player_Party_OffensiveCDs", "ROGUE"}, --Groggy 30%
