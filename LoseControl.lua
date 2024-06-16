@@ -291,7 +291,7 @@ local spellsArenaTable = {
 	{3355, "CC_Arena", "HUNTER"},			-- Freezing Trap 
 	{19386, "CC_Arena", "HUNTER"},			-- Wyvern Sting (talent) (rank 1)
 	{19503, "CC_Arena", "HUNTER"},			-- Scatter Shot (talent)
-	{GetSpellInfo(34490) , "Silence_Arena", "HUNTER"}, --Silencing Shot
+	{GetSpellInfo(34490) or 34490 , "Silence_Arena", "HUNTER"}, --Silencing Shot
 
 	{80325, "Special_High", "HUNTER"}, --Camouflage
 	--{80325 , "Special_High", "HUNTER"}, --Camouflage (Perma Buff)
@@ -643,8 +643,14 @@ local spellsArenaTable = {
 	{25046 , "Silence_Arena", "Racials"},				-- Arcane Torrent (blood elf racial)
 	{28730 , "Silence_Arena", "Racials"},				-- Arcane Torrent (blood elf racial)
 	{50613 , "Silence_Arena", "Racials"},				-- Arcane Torrent (blood elf racial)
+	{69179 , "Silence_Arena", "Racials"},				-- Arcane Torrent (blood elf racial)
+	{80483 , "Silence_Arena", "Racials"},				-- Arcane Torrent (blood elf racial)
 
 	{58984, "Special_High", "Racials"}, -- Shadowmeld
+
+	
+	{92320, "Small_Offenisive_CDs", "PvP"}, --Theralion's Mirror
+	{91024, "Small_Offenisive_CDs", "PvP"}, --Theralion's Mirror
 
 
 	{28880, "Small_Defensive_CDs", "Racials"},-- Gift of the Naaru
@@ -759,7 +765,7 @@ local spellsArenaTable = {
 
 	{47476  , "Silence", nil,  "DEATHKNIGHT"}, -- Strangulate
 	{81261  , "Silence", nil,  "DRUID"}, -- Strangulate
-	{GetSpellInfo(34490) , "Silence", nil,  "HUNTER"}, --Silencing Shot
+	{GetSpellInfo(34490) or 34490 , "Silence", nil,  "HUNTER"}, --Silencing Shot
 	{18469, "Silence", nil,  "MAGE"},		-- Counterspell - Silenced (rank 1) (Improved Counterspell talent)
 	{55021, "Silence", nil,  "MAGE"},				-- Counterspell - Silenced (rank 2) (Improved Counterspell talent)
 	{31935, "Silence", nil, "PALADIN"},		-- Silenced - Avenger's Shield
@@ -773,6 +779,8 @@ local spellsArenaTable = {
 	{25046 , "Silence", nil, "Racials"},				-- Arcane Torrent (blood elf racial)
 	{28730 , "Silence", nil, "Racials"},				-- Arcane Torrent (blood elf racial)
 	{50613 , "Silence", nil, "Racials"},				-- Arcane Torrent (blood elf racial)
+	{69179 , "Silence", nil, "Racials"},				-- Arcane Torrent (blood elf racial)
+	{80483 , "Silence", nil, "Racials"},				-- Arcane Torrent (blood elf racial)
 
 
 	--{212638 , "RootPhyiscal_Special"},				-- Tracker's Net (pvp honor talent) -- Also -80% hit chance melee & range physical (CC and Root category)
@@ -969,11 +977,12 @@ local spellsArenaTable = {
 	{58180, "SnarePosion50", nil, "DRUID"},			-- Infected Wounds Rank 2
 	{25809, "SnarePosion50",  nil, "ROGUE"},			-- Crippling Poison (Poison)
 
-
-	{120, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold 
+	{81281, "SnareMagic50",	nil, "DRUID"},			-- Fungal Growth
+	{120, "SnareMagic50",	nil, "MAGE"},			-- Cone of Cold }
 	{"Frostbolt", "SnareMagic50", nil, "MAGE"},		-- Frostbolt
 	{116, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt 
 	{59638, "SnareMagic50",	nil, "MAGE"},			-- Frostbolt (Mirror Images)
+	{83154, "SnareMagic50", nil, "MAGE"},			--Piercing Chill FB Crits
 	{63529, "SnareMagic50",	nil, "PALADIN"},		-- Avenger's Shield 
 	{8056, "SnareMagic50", nil, "SHAMAN"},			-- Frost Shock
 	{3600, "SnareMagic50", nil, "SHAMAN"},			-- Earthbind
@@ -8261,6 +8270,14 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			
 			if spellId == 55277 then --stoneclaw totem
 				icon = 136097
+			end
+
+			if spellId == 92320 then --Theralion's Mirror
+				icon = 135757
+			end
+
+			if spellId == 91024 then --Theralion's Mirror
+				icon = 135757
 			end
 
 			-----------------------------------------------------------------------------
