@@ -7574,7 +7574,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 	local maxExpirationTime = 0
 	local newExpirationTime = 0
 	local maxPriorityIsInterrupt = false
-	local Icon, Duration, Hue, Name, Spell, Count, Text, DispelType, SpellCategory
+	local Icon, Duration, Hue, Name, Spell, Count, Text, DispelType, SpellCategory, INDEX
 	local LayeredHue = nil
 	local forceEventUnitAuraAtEnd = false
 	local buffs= {} 
@@ -7927,6 +7927,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								INDEX = i
 								SpellCategory = spellCategory
 								if dispelType then DispelType = dispelType else DispelType = "none" end
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
@@ -7941,6 +7942,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								INDEX = i
 								SpellCategory = spellCategory
 								if dispelType then DispelType = dispelType else DispelType = "none" end
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
@@ -7956,6 +7958,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								INDEX = i
 								SpellCategory = spellCategory
 								if dispelType then DispelType = dispelType else DispelType = "none" end
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
@@ -7970,6 +7973,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								INDEX = i
 								SpellCategory = spellCategory
 								if dispelType then DispelType = dispelType else DispelType = "none" end
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
@@ -8912,6 +8916,51 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				self.gloss:Hide()
 			end
 		end
+
+		if unitId == "player" and Count == 0  then 
+			if spellIds[Spell] == "SnareSpecial" then
+				Count = 101
+			elseif spellIds[Spell] == "SnarePhysical70" then 
+				Count = 70
+			elseif spellIds[Spell] == "SnareMagic70" then 
+				Count = 70
+			elseif spellIds[Spell] == "SnarePhysical50" then
+				Count = 50 
+			elseif spellIds[Spell] == "SnarePosion50" then 
+				Count = 50
+			elseif spellIds[Spell] == "SnareMagic50" then 
+				Count = 50
+			elseif spellIds[Spell] == "SnarePhysical30" then 
+				Count = 30
+			elseif spellIds[Spell] == "SnarePhysical30" then 
+				Count = 30
+			elseif spellIds[Spell] == "Snare" then
+				local tooltipData = CreateFrame("GameTooltip", "LCSnareScanSpellDescTooltip", UIParent, "GameTooltipTemplate")
+				tooltipData:SetOwner(UIParent, "ANCHOR_NONE")
+				if unitId and INDEX then
+					tooltipData:SetUnitDebuff(unitId, INDEX, "HARMFUL")
+				else
+					tooltipData:SetSpellByID(Spell)
+				end
+				local found, number
+				for i = 1 , tooltipData:NumLines() do
+					local text =_G["LCSnareScanSpellDescTooltipTextLeft"..i]; 
+					text = text:GetText()
+					if text and (type(text == "string")) then
+						if strmatch(text, "%%") then
+							if strmatch(text, "%d+")  then 
+								number =  strmatch(text, "%d+") 
+								found = true
+							end
+						end
+					end
+				end
+				if found then 
+					Count = tonumber(number)
+				end
+			end
+		end
+
 
 		if Count then
 			if ((unitId == "player" and LoseControlDB.CountTextplayer) or ((unitId == "party1" or unitId == "party2" or unitId == "party3" or unitId == "party4") and  LoseControlDB.CountTextparty)) and not (self.frame.anchor == "Blizzard") then
