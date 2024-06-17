@@ -8917,23 +8917,25 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			end
 		end
 
-		if unitId == "player" and Count == 0  then 
+
+		if unitId == "player" then 
+			local found, number, SnareP
 			if spellIds[Spell] == "SnareSpecial" then
-				Count = 101
+				SnareP = "**"
 			elseif spellIds[Spell] == "SnarePhysical70" then 
-				Count = 70
+				SnareP = "70"
 			elseif spellIds[Spell] == "SnareMagic70" then 
-				Count = 70
+				SnareP = "70"
 			elseif spellIds[Spell] == "SnarePhysical50" then
-				Count = 50 
+				SnareP = "50" 
 			elseif spellIds[Spell] == "SnarePosion50" then 
-				Count = 50
+				SnareP = "50"
 			elseif spellIds[Spell] == "SnareMagic50" then 
-				Count = 50
+				SnareP = "50"
 			elseif spellIds[Spell] == "SnarePhysical30" then 
-				Count = 30
+				SnareP = "30"
 			elseif spellIds[Spell] == "SnarePhysical30" then 
-				Count = 30
+				SnareP = "30"
 			elseif spellIds[Spell] == "Snare" then
 				local tooltipData = CreateFrame("GameTooltip", "LCSnareScanSpellDescTooltip", UIParent, "GameTooltipTemplate")
 				tooltipData:SetOwner(UIParent, "ANCHOR_NONE")
@@ -8942,7 +8944,6 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 				else
 					tooltipData:SetSpellByID(Spell)
 				end
-				local found, number
 				for i = 1 , tooltipData:NumLines() do
 					local text =_G["LCSnareScanSpellDescTooltipTextLeft"..i]; 
 					text = text:GetText()
@@ -8951,13 +8952,16 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 							if strmatch(text, "%d+")  then 
 								number =  strmatch(text, "%d+") 
 								found = true
+								break
 							end
 						end
 					end
 				end
-				if found then 
-					Count = tonumber(number)
-				end
+			end
+			if found then 
+				Text = Text.." ("..number.."%)"
+			elseif SnareP then
+				Text = Text.." ("..number.."%)"
 			end
 		end
 
