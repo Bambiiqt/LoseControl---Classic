@@ -8961,7 +8961,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			if found then 
 				Text = Text.." ("..number.."%)"
 			elseif SnareP then
-				Text = Text.." ("..number.."%)"
+				Text = Text.." ("..SnareP.."%)"
 			end
 		end
 
