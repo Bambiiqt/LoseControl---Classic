@@ -6985,7 +6985,6 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 		  		end
 			end
 		end
-
    		-- Check Channel Interrupts for player
      	if (event == "SPELL_CAST_SUCCESS") then
 		    if interruptsIds[spellId] then
@@ -7505,7 +7504,7 @@ function LoseControl:COMBAT_LOG_EVENT_UNFILTERED()
 		-----------------------------------------------------------------------------------------------------------------
 		--Cold Snap Reset (Resets Block/Barrier/Nova/CoC)
 		-----------------------------------------------------------------------------------------------------------------
-		if ((sourceGUID ~= nil) and (event == "SPELL_CAST_SUCCESS") and (spellId == 235219)) then
+		if ((sourceGUID ~= nil) and (event == "SPELL_CAST_SUCCESS") and (spellId == 11958)) then
 			local needUpdateUnitAura = false
 			if (InterruptAuras[sourceGUID] ~= nil) then
 				for k, v in pairs(InterruptAuras[sourceGUID]) do
@@ -8937,7 +8936,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			elseif spellIds[Spell] == "SnarePhysical30" then 
 				SnareP = "30"
 			elseif spellIds[Spell] == "Snare" then
-				local tooltipData = CreateFrame("GameTooltip", "LCSnareScanSpellDescTooltip", UIParent, "GameTooltipTemplate")
+				local tooltipData = _G["LCSnareScanSpellDescTooltip"] or CreateFrame("GameTooltip", "LCSnareScanSpellDescTooltip", UIParent, "GameTooltipTemplate")
 				tooltipData:SetOwner(UIParent, "ANCHOR_NONE")
 				if unitId and INDEX then
 					tooltipData:SetUnitDebuff(unitId, INDEX, "HARMFUL")
@@ -9268,14 +9267,6 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 			self:GetParent():SetAlpha(self.frame.alpha) -- hack to apply transparency to the cooldown timer
 		end
 	end
-	if unitId == "player" and LoseControlDB.SilenceIcon and self.frame.anchor ~= "Blizzard" and not self.fakeUnitId then
-		if self.Priority and self.Priority > LoseControlDB.priority["Silence"] then
-		--	LoseControl:Silence(LoseControlplayer, LayeredHue, self.spellCategory)
-		else
-			if playerSilence then playerSilence:Hide() end
-		end
-	end
-
 	if unitId == "player" and LoseControlDB.SecondaryIcon and self.frame.anchor ~= "Blizzard" and not self.fakeUnitId then
 		--if self.spellCategory  and self.spellCategory ~= "CC" and (self.spellCategory == "Silence" or self.spellCategory == "RootPhyiscal_Special" or self.spellCategory == "RootMagic_Special" or self.spellCategory == "Root") then
 		if self.spellCategory then 
@@ -9286,113 +9277,6 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 	end
 end
 
-
-
-
-function LoseControl:Silence(frame,  LayeredHue, spellCategory)
-  	local playerSilence = frame.playerSilence
-  	local Icon, Duration, maxPriority, maxExpirationTime, DispelType
-	local maxPriority = 1
-	local maxExpirationTime = 0
-	local priority = LoseControlDB.priority
-	for i = 1, 40 do
-		local name, icon, count, debuffType, duration, expirationTime, source, _, _, spellId = UnitAura("player", i, "HARMFUL")
-		if not name then break end
-		if duration == 0 and expirationTime == 0 then
-			expirationTime = GetTime() + 1 -- normal expirationTime = 0
-		end
-		local spellCategory = spellIds[spellId] or spellIds[name]
-		local Priority = priority[spellCategory]
-		if spellCategory == "Silence" then
-			if expirationTime > maxExpirationTime then
-				maxExpirationTime = expirationTime
-				Duration = duration
-				Icon = icon
-				DispelType = debuffType
-			end
-		end
-  	end
-	for i = 1, 40 do
-		local name, icon, count, debuffType, duration, expirationTime, source, _, _, spellId = UnitAura("player", i, "HELPFUL")
-		if not name then break end
-		if duration == 0 and expirationTime == 0 then
-			expirationTime = GetTime() + 1 -- normal expirationTime = 0
-		end
-		local spellCategory = spellIds[spellId] or spellIds[name]
-		local Priority = priority[spellCategory]
-		if spellCategory == "Silence" then
-			if expirationTime > maxExpirationTime then
-				maxExpirationTime = expirationTime
-				Duration = duration
-				Icon = icon
-				DispelType = debuffType
-			end
-		end
-	end
-	playerSilence:SetWidth(frame:GetWidth()*.9)
-	playerSilence:SetHeight(frame:GetHeight()*.9)
-	playerSilence.cooldown:SetSwipeColor(0, 0, 0, LoseControlDB.DrawSwipeSetting)
-	playerSilence.Ltext:SetFont(STANDARD_TEXT_FONT, frame:GetHeight()*.9*.225, "OUTLINE")
-	playerSilence.Ltext:SetText("Silence")
-	if maxExpirationTime == 0 then
-		playerSilence.maxExpirationTime = 0
-		playerSilence:Hide()
-	elseif maxExpirationTime then
-		playerSilence.maxExpirationTime = maxExpirationTime
-		if LoseControlDB.DrawSwipeSetting > 0 then
-			playerSilence.cooldown:SetDrawSwipe(true)
-		else
-			playerSilence.cooldown:SetDrawSwipe(false)
-		end
-		if LoseControlDB.displayTypeDot and DispelType then
-			playerSilence.dispelTypeframe:SetHeight(frame:GetWidth()*.09)
-			playerSilence.dispelTypeframe:SetWidth(frame:GetWidth()*.09)
-			playerSilence.dispelTypeframe.tex:SetDesaturated(nil)
-			playerSilence.dispelTypeframe.tex:SetVertexColor(colorTypes[DispelType][1], colorTypes[DispelType][2], colorTypes[DispelType][3]);
-			playerSilence.dispelTypeframe:ClearAllPoints()
-			if playerSilence.Ltext:IsShown() then
-				playerSilence.dispelTypeframe:SetPoint("LEFT", playerSilence.Ltext, "RIGHT", 1, -1.25)
-			else
-				playerSilence.dispelTypeframe:SetPoint("TOP", playerSilence, "BOTTOM", 0, -1)
-			end
-			playerSilence.dispelTypeframe:Show()
-		else
-			if playerSilence.dispelTypeframe:IsShown() then
-				playerSilence.dispelTypeframe:Hide()
-			end
-		end
-		if LayeredHue then
-			playerSilence.texture:SetTexture(Icon)   --Set Icon
-			playerSilence.texture:SetDesaturated(1) --Destaurate Icon
-			playerSilence.texture:SetVertexColor(1, .25, 0); --Red Hue Set For Icon
-		else
-			playerSilence.texture:SetTexture(Icon)
-			playerSilence.texture:SetDesaturated(nil) --Destaurate Icon
-			playerSilence.texture:SetVertexColor(1, 1, 1)
-		end
-		playerSilence.texture:SetTexCoord(0.01, .99, 0.01, .99) -- smallborder
-		if Duration > 0 then
-			if (maxExpirationTime - GetTime()) > (9*60+59) then
-				playerSilence.cooldown:SetCooldown(GetTime(), 0)
-				playerSilence.cooldown:SetCooldown(GetTime(), 0)
-			else
-				playerSilence.cooldown:SetCooldown( maxExpirationTime - Duration, Duration )
-			end
-		else
-			if playerSilence.cooldown:GetDrawSwipe() then
-				if LoseControlDB.DrawSwipeSetting > 0 then
-					playerSilence.cooldown:SetDrawSwipe(true)
-				else
-					playerSilence.cooldown:SetDrawSwipe(false)
-				end
-			end
-			playerSilence.cooldown:SetCooldown(GetTime(), 0)
-			playerSilence.cooldown:SetCooldown(GetTime(), 0)	--needs execute two times (or the icon can dissapear; yes, it's weird...)
-		end
-		local inInstance, instanceType = IsInInstance()
-		playerSilence:Show()
-	end
-end
 
 function LoseControl:SecondaryIcon(frame, LayeredHue, spellCategory)
 	local playerSecondaryIcon = frame.playerSecondaryIcon
@@ -9662,34 +9546,6 @@ function LoseControl:new(unitId)
 		o.dispelTypeframe.tex:SetAllPoints(o.dispelTypeframe)
 		SetPortraitToTexture(o.dispelTypeframe.tex, "Interface\\CHARACTERFRAME\\TempPortraitAlphaMaskSmall")
 		o.dispelTypeframe.tex:SetTexCoord(0.07, 0.93, 0.07, 0.93)
-		o.playerSilence = CreateFrame("Frame", "playerSilence", frame)
-		o.playerSilence:SetPoint("BOTTOMLEFT", o, "BOTTOMRIGHT", 1, 0)
-		o.playerSilence:SetParent(o)
-		o.playerSilence.texture = o.playerSilence:CreateTexture(nil, "BACKGROUND")
-		o.playerSilence.texture:SetAllPoints(true)
-		o.playerSilence.cooldown = CreateFrame("Cooldown", nil,   o.playerSilence, 'CooldownFrameTemplate')
-		o.playerSilence.cooldown:SetAllPoints(o.playerSilence)
-		o.playerSilence.cooldown:SetEdgeTexture("Interface\\Cooldown\\edge")    --("Interface\\Cooldown\\edge-LoC") Blizz LC CD
-		o.playerSilence.cooldown:SetDrawSwipe(true)
-		o.playerSilence.cooldown:SetDrawEdge(false)
-		o.playerSilence.cooldown:SetReverse(true) --will reverse the swipe if actionbars or debuff, by default bliz sets the swipe to actionbars if this = true it will be set to debuffs
-		o.playerSilence.cooldown:SetDrawBling(false)
-		o.playerSilence.Ltext = o.playerSilence:CreateFontString(nil, "ARTWORK")
-		o.playerSilence.Ltext:SetParent(o.playerSilence)
-		o.playerSilence.Ltext:SetJustifyH("CENTER")
-		o.playerSilence.Ltext:SetTextColor(1, 1, 1, 1)
-		o.playerSilence.Ltext:SetPoint("TOP", o.playerSilence, "BOTTOM", 0 , -1.25)
-		o.playerSilence.dispelTypeframe  = CreateFrame("Frame", addonName .. "playerSilence.dispelTypeframe" .. unitId, o.playerSilence)
-		o.playerSilence.dispelTypeframe:ClearAllPoints()
-		o.playerSilence.dispelTypeframe:SetAlpha(1)
-		o.playerSilence.dispelTypeframe:SetFrameLevel(3)
-		o.playerSilence.dispelTypeframe:SetFrameStrata("MEDIUM")
-		o.playerSilence.dispelTypeframe:EnableMouse(false)
-		o.playerSilence.dispelTypeframe.tex = o.playerSilence.dispelTypeframe:CreateTexture()
-		o.playerSilence.dispelTypeframe.tex:SetAllPoints(o.playerSilence.dispelTypeframe)
-		SetPortraitToTexture(o.playerSilence.dispelTypeframe.tex, "Interface\\CHARACTERFRAME\\TempPortraitAlphaMaskSmall")
-		o.playerSilence.dispelTypeframe.tex:SetTexCoord(0.07, 0.93, 0.07, 0.93)
-
 		o.playerSecondaryIcon = CreateFrame("Frame", "playerSecondaryIcon", frame)
 		o.playerSecondaryIcon:SetPoint("BOTTOMLEFT", o, "BOTTOMRIGHT", 1, 0)
 		o.playerSecondaryIcon:SetParent(o)
@@ -10165,22 +10021,22 @@ function Unlock:OnClick()
 				v:GetParent():Show()
 				v:SetDrawSwipe(true)
 				if (k == "player") and v.frame.anchor ~= "Blizzard" then
-					v.playerSilence:SetWidth(v.frame.size*.85)
-					v.playerSilence:SetHeight(v.frame.size*.85)
-					v.playerSilence.cooldown:SetSwipeColor(0, 0, 0, LoseControlDB.DrawSwipeSetting)
-					v.playerSilence.Ltext:SetFont(STANDARD_TEXT_FONT, v.frame.size*.8*.25, "OUTLINE")
-					v.playerSilence.Ltext:SetText("Second \nIcon")
+					v.playerSecondaryIcon:SetWidth(v.frame.size*.85)
+					v.playerSecondaryIcon:SetHeight(v.frame.size*.85)
+					v.playerSecondaryIcon.cooldown:SetSwipeColor(0, 0, 0, LoseControlDB.DrawSwipeSetting)
+					v.playerSecondaryIcon.Ltext:SetFont(STANDARD_TEXT_FONT, v.frame.size*.8*.25, "OUTLINE")
+					v.playerSecondaryIcon.Ltext:SetText("Second \nIcon")
 					if not newDuration or newDuration < 1 then
-						v.playerSilence.texture:SetTexture(select(3, GetSpellInfo(keys[random(#keys)])))
-						v.playerSilence.texture:SetTexCoord(0.01, .99, 0.01, .99) -- smallborder
-						v.playerSilence.cooldown:SetCooldown( GetTime(), 15 )
+						v.playerSecondaryIcon.texture:SetTexture(select(3, GetSpellInfo(keys[random(#keys)])))
+						v.playerSecondaryIcon.texture:SetTexCoord(0.01, .99, 0.01, .99) -- smallborder
+						v.playerSecondaryIcon.cooldown:SetCooldown( GetTime(), 15 )
 					end
 				end
 				if (k == "player") and v.frame.anchor ~= "Blizzard" and LoseControlDB.SilenceIcon then
-					v.playerSilence:Show()
+					v.playerSecondaryIcon:Show()
 				elseif not LoseControlDB.SilenceIcon and (k == "player" or k == "player3") then
-					if v.playerSilence:IsShown() then
-						v.playerSilence:Hide()
+					if v.playerSecondaryIcon:IsShown() then
+						v.playerSecondaryIcon:Hide()
 					end
 				end
 				if frame.anchor == "Blizzard" then
@@ -10572,8 +10428,8 @@ DrawSwipeSlider.Func = function(self, value)
       v:SetSwipeTexture("Interface\Cooldown\edge")
       v:SetSwipeColor(0, 0, 0, LoseControlDB.DrawSwipeSetting)
       if k == "player" then
-        v.playerSilence.cooldown:SetSwipeTexture("Interface\Cooldown\edge")
-        v.playerSilence.cooldown:SetSwipeColor(0, 0, 0, LoseControlDB.DrawSwipeSetting)
+        v.playerSecondaryIcon.cooldown:SetSwipeTexture("Interface\Cooldown\edge")
+        v.playerSecondaryIcon.cooldown:SetSwipeColor(0, 0, 0, LoseControlDB.DrawSwipeSetting)
 		v.playerSecondaryIcon.cooldown:SetSwipeTexture("Interface\Cooldown\edge")
         v.playerSecondaryIcon.cooldown:SetSwipeColor(0, 0, 0, LoseControlDB.DrawSwipeSetting)
       end
@@ -11374,9 +11230,9 @@ for _, v in ipairs({ "player", "player3", "pet", "target", "targettarget", "focu
 				LCframes[frame].dispelTypeframe:SetHeight(value*.105)
 				LCframes[frame].dispelTypeframe:SetWidth(value*.105)
 				LCframes[frame].Ltext:SetFont(STANDARD_TEXT_FONT, value*.225, "OUTLINE")
-				LCframes[frame].playerSilence:SetWidth(value*.9)
-				LCframes[frame].playerSilence:SetHeight(value*.9)
-				LCframes[frame].playerSilence.Ltext:SetFont(STANDARD_TEXT_FONT, value*.9*.25, "OUTLINE")
+				LCframes[frame].playerSecondaryIcon:SetWidth(value*.9)
+				LCframes[frame].playerSecondaryIcon:SetHeight(value*.9)
+				LCframes[frame].playerSecondaryIcon.Ltext:SetFont(STANDARD_TEXT_FONT, value*.9*.25, "OUTLINE")
 			end
 			SetInterruptIconsSize(LCframes[frame], value)
 		end
