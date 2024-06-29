@@ -8424,6 +8424,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								INDEX = i
 								SpellCategory = spellCategory
 								DispelType = "Buff"
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
@@ -8438,6 +8439,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								INDEX = i
 								SpellCategory = spellCategory
 								DispelType = "Buff"
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
@@ -8453,6 +8455,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								INDEX = i
 								SpellCategory = spellCategory
 								DispelType = "Buff"
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
@@ -8467,6 +8470,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 								Name = name
 								Count = count
 								Spell = spellId
+								INDEX = i
 								SpellCategory = spellCategory
 								DispelType = "Buff"
 								Text = customString[spellId] or customString[name] or string[spellId] or defaultString[spellCategory]
@@ -8837,7 +8841,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 						remaining  = 0.05
 					end
 					if not self.EnemySmokeBomb_Found then
-						Ctimer(remaining + .05, function() print(self:GetName().." "..buffs[i].col3.spellId.." ".. GetTime());  self.EnemySmokeBomb_Found = nil; self:UNIT_AURA(unitId, updatedAuras, -55) end)
+						Ctimer(remaining + .05, function() --[[print(self:GetName().." "..buffs[i].col3.spellId.." ".. GetTime());]]  self.EnemySmokeBomb_Found = nil; self:UNIT_AURA(unitId, updatedAuras, -55) end)
 						self.EnemySmokeBomb_Found = true
 					end
 				break
@@ -8846,7 +8850,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 	end
 
 	if typeUpdate == -999 then 
-		SecondaryIconData = {["maxPriority"] = maxPriority, ["maxExpirationTime"] = maxExpirationTime, ["newExpirationTime"] = newExpirationTime, ["Duration"] = Duration, ["Icon"] = Icon, ["forceEventUnitAuraAtEnd"] = forceEventUnitAuraAtEnd, ["Hue"] = Hue, ["Name"] = Name, ["Count"] = Count, ["DispelType"] = DispelType, ["Text"] = Text, ["Spell"] = Spell, ["LayeredHue"] = LayeredHue,  ["SpellCategory"] = SpellCategory}
+		SecondaryIconData = {["maxPriority"] = maxPriority, ["maxExpirationTime"] = maxExpirationTime, ["newExpirationTime"] = newExpirationTime, ["Duration"] = Duration, ["Icon"] = Icon, ["forceEventUnitAuraAtEnd"] = forceEventUnitAuraAtEnd, ["Hue"] = Hue, ["Name"] = Name, ["Count"] = Count, ["DispelType"] = DispelType, ["Text"] = Text, ["Spell"] = Spell, ["LayeredHue"] = LayeredHue,  ["SpellCategory"] = SpellCategory, ["INDEX "] = INDEX }
 		return 
 	end
 
@@ -8860,7 +8864,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 	if (maxExpirationTime == 0) then -- no (de)buffs found
 		self.maxExpirationTime = 0
     	if self.anchor ~= UIParent and self.drawlayer then
-			if self.drawanchor == self.anchor and self.anchor.GetDrawLayer and self.anchor.SetDrawLayer then
+			if self.drawanchor == self.anchor and self.anchor.GetDrawLayer and self.anchor.SetDrawLayer then 
 				self.anchor:SetDrawLayer(self.drawlayer) -- restore the original draw layer
 			else
 				self.drawlayer = nil
@@ -8917,7 +8921,7 @@ function LoseControl:UNIT_AURA(unitId, updatedAuras, typeUpdate, playerPrimarysp
 		end
 
 
-		if unitId == "player" then 
+		if spellIds[Spell] and strfind(spellIds[Spell], "Snare") and unitId == "player" and typeUpdate ~= -999 then 
 			local found, number, SnareP
 			if spellIds[Spell] == "SnareSpecial" then
 				SnareP = "**"
@@ -9297,11 +9301,59 @@ function LoseControl:SecondaryIcon(frame, LayeredHue, spellCategory)
 	local Spell = SecondaryIconData.Spell
 	local SecondaryLayeredHue = SecondaryIconData.LayeredHue
 	local SpellCategory = SecondaryIconData.SpellCategory
+	local INDEX = SecondaryIconData.INDEX
 
 	if SpellCategory == "Friendly_Smoke_Bomb" then -- If the Second Icon is Ever Friendly Bomb it Needs to be White
 		LayeredHue = nil
 		SecondaryLayeredHue = nil
 		Hue = nil
+	end
+
+	if SpellCategory and strfind(SpellCategory, "Snare") then 
+		local found, number, SnareP
+		if spellIds[Spell] == "SnareSpecial" then
+			SnareP = "**"
+		elseif spellIds[Spell] == "SnarePhysical70" then 
+			SnareP = "70"
+		elseif spellIds[Spell] == "SnareMagic70" then 
+			SnareP = "70"
+		elseif spellIds[Spell] == "SnarePhysical50" then
+			SnareP = "50" 
+		elseif spellIds[Spell] == "SnarePosion50" then 
+			SnareP = "50"
+		elseif spellIds[Spell] == "SnareMagic50" then 
+			SnareP = "50"
+		elseif spellIds[Spell] == "SnarePhysical30" then 
+			SnareP = "30"
+		elseif spellIds[Spell] == "SnarePhysical30" then 
+			SnareP = "30"
+		elseif spellIds[Spell] == "Snare" then
+			local tooltipData = _G["LCPSnareScanSpellDescTooltip"] or CreateFrame("GameTooltip", "LCPSnareScanSpellDescTooltip", UIParent, "GameTooltipTemplate")
+			tooltipData:SetOwner(UIParent, "ANCHOR_NONE")
+			if INDEX then
+				tooltipData:SetUnitDebuff("player", INDEX, "HARMFUL")
+			else
+				tooltipData:SetSpellByID(Spell)
+			end
+			for i = 1 , tooltipData:NumLines() do
+				local text =_G["LCPSnareScanSpellDescTooltipTextLeft"..i]; 
+				text = text:GetText()
+				if text and (type(text == "string")) then
+					if strmatch(text, "%%") then
+						if strmatch(text, "%d+")  then 
+							number =  strmatch(text, "%d+") 
+							found = true
+							break
+						end
+					end
+				end
+			end
+		end
+		if found then 
+			Text = Text.." ("..number.."%)"
+		elseif SnareP then
+			Text = Text.." ("..SnareP.."%)"
+		end
 	end
 	
 	playerSecondaryIcon:SetWidth(frame:GetWidth()*.85)
